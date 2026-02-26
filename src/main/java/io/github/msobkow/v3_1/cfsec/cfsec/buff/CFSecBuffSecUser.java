@@ -183,52 +183,6 @@ public class CFSecBuffSecUser
 		}
 	}
 	@Override
-	public List<ICFSecSecSession> getOptionalComponentsSecSess() {
-		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
-		if (targetBackingSchema == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecSess", 0, "ICFSecSchema.getBackingCFSec()");
-		}
-		ICFSecSecSessionTable targetTable = targetBackingSchema.getTableSecSession();
-		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecSess", 0, "ICFSecSchema.getBackingCFSec().getTableSecSession()");
-		}
-		ICFSecSecSession[] targetArr = targetTable.readDerivedBySecUserIdx(null, getRequiredSecUserId());
-		if( targetArr != null ) {
-			List<ICFSecSecSession> results = new ArrayList<>(targetArr.length);
-			for (int idx = 0; idx < targetArr.length; idx++) {
-				results.add(targetArr[idx]);
-			}
-			return( results );
-		}
-		else {
-			List<ICFSecSecSession> results = new ArrayList<>();
-			return( results );
-		}
-	}
-	@Override
-	public List<ICFSecSecSession> getOptionalChildrenSecProxy() {
-		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
-		if (targetBackingSchema == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenSecProxy", 0, "ICFSecSchema.getBackingCFSec()");
-		}
-		ICFSecSecSessionTable targetTable = targetBackingSchema.getTableSecSession();
-		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenSecProxy", 0, "ICFSecSchema.getBackingCFSec().getTableSecSession()");
-		}
-		ICFSecSecSession[] targetArr = targetTable.readDerivedBySecProxyIdx(null, getRequiredSecUserId());
-		if( targetArr != null ) {
-			List<ICFSecSecSession> results = new ArrayList<>(targetArr.length);
-			for (int idx = 0; idx < targetArr.length; idx++) {
-				results.add(targetArr[idx]);
-			}
-			return( results );
-		}
-		else {
-			List<ICFSecSecSession> results = new ArrayList<>();
-			return( results );
-		}
-	}
-	@Override
 	public List<ICFSecSecGrpMemb> getOptionalChildrenSecGrpMemb() {
 		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
 		if (targetBackingSchema == null) {

@@ -1196,8 +1196,8 @@ public class CFSecBuffSchema
 		if (bootstrapSession == null) {
 			bootstrapSession = (CFSecBuffSecSession)(getFactorySecSession().newRec());
 			bootstrapSession.setPKey(bootstrapSessionID);
-			bootstrapSession.setRequiredContainerSecUser(adminUID);
-			bootstrapSession.setRequiredParentSecProxy(adminUID);
+			bootstrapSession.setRequiredSecUserId(adminUID);
+			bootstrapSession.setOptionalSecProxyId(adminUID);
 			bootstrapSession.setOptionalSecDevName(null);
 			bootstrapSession.setRequiredStart(now);
 			bootstrapSession.setOptionalFinish(null);
