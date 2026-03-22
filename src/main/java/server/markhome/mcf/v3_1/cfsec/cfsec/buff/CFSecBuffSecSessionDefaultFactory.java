@@ -72,28 +72,6 @@ public class CFSecBuffSecSessionDefaultFactory
 	}
 
 	@Override
-	public ICFSecSecSessionBySecDevIdxKey newBySecDevIdxKey() {
-		ICFSecSecSessionBySecDevIdxKey key =
-			new CFSecBuffSecSessionBySecDevIdxKey();
-		return( key );
-	}
-
-	public CFSecBuffSecSessionBySecDevIdxKey ensureBySecDevIdxKey(ICFSecSecSessionBySecDevIdxKey key) {
-		if (key == null) {
-			return( null );
-		}
-		else if (key instanceof CFSecBuffSecSessionBySecDevIdxKey) {
-			return( (CFSecBuffSecSessionBySecDevIdxKey)key );
-		}
-		else {
-			CFSecBuffSecSessionBySecDevIdxKey mapped = new CFSecBuffSecSessionBySecDevIdxKey();
-			mapped.setRequiredSecUserId( key.getRequiredSecUserId() );
-			mapped.setOptionalSecDevName( key.getOptionalSecDevName() );
-			return( mapped );
-		}
-	}
-
-	@Override
 	public ICFSecSecSessionByStartIdxKey newByStartIdxKey() {
 		ICFSecSecSessionByStartIdxKey key =
 			new CFSecBuffSecSessionByStartIdxKey();

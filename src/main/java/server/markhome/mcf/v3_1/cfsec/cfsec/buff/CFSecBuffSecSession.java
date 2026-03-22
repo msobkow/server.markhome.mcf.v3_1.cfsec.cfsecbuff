@@ -49,7 +49,6 @@ public class CFSecBuffSecSession
 	protected CFLibDbKeyHash256 requiredSecSessionId;
 	protected int requiredRevision;
 	protected CFLibDbKeyHash256 requiredSecUserId;
-	protected String optionalSecDevName;
 	protected LocalDateTime requiredStart;
 	protected LocalDateTime optionalFinish;
 	protected CFLibDbKeyHash256 optionalSecProxyId;
@@ -57,7 +56,6 @@ public class CFSecBuffSecSession
 	public CFSecBuffSecSession() {
 		requiredSecSessionId = CFLibDbKeyHash256.fromHex( ICFSecSecSession.SECSESSIONID_INIT_VALUE.toString() );
 		requiredSecUserId = CFLibDbKeyHash256.fromHex( ICFSecSecSession.SECUSERID_INIT_VALUE.toString() );
-		optionalSecDevName = null;
 		requiredStart = CFLibXmlUtil.parseTimestamp("2020-01-01T00:00:00");
 		optionalFinish = null;
 		optionalSecProxyId = CFLibDbKeyHash256.nullGet();
@@ -120,24 +118,6 @@ public class CFSecBuffSecSession
 				"value" );
 		}
 		requiredSecUserId = value;
-	}
-
-	@Override
-	public String getOptionalSecDevName() {
-		return( optionalSecDevName );
-	}
-
-	@Override
-	public void setOptionalSecDevName( String value ) {
-		if( value != null && value.length() > 127 ) {
-			throw new CFLibArgumentOverflowException( getClass(),
-				"setOptionalSecDevName",
-				1,
-				"value.length()",
-				value.length(),
-				127 );
-		}
-		optionalSecDevName = value;
 	}
 
 	@Override
@@ -213,21 +193,6 @@ public class CFSecBuffSecSession
 					return( false );
 				}
 			}
-			if( getOptionalSecDevName() != null ) {
-				if( rhs.getOptionalSecDevName() != null ) {
-					if( ! getOptionalSecDevName().equals( rhs.getOptionalSecDevName() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getOptionalSecDevName() != null ) {
-					return( false );
-				}
-			}
 			if( getRequiredStart() != null ) {
 				if( rhs.getRequiredStart() != null ) {
 					if( ! getRequiredStart().equals( rhs.getRequiredStart() ) ) {
@@ -289,40 +254,6 @@ public class CFSecBuffSecSession
 			}
 			else {
 				if( rhs.getRequiredSecUserId() != null ) {
-					return( false );
-				}
-			}
-			return( true );
-		}
-		else if( obj instanceof ICFSecSecSessionBySecDevIdxKey ) {
-			ICFSecSecSessionBySecDevIdxKey rhs = (ICFSecSecSessionBySecDevIdxKey)obj;
-			if( getRequiredSecUserId() != null ) {
-				if( rhs.getRequiredSecUserId() != null ) {
-					if( ! getRequiredSecUserId().equals( rhs.getRequiredSecUserId() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getRequiredSecUserId() != null ) {
-					return( false );
-				}
-			}
-			if( getOptionalSecDevName() != null ) {
-				if( rhs.getOptionalSecDevName() != null ) {
-					if( ! getOptionalSecDevName().equals( rhs.getOptionalSecDevName() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getOptionalSecDevName() != null ) {
 					return( false );
 				}
 			}
@@ -426,9 +357,6 @@ public class CFSecBuffSecSession
 		int hashCode = 0;
 		hashCode = hashCode + getRequiredSecSessionId().hashCode();
 		hashCode = hashCode + getRequiredSecUserId().hashCode();
-		if( getOptionalSecDevName() != null ) {
-			hashCode = hashCode + getOptionalSecDevName().hashCode();
-		}
 		if( getRequiredStart() != null ) {
 			hashCode = hashCode + getRequiredStart().hashCode();
 		}
@@ -477,22 +405,6 @@ public class CFSecBuffSecSession
 			}
 			else if (rhs.getRequiredSecUserId() != null) {
 				return( -1 );
-			}
-			if( getOptionalSecDevName() != null ) {
-				if( rhs.getOptionalSecDevName() != null ) {
-					cmp = getOptionalSecDevName().compareTo( rhs.getOptionalSecDevName() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else {
-				if( rhs.getOptionalSecDevName() != null ) {
-					return( -1 );
-				}
 			}
 			if (getRequiredStart() != null) {
 				if (rhs.getRequiredStart() != null) {
@@ -558,40 +470,6 @@ public class CFSecBuffSecSession
 			}
 			else if (rhs.getRequiredSecUserId() != null) {
 				return( -1 );
-			}			return( 0 );
-		}
-		else if( obj instanceof ICFSecSecSessionBySecDevIdxKey ) {
-			ICFSecSecSessionBySecDevIdxKey rhs = (ICFSecSecSessionBySecDevIdxKey)obj;
-
-			if (getRequiredSecUserId() != null) {
-				if (rhs.getRequiredSecUserId() != null) {
-					cmp = getRequiredSecUserId().compareTo( rhs.getRequiredSecUserId() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else if (rhs.getRequiredSecUserId() != null) {
-				return( -1 );
-			}
-			if( getOptionalSecDevName() != null ) {
-				if( rhs.getOptionalSecDevName() != null ) {
-					cmp = getOptionalSecDevName().compareTo( rhs.getOptionalSecDevName() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else {
-				if( rhs.getOptionalSecDevName() != null ) {
-					return( -1 );
-				}
 			}			return( 0 );
 		}
 		else if( obj instanceof ICFSecSecSessionByStartIdxKey ) {
@@ -699,7 +577,6 @@ public class CFSecBuffSecSession
 		setRequiredSecSessionId(src.getRequiredSecSessionId());
 		setRequiredRevision( src.getRequiredRevision() );
 		setRequiredSecUserId(src.getRequiredSecUserId());
-		setOptionalSecDevName(src.getOptionalSecDevName());
 		setRequiredStart(src.getRequiredStart());
 		setOptionalFinish(src.getOptionalFinish());
 		setOptionalSecProxyId(src.getOptionalSecProxyId());
@@ -712,7 +589,6 @@ public class CFSecBuffSecSession
 			+ " RequiredRevision=\"" + Integer.toString( getRequiredRevision() ) + "\""
 			+ " RequiredSecSessionId=" + "\"" + getRequiredSecSessionId().toString() + "\""
 			+ " RequiredSecUserId=" + "\"" + getRequiredSecUserId().toString() + "\""
-			+ " OptionalSecDevName=" + ( ( getOptionalSecDevName() == null ) ? "null" : "\"" + StringEscapeUtils.escapeXml11( getOptionalSecDevName() ) + "\"" )
 			+ " RequiredStart=" + "\"" + getRequiredStart().toString() + "\""
 			+ " OptionalFinish=" + ( ( getOptionalFinish() == null ) ? "null" : "\"" + getOptionalFinish().toString() + "\"" )
 			+ " OptionalSecProxyId=" + ( ( getOptionalSecProxyId() == null ) ? "null" : "\"" + getOptionalSecProxyId().toString() + "\"" );

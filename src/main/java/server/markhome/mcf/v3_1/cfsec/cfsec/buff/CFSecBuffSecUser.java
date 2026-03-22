@@ -53,20 +53,22 @@ public class CFSecBuffSecUser
 	protected CFLibDbKeyHash256 updatedByUserId = CFLibDbKeyHash256.fromHex(ICFSecSecUser.S_INIT_UPDATED_BY);
 	protected LocalDateTime updatedAt = LocalDateTime.now();
 	protected String requiredLoginId;
+	protected String requiredDfltSysGrpName;
+	protected String requiredDfltClusGrpName;
+	protected String requiredDfltTentGrpName;
 	protected String requiredEMailAddress;
 	protected CFLibUuid6 optionalEMailConfirmUuid6;
-	protected CFLibDbKeyHash256 optionalDfltDevUserId;
-	protected String optionalDfltDevName;
 	protected String requiredPasswordHash;
 	protected CFLibUuid6 optionalPasswordResetUuid6;
 
 	public CFSecBuffSecUser() {
 		requiredSecUserId = CFLibDbKeyHash256.fromHex( ICFSecSecUser.SECUSERID_INIT_VALUE.toString() );
 		requiredLoginId = ICFSecSecUser.LOGINID_INIT_VALUE;
+		requiredDfltSysGrpName = ICFSecSecUser.DFLTSYSGRPNAME_INIT_VALUE;
+		requiredDfltClusGrpName = ICFSecSecUser.DFLTCLUSGRPNAME_INIT_VALUE;
+		requiredDfltTentGrpName = ICFSecSecUser.DFLTTENTGRPNAME_INIT_VALUE;
 		requiredEMailAddress = ICFSecSecUser.EMAILADDRESS_INIT_VALUE;
 		optionalEMailConfirmUuid6 = null;
-		optionalDfltDevUserId = CFLibDbKeyHash256.nullGet();
-		optionalDfltDevName = null;
 		optionalPasswordResetUuid6 = null;
 	}
 
@@ -153,106 +155,28 @@ public class CFSecBuffSecUser
 	}
 
 	@Override
-	public List<ICFSecSecDevice> getOptionalComponentsSecDev() {
+	public List<ICFSecSecSysGrpMemb> getOptionalChildrenSysSecGrpMemb() {
 		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
 		if (targetBackingSchema == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecDev", 0, "ICFSecSchema.getBackingCFSec()");
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenSysSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec()");
 		}
-		ICFSecSecDeviceTable targetTable = targetBackingSchema.getTableSecDevice();
+		ICFSecSecSysGrpMembTable targetTable = targetBackingSchema.getTableSecSysGrpMemb();
 		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecDev", 0, "ICFSecSchema.getBackingCFSec().getTableSecDevice()");
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenSysSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec().getTableSecSysGrpMemb()");
 		}
-		ICFSecSecDevice[] targetArr = targetTable.readDerivedByUserIdx(null, getRequiredSecUserId());
+		ICFSecSecSysGrpMemb[] targetArr = targetTable.readDerivedByUserIdx(null, getRequiredSecUserId());
 		if( targetArr != null ) {
-			List<ICFSecSecDevice> results = new ArrayList<>(targetArr.length);
+			List<ICFSecSecSysGrpMemb> results = new ArrayList<>(targetArr.length);
 			for (int idx = 0; idx < targetArr.length; idx++) {
 				results.add(targetArr[idx]);
 			}
 			return( results );
 		}
 		else {
-			List<ICFSecSecDevice> results = new ArrayList<>();
+			List<ICFSecSecSysGrpMemb> results = new ArrayList<>();
 			return( results );
 		}
 	}
-	@Override
-	public List<ICFSecSecGrpMemb> getOptionalChildrenSecGrpMemb() {
-		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
-		if (targetBackingSchema == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec()");
-		}
-		ICFSecSecGrpMembTable targetTable = targetBackingSchema.getTableSecGrpMemb();
-		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec().getTableSecGrpMemb()");
-		}
-		ICFSecSecGrpMemb[] targetArr = targetTable.readDerivedByUserIdx(null, getRequiredSecUserId());
-		if( targetArr != null ) {
-			List<ICFSecSecGrpMemb> results = new ArrayList<>(targetArr.length);
-			for (int idx = 0; idx < targetArr.length; idx++) {
-				results.add(targetArr[idx]);
-			}
-			return( results );
-		}
-		else {
-			List<ICFSecSecGrpMemb> results = new ArrayList<>();
-			return( results );
-		}
-	}
-	@Override
-	public List<ICFSecTSecGrpMemb> getOptionalChildrenTSecGrpMemb() {
-		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
-		if (targetBackingSchema == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenTSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec()");
-		}
-		ICFSecTSecGrpMembTable targetTable = targetBackingSchema.getTableTSecGrpMemb();
-		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenTSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec().getTableTSecGrpMemb()");
-		}
-		ICFSecTSecGrpMemb[] targetArr = targetTable.readDerivedByUserIdx(null, getRequiredSecUserId());
-		if( targetArr != null ) {
-			List<ICFSecTSecGrpMemb> results = new ArrayList<>(targetArr.length);
-			for (int idx = 0; idx < targetArr.length; idx++) {
-				results.add(targetArr[idx]);
-			}
-			return( results );
-		}
-		else {
-			List<ICFSecTSecGrpMemb> results = new ArrayList<>();
-			return( results );
-		}
-	}
-	@Override
-	public ICFSecSecDevice getOptionalLookupDefDev() {
-		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
-		if (targetBackingSchema == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalLookupDefDev", 0, "ICFSecSchema.getBackingCFSec()");
-		}
-		ICFSecSecDeviceTable targetTable = targetBackingSchema.getTableSecDevice();
-		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalLookupDefDev", 0, "ICFSecSchema.getBackingCFSec().getTableSecDevice()");
-		}
-		ICFSecSecDevice targetRec = targetTable.readDerived(null, getOptionalDfltDevUserId(), getOptionalDfltDevName());
-		return(targetRec);
-	}
-	@Override
-	public void setOptionalLookupDefDev(ICFSecSecDevice argObj) {
-		if(argObj == null) {
-			optionalDfltDevUserId = null;
-			optionalDfltDevName = null;
-		}
-		else {
-			optionalDfltDevUserId = argObj.getRequiredSecUserId();
-			optionalDfltDevName = argObj.getRequiredDevName();
-		}
-	}
-
-	@Override
-	public void setOptionalLookupDefDev(CFLibDbKeyHash256 argDfltDevUserId,
-		String argDfltDevName) {
-		optionalDfltDevUserId = argDfltDevUserId;
-		optionalDfltDevName = argDfltDevName;
-	}
-
 	@Override
 	public String getRequiredLoginId() {
 		return( requiredLoginId );
@@ -275,6 +199,78 @@ public class CFSecBuffSecUser
 				32 );
 		}
 		requiredLoginId = value;
+	}
+
+	@Override
+	public String getRequiredDfltSysGrpName() {
+		return( requiredDfltSysGrpName );
+	}
+
+	@Override
+	public void setRequiredDfltSysGrpName( String value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"setRequiredDfltSysGrpName",
+				1,
+				"value" );
+		}
+		else if( value.length() > 64 ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"setRequiredDfltSysGrpName",
+				1,
+				"value.length()",
+				value.length(),
+				64 );
+		}
+		requiredDfltSysGrpName = value;
+	}
+
+	@Override
+	public String getRequiredDfltClusGrpName() {
+		return( requiredDfltClusGrpName );
+	}
+
+	@Override
+	public void setRequiredDfltClusGrpName( String value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"setRequiredDfltClusGrpName",
+				1,
+				"value" );
+		}
+		else if( value.length() > 64 ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"setRequiredDfltClusGrpName",
+				1,
+				"value.length()",
+				value.length(),
+				64 );
+		}
+		requiredDfltClusGrpName = value;
+	}
+
+	@Override
+	public String getRequiredDfltTentGrpName() {
+		return( requiredDfltTentGrpName );
+	}
+
+	@Override
+	public void setRequiredDfltTentGrpName( String value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"setRequiredDfltTentGrpName",
+				1,
+				"value" );
+		}
+		else if( value.length() > 64 ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"setRequiredDfltTentGrpName",
+				1,
+				"value.length()",
+				value.length(),
+				64 );
+		}
+		requiredDfltTentGrpName = value;
 	}
 
 	@Override
@@ -309,16 +305,6 @@ public class CFSecBuffSecUser
 	@Override
 	public void setOptionalEMailConfirmUuid6( CFLibUuid6 value ) {
 		optionalEMailConfirmUuid6 = value;
-	}
-
-	@Override
-	public CFLibDbKeyHash256 getOptionalDfltDevUserId() {
-		return( optionalDfltDevUserId );
-	}
-
-	@Override
-	public String getOptionalDfltDevName() {
-		return( optionalDfltDevName );
 	}
 
 	@Override
@@ -404,6 +390,51 @@ public class CFSecBuffSecUser
 					return( false );
 				}
 			}
+			if( getRequiredDfltSysGrpName() != null ) {
+				if( rhs.getRequiredDfltSysGrpName() != null ) {
+					if( ! getRequiredDfltSysGrpName().equals( rhs.getRequiredDfltSysGrpName() ) ) {
+						return( false );
+					}
+				}
+				else {
+					return( false );
+				}
+			}
+			else {
+				if( rhs.getRequiredDfltSysGrpName() != null ) {
+					return( false );
+				}
+			}
+			if( getRequiredDfltClusGrpName() != null ) {
+				if( rhs.getRequiredDfltClusGrpName() != null ) {
+					if( ! getRequiredDfltClusGrpName().equals( rhs.getRequiredDfltClusGrpName() ) ) {
+						return( false );
+					}
+				}
+				else {
+					return( false );
+				}
+			}
+			else {
+				if( rhs.getRequiredDfltClusGrpName() != null ) {
+					return( false );
+				}
+			}
+			if( getRequiredDfltTentGrpName() != null ) {
+				if( rhs.getRequiredDfltTentGrpName() != null ) {
+					if( ! getRequiredDfltTentGrpName().equals( rhs.getRequiredDfltTentGrpName() ) ) {
+						return( false );
+					}
+				}
+				else {
+					return( false );
+				}
+			}
+			else {
+				if( rhs.getRequiredDfltTentGrpName() != null ) {
+					return( false );
+				}
+			}
 			if( getRequiredEMailAddress() != null ) {
 				if( rhs.getRequiredEMailAddress() != null ) {
 					if( ! getRequiredEMailAddress().equals( rhs.getRequiredEMailAddress() ) ) {
@@ -431,36 +462,6 @@ public class CFSecBuffSecUser
 			}
 			else {
 				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
-					return( false );
-				}
-			}
-			if( getOptionalDfltDevUserId() != null ) {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					if( ! getOptionalDfltDevUserId().equals( rhs.getOptionalDfltDevUserId() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					return( false );
-				}
-			}
-			if( getOptionalDfltDevName() != null ) {
-				if( rhs.getOptionalDfltDevName() != null ) {
-					if( ! getOptionalDfltDevName().equals( rhs.getOptionalDfltDevName() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevName() != null ) {
 					return( false );
 				}
 			}
@@ -528,6 +529,51 @@ public class CFSecBuffSecUser
 					return( false );
 				}
 			}
+			if( getRequiredDfltSysGrpName() != null ) {
+				if( rhs.getRequiredDfltSysGrpName() != null ) {
+					if( ! getRequiredDfltSysGrpName().equals( rhs.getRequiredDfltSysGrpName() ) ) {
+						return( false );
+					}
+				}
+				else {
+					return( false );
+				}
+			}
+			else {
+				if( rhs.getRequiredDfltSysGrpName() != null ) {
+					return( false );
+				}
+			}
+			if( getRequiredDfltClusGrpName() != null ) {
+				if( rhs.getRequiredDfltClusGrpName() != null ) {
+					if( ! getRequiredDfltClusGrpName().equals( rhs.getRequiredDfltClusGrpName() ) ) {
+						return( false );
+					}
+				}
+				else {
+					return( false );
+				}
+			}
+			else {
+				if( rhs.getRequiredDfltClusGrpName() != null ) {
+					return( false );
+				}
+			}
+			if( getRequiredDfltTentGrpName() != null ) {
+				if( rhs.getRequiredDfltTentGrpName() != null ) {
+					if( ! getRequiredDfltTentGrpName().equals( rhs.getRequiredDfltTentGrpName() ) ) {
+						return( false );
+					}
+				}
+				else {
+					return( false );
+				}
+			}
+			else {
+				if( rhs.getRequiredDfltTentGrpName() != null ) {
+					return( false );
+				}
+			}
 			if( getRequiredEMailAddress() != null ) {
 				if( rhs.getRequiredEMailAddress() != null ) {
 					if( ! getRequiredEMailAddress().equals( rhs.getRequiredEMailAddress() ) ) {
@@ -555,36 +601,6 @@ public class CFSecBuffSecUser
 			}
 			else {
 				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
-					return( false );
-				}
-			}
-			if( getOptionalDfltDevUserId() != null ) {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					if( ! getOptionalDfltDevUserId().equals( rhs.getOptionalDfltDevUserId() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					return( false );
-				}
-			}
-			if( getOptionalDfltDevName() != null ) {
-				if( rhs.getOptionalDfltDevName() != null ) {
-					if( ! getOptionalDfltDevName().equals( rhs.getOptionalDfltDevName() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevName() != null ) {
 					return( false );
 				}
 			}
@@ -696,40 +712,6 @@ public class CFSecBuffSecUser
 			}
 			return( true );
 		}
-		else if( obj instanceof ICFSecSecUserByDefDevIdxKey ) {
-			ICFSecSecUserByDefDevIdxKey rhs = (ICFSecSecUserByDefDevIdxKey)obj;
-			if( getOptionalDfltDevUserId() != null ) {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					if( ! getOptionalDfltDevUserId().equals( rhs.getOptionalDfltDevUserId() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					return( false );
-				}
-			}
-			if( getOptionalDfltDevName() != null ) {
-				if( rhs.getOptionalDfltDevName() != null ) {
-					if( ! getOptionalDfltDevName().equals( rhs.getOptionalDfltDevName() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevName() != null ) {
-					return( false );
-				}
-			}
-			return( true );
-		}
 		else {
 			boolean retval = super.equals( obj );
 			return( retval );
@@ -747,17 +729,20 @@ public class CFSecBuffSecUser
 		if( getRequiredLoginId() != null ) {
 			hashCode = hashCode + getRequiredLoginId().hashCode();
 		}
+		if( getRequiredDfltSysGrpName() != null ) {
+			hashCode = hashCode + getRequiredDfltSysGrpName().hashCode();
+		}
+		if( getRequiredDfltClusGrpName() != null ) {
+			hashCode = hashCode + getRequiredDfltClusGrpName().hashCode();
+		}
+		if( getRequiredDfltTentGrpName() != null ) {
+			hashCode = hashCode + getRequiredDfltTentGrpName().hashCode();
+		}
 		if( getRequiredEMailAddress() != null ) {
 			hashCode = hashCode + getRequiredEMailAddress().hashCode();
 		}
 		if( getOptionalEMailConfirmUuid6() != null ) {
 			hashCode = hashCode + getOptionalEMailConfirmUuid6().hashCode();
-		}
-		if( getOptionalDfltDevUserId() != null ) {
-			hashCode = hashCode + getOptionalDfltDevUserId().hashCode();
-		}
-		if( getOptionalDfltDevName() != null ) {
-			hashCode = hashCode + getOptionalDfltDevName().hashCode();
 		}
 		if( getRequiredPasswordHash() != null ) {
 			hashCode = hashCode + getRequiredPasswordHash().hashCode();
@@ -826,6 +811,48 @@ public class CFSecBuffSecUser
 			else if (rhs.getRequiredLoginId() != null) {
 				return( -1 );
 			}
+			if (getRequiredDfltSysGrpName() != null) {
+				if (rhs.getRequiredDfltSysGrpName() != null) {
+					cmp = getRequiredDfltSysGrpName().compareTo( rhs.getRequiredDfltSysGrpName() );
+					if( cmp != 0 ) {
+						return( cmp );
+					}
+				}
+				else {
+					return( 1 );
+				}
+			}
+			else if (rhs.getRequiredDfltSysGrpName() != null) {
+				return( -1 );
+			}
+			if (getRequiredDfltClusGrpName() != null) {
+				if (rhs.getRequiredDfltClusGrpName() != null) {
+					cmp = getRequiredDfltClusGrpName().compareTo( rhs.getRequiredDfltClusGrpName() );
+					if( cmp != 0 ) {
+						return( cmp );
+					}
+				}
+				else {
+					return( 1 );
+				}
+			}
+			else if (rhs.getRequiredDfltClusGrpName() != null) {
+				return( -1 );
+			}
+			if (getRequiredDfltTentGrpName() != null) {
+				if (rhs.getRequiredDfltTentGrpName() != null) {
+					cmp = getRequiredDfltTentGrpName().compareTo( rhs.getRequiredDfltTentGrpName() );
+					if( cmp != 0 ) {
+						return( cmp );
+					}
+				}
+				else {
+					return( 1 );
+				}
+			}
+			else if (rhs.getRequiredDfltTentGrpName() != null) {
+				return( -1 );
+			}
 			if (getRequiredEMailAddress() != null) {
 				if (rhs.getRequiredEMailAddress() != null) {
 					cmp = getRequiredEMailAddress().compareTo( rhs.getRequiredEMailAddress() );
@@ -853,38 +880,6 @@ public class CFSecBuffSecUser
 			}
 			else {
 				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
-					return( -1 );
-				}
-			}
-			if( getOptionalDfltDevUserId() != null ) {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					cmp = getOptionalDfltDevUserId().compareTo( rhs.getOptionalDfltDevUserId() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					return( -1 );
-				}
-			}
-			if( getOptionalDfltDevName() != null ) {
-				if( rhs.getOptionalDfltDevName() != null ) {
-					cmp = getOptionalDfltDevName().compareTo( rhs.getOptionalDfltDevName() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevName() != null ) {
 					return( -1 );
 				}
 			}
@@ -975,6 +970,48 @@ public class CFSecBuffSecUser
 			else if (rhs.getRequiredLoginId() != null) {
 				return( -1 );
 			}
+			if (getRequiredDfltSysGrpName() != null) {
+				if (rhs.getRequiredDfltSysGrpName() != null) {
+					cmp = getRequiredDfltSysGrpName().compareTo( rhs.getRequiredDfltSysGrpName() );
+					if( cmp != 0 ) {
+						return( cmp );
+					}
+				}
+				else {
+					return( 1 );
+				}
+			}
+			else if (rhs.getRequiredDfltSysGrpName() != null) {
+				return( -1 );
+			}
+			if (getRequiredDfltClusGrpName() != null) {
+				if (rhs.getRequiredDfltClusGrpName() != null) {
+					cmp = getRequiredDfltClusGrpName().compareTo( rhs.getRequiredDfltClusGrpName() );
+					if( cmp != 0 ) {
+						return( cmp );
+					}
+				}
+				else {
+					return( 1 );
+				}
+			}
+			else if (rhs.getRequiredDfltClusGrpName() != null) {
+				return( -1 );
+			}
+			if (getRequiredDfltTentGrpName() != null) {
+				if (rhs.getRequiredDfltTentGrpName() != null) {
+					cmp = getRequiredDfltTentGrpName().compareTo( rhs.getRequiredDfltTentGrpName() );
+					if( cmp != 0 ) {
+						return( cmp );
+					}
+				}
+				else {
+					return( 1 );
+				}
+			}
+			else if (rhs.getRequiredDfltTentGrpName() != null) {
+				return( -1 );
+			}
 			if (getRequiredEMailAddress() != null) {
 				if (rhs.getRequiredEMailAddress() != null) {
 					cmp = getRequiredEMailAddress().compareTo( rhs.getRequiredEMailAddress() );
@@ -1002,38 +1039,6 @@ public class CFSecBuffSecUser
 			}
 			else {
 				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
-					return( -1 );
-				}
-			}
-			if( getOptionalDfltDevUserId() != null ) {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					cmp = getOptionalDfltDevUserId().compareTo( rhs.getOptionalDfltDevUserId() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					return( -1 );
-				}
-			}
-			if( getOptionalDfltDevName() != null ) {
-				if( rhs.getOptionalDfltDevName() != null ) {
-					cmp = getOptionalDfltDevName().compareTo( rhs.getOptionalDfltDevName() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevName() != null ) {
 					return( -1 );
 				}
 			}
@@ -1127,42 +1132,6 @@ public class CFSecBuffSecUser
 				}
 			}			return( 0 );
 		}
-		else if( obj instanceof ICFSecSecUserByDefDevIdxKey ) {
-			ICFSecSecUserByDefDevIdxKey rhs = (ICFSecSecUserByDefDevIdxKey)obj;
-
-			if( getOptionalDfltDevUserId() != null ) {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					cmp = getOptionalDfltDevUserId().compareTo( rhs.getOptionalDfltDevUserId() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevUserId() != null ) {
-					return( -1 );
-				}
-			}
-			if( getOptionalDfltDevName() != null ) {
-				if( rhs.getOptionalDfltDevName() != null ) {
-					cmp = getOptionalDfltDevName().compareTo( rhs.getOptionalDfltDevName() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else {
-				if( rhs.getOptionalDfltDevName() != null ) {
-					return( -1 );
-				}
-			}			return( 0 );
-		}
 		else {
 			throw new CFLibUnsupportedClassException( getClass(),
 				"compareTo",
@@ -1185,8 +1154,10 @@ public class CFSecBuffSecUser
 		setCreatedAt( src.getCreatedAt() );
 		setUpdatedByUserId( src.getUpdatedByUserId() );
 		setUpdatedAt( src.getUpdatedAt() );
-		setOptionalLookupDefDev(src.getOptionalLookupDefDev());
 		setRequiredLoginId(src.getRequiredLoginId());
+		setRequiredDfltSysGrpName(src.getRequiredDfltSysGrpName());
+		setRequiredDfltClusGrpName(src.getRequiredDfltClusGrpName());
+		setRequiredDfltTentGrpName(src.getRequiredDfltTentGrpName());
 		setRequiredEMailAddress(src.getRequiredEMailAddress());
 		setOptionalEMailConfirmUuid6(src.getOptionalEMailConfirmUuid6());
 		setRequiredPasswordHash(src.getRequiredPasswordHash());
@@ -1201,9 +1172,10 @@ public class CFSecBuffSecUser
 	@Override
 	public void setSecUser( ICFSecSecUserH src ) {
 		setRequiredSecUserId(src.getRequiredSecUserId());
-		setOptionalLookupDefDev(src.getOptionalDfltDevUserId(),
-			src.getOptionalDfltDevName());
 		setRequiredLoginId(src.getRequiredLoginId());
+		setRequiredDfltSysGrpName(src.getRequiredDfltSysGrpName());
+		setRequiredDfltClusGrpName(src.getRequiredDfltClusGrpName());
+		setRequiredDfltTentGrpName(src.getRequiredDfltTentGrpName());
 		setRequiredEMailAddress(src.getRequiredEMailAddress());
 		setOptionalEMailConfirmUuid6(src.getOptionalEMailConfirmUuid6());
 		setRequiredPasswordHash(src.getRequiredPasswordHash());
@@ -1217,10 +1189,11 @@ public class CFSecBuffSecUser
 			+ " RequiredRevision=\"" + Integer.toString( getRequiredRevision() ) + "\""
 			+ " RequiredSecUserId=" + "\"" + getRequiredSecUserId().toString() + "\""
 			+ " RequiredLoginId=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredLoginId() ) + "\""
+			+ " RequiredDfltSysGrpName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredDfltSysGrpName() ) + "\""
+			+ " RequiredDfltClusGrpName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredDfltClusGrpName() ) + "\""
+			+ " RequiredDfltTentGrpName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredDfltTentGrpName() ) + "\""
 			+ " RequiredEMailAddress=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredEMailAddress() ) + "\""
 			+ " OptionalEMailConfirmUuid6=" + ( ( getOptionalEMailConfirmUuid6() == null ) ? "null" : "\"" + getOptionalEMailConfirmUuid6().toString() + "\"" )
-			+ " OptionalDfltDevUserId=" + ( ( getOptionalDfltDevUserId() == null ) ? "null" : "\"" + getOptionalDfltDevUserId().toString() + "\"" )
-			+ " OptionalDfltDevName=" + ( ( getOptionalDfltDevName() == null ) ? "null" : "\"" + StringEscapeUtils.escapeXml11( getOptionalDfltDevName() ) + "\"" )
 			+ " RequiredPasswordHash=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredPasswordHash() ) + "\""
 			+ " OptionalPasswordResetUuid6=" + ( ( getOptionalPasswordResetUuid6() == null ) ? "null" : "\"" + getOptionalPasswordResetUuid6().toString() + "\"" );
 		return( ret );

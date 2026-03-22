@@ -1,4 +1,4 @@
-// Description: Java 25 implementation of a Tenant buffer
+// Description: Java 25 implementation of a SecClusGrp buffer
 
 /*
  *	server.markhome.mcf.CFSec
@@ -43,50 +43,50 @@ import server.markhome.mcf.v3_1.cflib.dbutil.*;
 import server.markhome.mcf.v3_1.cflib.xml.CFLibXmlUtil;
 import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 
-public class CFSecBuffTenant
-	implements ICFSecTenant, Comparable<Object>, Serializable
+public class CFSecBuffSecClusGrp
+	implements ICFSecSecClusGrp, Comparable<Object>, Serializable
 {
-	protected CFLibDbKeyHash256 requiredId;
+	protected CFLibDbKeyHash256 requiredSecClusGrpId;
 	protected int requiredRevision;
-	protected CFLibDbKeyHash256 createdByUserId = CFLibDbKeyHash256.fromHex(ICFSecTenant.S_INIT_CREATED_BY);
+	protected CFLibDbKeyHash256 createdByUserId = CFLibDbKeyHash256.fromHex(ICFSecSecClusGrp.S_INIT_CREATED_BY);
 	protected LocalDateTime createdAt = LocalDateTime.now();
-	protected CFLibDbKeyHash256 updatedByUserId = CFLibDbKeyHash256.fromHex(ICFSecTenant.S_INIT_UPDATED_BY);
+	protected CFLibDbKeyHash256 updatedByUserId = CFLibDbKeyHash256.fromHex(ICFSecSecClusGrp.S_INIT_UPDATED_BY);
 	protected LocalDateTime updatedAt = LocalDateTime.now();
 	protected CFLibDbKeyHash256 requiredClusterId;
-	protected String requiredTenantName;
+	protected String requiredName;
 
-	public CFSecBuffTenant() {
-		requiredId = CFLibDbKeyHash256.fromHex( ICFSecTenant.ID_INIT_VALUE.toString() );
-		requiredClusterId = CFLibDbKeyHash256.fromHex( ICFSecTenant.CLUSTERID_INIT_VALUE.toString() );
-		requiredTenantName = ICFSecTenant.TENANTNAME_INIT_VALUE;
+	public CFSecBuffSecClusGrp() {
+		requiredSecClusGrpId = CFLibDbKeyHash256.fromHex( ICFSecSecClusGrp.SECCLUSGRPID_INIT_VALUE.toString() );
+		requiredClusterId = CFLibDbKeyHash256.fromHex( ICFSecSecClusGrp.CLUSTERID_INIT_VALUE.toString() );
+		requiredName = ICFSecSecClusGrp.NAME_INIT_VALUE;
 	}
 
 	@Override
 	public CFLibDbKeyHash256 getPKey() {
-		return getRequiredId();
+		return getRequiredSecClusGrpId();
 	}
 
 	@Override
-	public void setPKey(CFLibDbKeyHash256 requiredId) {
-		if (requiredId != null) {
-			setRequiredId(requiredId);
+	public void setPKey(CFLibDbKeyHash256 requiredSecClusGrpId) {
+		if (requiredSecClusGrpId != null) {
+			setRequiredSecClusGrpId(requiredSecClusGrpId);
 		}
 	}
 
 	@Override
-	public CFLibDbKeyHash256 getRequiredId() {
-		return( requiredId );
+	public CFLibDbKeyHash256 getRequiredSecClusGrpId() {
+		return( requiredSecClusGrpId );
 	}
 
 	@Override
-	public void setRequiredId( CFLibDbKeyHash256 value ) {
+	public void setRequiredSecClusGrpId( CFLibDbKeyHash256 value ) {
 		if( value == null || value.isNull() ) {
 			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredId",
+				"setRequiredSecClusGrpId",
 				1,
 				"value" );
 		}
-		requiredId = value;
+		requiredSecClusGrpId = value;
 	}
 
 	@Override
@@ -140,49 +140,72 @@ public class CFSecBuffTenant
 
 	@Override
 	public int getClassCode() {
-		return( ICFSecTenant.CLASS_CODE );
+		return( ICFSecSecClusGrp.CLASS_CODE );
 	}
 
 	@Override
-	public List<ICFSecSecTentGrp> getOptionalComponentsSecGroup() {
+	public List<ICFSecSecClusGrpInc> getOptionalChildrenIncByGrp() {
 		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
 		if (targetBackingSchema == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecGroup", 0, "ICFSecSchema.getBackingCFSec()");
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenIncByGrp", 0, "ICFSecSchema.getBackingCFSec()");
 		}
-		ICFSecSecTentGrpTable targetTable = targetBackingSchema.getTableSecTentGrp();
+		ICFSecSecClusGrpIncTable targetTable = targetBackingSchema.getTableSecClusGrpInc();
 		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecGroup", 0, "ICFSecSchema.getBackingCFSec().getTableSecTentGrp()");
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenIncByGrp", 0, "ICFSecSchema.getBackingCFSec().getTableSecClusGrpInc()");
 		}
-		ICFSecSecTentGrp[] targetArr = targetTable.readDerivedByTenantIdx(null, getRequiredId());
+		ICFSecSecClusGrpInc[] targetArr = targetTable.readDerivedByClusGrpIdx(null, getRequiredSecClusGrpId());
 		if( targetArr != null ) {
-			List<ICFSecSecTentGrp> results = new ArrayList<>(targetArr.length);
+			List<ICFSecSecClusGrpInc> results = new ArrayList<>(targetArr.length);
 			for (int idx = 0; idx < targetArr.length; idx++) {
 				results.add(targetArr[idx]);
 			}
 			return( results );
 		}
 		else {
-			List<ICFSecSecTentGrp> results = new ArrayList<>();
+			List<ICFSecSecClusGrpInc> results = new ArrayList<>();
 			return( results );
 		}
 	}
 	@Override
-	public ICFSecCluster getRequiredContainerCluster() {
+	public List<ICFSecSecClusGrpMemb> getOptionalChildrenMembByGrp() {
 		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
 		if (targetBackingSchema == null) {
-			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerCluster", 0, "ICFSecSchema.getBackingCFSec()");
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenMembByGrp", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecClusGrpMembTable targetTable = targetBackingSchema.getTableSecClusGrpMemb();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenMembByGrp", 0, "ICFSecSchema.getBackingCFSec().getTableSecClusGrpMemb()");
+		}
+		ICFSecSecClusGrpMemb[] targetArr = targetTable.readDerivedByClusGrpIdx(null, getRequiredSecClusGrpId());
+		if( targetArr != null ) {
+			List<ICFSecSecClusGrpMemb> results = new ArrayList<>(targetArr.length);
+			for (int idx = 0; idx < targetArr.length; idx++) {
+				results.add(targetArr[idx]);
+			}
+			return( results );
+		}
+		else {
+			List<ICFSecSecClusGrpMemb> results = new ArrayList<>();
+			return( results );
+		}
+	}
+	@Override
+	public ICFSecCluster getRequiredOwnerCluster() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredOwnerCluster", 0, "ICFSecSchema.getBackingCFSec()");
 		}
 		ICFSecClusterTable targetTable = targetBackingSchema.getTableCluster();
 		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerCluster", 0, "ICFSecSchema.getBackingCFSec().getTableCluster()");
+			throw new CFLibNullArgumentException(getClass(), "setRequiredOwnerCluster", 0, "ICFSecSchema.getBackingCFSec().getTableCluster()");
 		}
 		ICFSecCluster targetRec = targetTable.readDerived(null, getRequiredClusterId());
 		return(targetRec);
 	}
 	@Override
-	public void setRequiredContainerCluster(ICFSecCluster argObj) {
+	public void setRequiredOwnerCluster(ICFSecCluster argObj) {
 		if(argObj == null) {
-			throw new CFLibNullArgumentException(getClass(), "setContainerCluster", 1, "argObj");
+			throw new CFLibNullArgumentException(getClass(), "setOwnerCluster", 1, "argObj");
 		}
 		else {
 			requiredClusterId = argObj.getRequiredId();
@@ -190,7 +213,7 @@ public class CFSecBuffTenant
 	}
 
 	@Override
-	public void setRequiredContainerCluster(CFLibDbKeyHash256 argClusterId) {
+	public void setRequiredOwnerCluster(CFLibDbKeyHash256 argClusterId) {
 		requiredClusterId = argClusterId;
 	}
 
@@ -200,27 +223,27 @@ public class CFSecBuffTenant
 	}
 
 	@Override
-	public String getRequiredTenantName() {
-		return( requiredTenantName );
+	public String getRequiredName() {
+		return( requiredName );
 	}
 
 	@Override
-	public void setRequiredTenantName( String value ) {
+	public void setRequiredName( String value ) {
 		if( value == null ) {
 			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredTenantName",
+				"setRequiredName",
 				1,
 				"value" );
 		}
-		else if( value.length() > 192 ) {
+		else if( value.length() > 64 ) {
 			throw new CFLibArgumentOverflowException( getClass(),
-				"setRequiredTenantName",
+				"setRequiredName",
 				1,
 				"value.length()",
 				value.length(),
-				192 );
+				64 );
 		}
-		requiredTenantName = value;
+		requiredName = value;
 	}
 
 	@Override
@@ -228,8 +251,8 @@ public class CFSecBuffTenant
 		if( obj == null ) {
 			return( false );
 		}
-		else if( obj instanceof ICFSecTenant ) {
-			ICFSecTenant rhs = (ICFSecTenant)obj;
+		else if( obj instanceof ICFSecSecClusGrp ) {
+			ICFSecSecClusGrp rhs = (ICFSecSecClusGrp)obj;
 			if( ! getCreatedByUserId().equals( rhs.getCreatedByUserId() ) ) {
 				return( false );
 			}
@@ -242,9 +265,9 @@ public class CFSecBuffTenant
 			if( ! getUpdatedAt().equals( rhs.getUpdatedAt() ) ) {
 				return( false );
 			}
-			if( getRequiredId() != null ) {
-				if( rhs.getRequiredId() != null ) {
-					if( ! getRequiredId().equals( rhs.getRequiredId() ) ) {
+			if( getRequiredSecClusGrpId() != null ) {
+				if( rhs.getRequiredSecClusGrpId() != null ) {
+					if( ! getRequiredSecClusGrpId().equals( rhs.getRequiredSecClusGrpId() ) ) {
 						return( false );
 					}
 				}
@@ -253,7 +276,7 @@ public class CFSecBuffTenant
 				}
 			}
 			else {
-				if( rhs.getRequiredId() != null ) {
+				if( rhs.getRequiredSecClusGrpId() != null ) {
 					return( false );
 				}
 			}
@@ -272,9 +295,9 @@ public class CFSecBuffTenant
 					return( false );
 				}
 			}
-			if( getRequiredTenantName() != null ) {
-				if( rhs.getRequiredTenantName() != null ) {
-					if( ! getRequiredTenantName().equals( rhs.getRequiredTenantName() ) ) {
+			if( getRequiredName() != null ) {
+				if( rhs.getRequiredName() != null ) {
+					if( ! getRequiredName().equals( rhs.getRequiredName() ) ) {
 						return( false );
 					}
 				}
@@ -283,17 +306,17 @@ public class CFSecBuffTenant
 				}
 			}
 			else {
-				if( rhs.getRequiredTenantName() != null ) {
+				if( rhs.getRequiredName() != null ) {
 					return( false );
 				}
 			}
 			return( true );
 		}
-		else if( obj instanceof ICFSecTenantH ) {
-			ICFSecTenantH rhs = (ICFSecTenantH)obj;
-			if( getRequiredId() != null ) {
-				if( rhs.getRequiredId() != null ) {
-					if( ! getRequiredId().equals( rhs.getRequiredId() ) ) {
+		else if( obj instanceof ICFSecSecClusGrpH ) {
+			ICFSecSecClusGrpH rhs = (ICFSecSecClusGrpH)obj;
+			if( getRequiredSecClusGrpId() != null ) {
+				if( rhs.getRequiredSecClusGrpId() != null ) {
+					if( ! getRequiredSecClusGrpId().equals( rhs.getRequiredSecClusGrpId() ) ) {
 						return( false );
 					}
 				}
@@ -302,7 +325,7 @@ public class CFSecBuffTenant
 				}
 			}
 			else {
-				if( rhs.getRequiredId() != null ) {
+				if( rhs.getRequiredSecClusGrpId() != null ) {
 					return( false );
 				}
 			}
@@ -321,9 +344,9 @@ public class CFSecBuffTenant
 					return( false );
 				}
 			}
-			if( getRequiredTenantName() != null ) {
-				if( rhs.getRequiredTenantName() != null ) {
-					if( ! getRequiredTenantName().equals( rhs.getRequiredTenantName() ) ) {
+			if( getRequiredName() != null ) {
+				if( rhs.getRequiredName() != null ) {
+					if( ! getRequiredName().equals( rhs.getRequiredName() ) ) {
 						return( false );
 					}
 				}
@@ -332,17 +355,17 @@ public class CFSecBuffTenant
 				}
 			}
 			else {
-				if( rhs.getRequiredTenantName() != null ) {
+				if( rhs.getRequiredName() != null ) {
 					return( false );
 				}
 			}
 			return( true );
 		}
-		else if( obj instanceof ICFSecTenantHPKey ) {
-			ICFSecTenantHPKey rhs = (ICFSecTenantHPKey)obj;
-			if( getRequiredId() != null ) {
-				if( rhs.getRequiredId() != null ) {
-					if( ! getRequiredId().equals( rhs.getRequiredId() ) ) {
+		else if( obj instanceof ICFSecSecClusGrpHPKey ) {
+			ICFSecSecClusGrpHPKey rhs = (ICFSecSecClusGrpHPKey)obj;
+			if( getRequiredSecClusGrpId() != null ) {
+				if( rhs.getRequiredSecClusGrpId() != null ) {
+					if( ! getRequiredSecClusGrpId().equals( rhs.getRequiredSecClusGrpId() ) ) {
 						return( false );
 					}
 				}
@@ -351,14 +374,14 @@ public class CFSecBuffTenant
 				}
 			}
 			else {
-				if( rhs.getRequiredId() != null ) {
+				if( rhs.getRequiredSecClusGrpId() != null ) {
 					return( false );
 				}
 			}
 			return( true );
 		}
-		else if( obj instanceof ICFSecTenantByClusterIdxKey ) {
-			ICFSecTenantByClusterIdxKey rhs = (ICFSecTenantByClusterIdxKey)obj;
+		else if( obj instanceof ICFSecSecClusGrpByClusterIdxKey ) {
+			ICFSecSecClusGrpByClusterIdxKey rhs = (ICFSecSecClusGrpByClusterIdxKey)obj;
 			if( getRequiredClusterId() != null ) {
 				if( rhs.getRequiredClusterId() != null ) {
 					if( ! getRequiredClusterId().equals( rhs.getRequiredClusterId() ) ) {
@@ -376,8 +399,27 @@ public class CFSecBuffTenant
 			}
 			return( true );
 		}
-		else if( obj instanceof ICFSecTenantByUNameIdxKey ) {
-			ICFSecTenantByUNameIdxKey rhs = (ICFSecTenantByUNameIdxKey)obj;
+		else if( obj instanceof ICFSecSecClusGrpByNameIdxKey ) {
+			ICFSecSecClusGrpByNameIdxKey rhs = (ICFSecSecClusGrpByNameIdxKey)obj;
+			if( getRequiredName() != null ) {
+				if( rhs.getRequiredName() != null ) {
+					if( ! getRequiredName().equals( rhs.getRequiredName() ) ) {
+						return( false );
+					}
+				}
+				else {
+					return( false );
+				}
+			}
+			else {
+				if( rhs.getRequiredName() != null ) {
+					return( false );
+				}
+			}
+			return( true );
+		}
+		else if( obj instanceof ICFSecSecClusGrpByUNameIdxKey ) {
+			ICFSecSecClusGrpByUNameIdxKey rhs = (ICFSecSecClusGrpByUNameIdxKey)obj;
 			if( getRequiredClusterId() != null ) {
 				if( rhs.getRequiredClusterId() != null ) {
 					if( ! getRequiredClusterId().equals( rhs.getRequiredClusterId() ) ) {
@@ -393,9 +435,9 @@ public class CFSecBuffTenant
 					return( false );
 				}
 			}
-			if( getRequiredTenantName() != null ) {
-				if( rhs.getRequiredTenantName() != null ) {
-					if( ! getRequiredTenantName().equals( rhs.getRequiredTenantName() ) ) {
+			if( getRequiredName() != null ) {
+				if( rhs.getRequiredName() != null ) {
+					if( ! getRequiredName().equals( rhs.getRequiredName() ) ) {
 						return( false );
 					}
 				}
@@ -404,7 +446,7 @@ public class CFSecBuffTenant
 				}
 			}
 			else {
-				if( rhs.getRequiredTenantName() != null ) {
+				if( rhs.getRequiredName() != null ) {
 					return( false );
 				}
 			}
@@ -423,10 +465,10 @@ public class CFSecBuffTenant
 		hashCode = hashCode + getCreatedAt().hashCode();
 		hashCode = hashCode + getUpdatedByUserId().hashCode();
 		hashCode = hashCode + getUpdatedAt().hashCode();
-		hashCode = hashCode + getRequiredId().hashCode();
+		hashCode = hashCode + getRequiredSecClusGrpId().hashCode();
 		hashCode = hashCode + getRequiredClusterId().hashCode();
-		if( getRequiredTenantName() != null ) {
-			hashCode = hashCode + getRequiredTenantName().hashCode();
+		if( getRequiredName() != null ) {
+			hashCode = hashCode + getRequiredName().hashCode();
 		}
 		return( hashCode & 0x7fffffff );
 	}
@@ -437,8 +479,8 @@ public class CFSecBuffTenant
 		if( obj == null ) {
 			return( -1 );
 		}
-		else if( obj instanceof ICFSecTenant ) {
-			ICFSecTenant rhs = (ICFSecTenant)obj;
+		else if( obj instanceof ICFSecSecClusGrp ) {
+			ICFSecSecClusGrp rhs = (ICFSecSecClusGrp)obj;
 			cmp = 0;
 			{
 				cmp = getCreatedByUserId().compareTo( rhs.getCreatedByUserId() );
@@ -461,9 +503,9 @@ public class CFSecBuffTenant
 					return( cmp );
 				}
 			}
-			if (getRequiredId() != null) {
-				if (rhs.getRequiredId() != null) {
-					cmp = getRequiredId().compareTo( rhs.getRequiredId() );
+			if (getRequiredSecClusGrpId() != null) {
+				if (rhs.getRequiredSecClusGrpId() != null) {
+					cmp = getRequiredSecClusGrpId().compareTo( rhs.getRequiredSecClusGrpId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -472,7 +514,7 @@ public class CFSecBuffTenant
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredId() != null) {
+			else if (rhs.getRequiredSecClusGrpId() != null) {
 				return( -1 );
 			}
 			if (getRequiredClusterId() != null) {
@@ -489,9 +531,9 @@ public class CFSecBuffTenant
 			else if (rhs.getRequiredClusterId() != null) {
 				return( -1 );
 			}
-			if (getRequiredTenantName() != null) {
-				if (rhs.getRequiredTenantName() != null) {
-					cmp = getRequiredTenantName().compareTo( rhs.getRequiredTenantName() );
+			if (getRequiredName() != null) {
+				if (rhs.getRequiredName() != null) {
+					cmp = getRequiredName().compareTo( rhs.getRequiredName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -500,22 +542,22 @@ public class CFSecBuffTenant
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredTenantName() != null) {
+			else if (rhs.getRequiredName() != null) {
 				return( -1 );
 			}
 			return( 0 );
 		}
-		else if( obj instanceof ICFSecTenantHPKey ) {
-			ICFSecTenantHPKey rhs = (ICFSecTenantHPKey)obj;
+		else if( obj instanceof ICFSecSecClusGrpHPKey ) {
+			ICFSecSecClusGrpHPKey rhs = (ICFSecSecClusGrpHPKey)obj;
 			if( getRequiredRevision() < rhs.getRequiredRevision() ) {
 				return( -1 );
 			}
 			else if( getRequiredRevision() > rhs.getRequiredRevision() ) {
 				return( 1 );
 			}
-			if (getRequiredId() != null) {
-				if (rhs.getRequiredId() != null) {
-					cmp = getRequiredId().compareTo( rhs.getRequiredId() );
+			if (getRequiredSecClusGrpId() != null) {
+				if (rhs.getRequiredSecClusGrpId() != null) {
+					cmp = getRequiredSecClusGrpId().compareTo( rhs.getRequiredSecClusGrpId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -524,17 +566,17 @@ public class CFSecBuffTenant
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredId() != null) {
+			else if (rhs.getRequiredSecClusGrpId() != null) {
 				return( -1 );
 			}
 			return( 0 );
 		}
-		else if( obj instanceof ICFSecTenantH ) {
-			ICFSecTenantH rhs = (ICFSecTenantH)obj;
+		else if( obj instanceof ICFSecSecClusGrpH ) {
+			ICFSecSecClusGrpH rhs = (ICFSecSecClusGrpH)obj;
 			cmp = 0;
-			if (getRequiredId() != null) {
-				if (rhs.getRequiredId() != null) {
-					cmp = getRequiredId().compareTo( rhs.getRequiredId() );
+			if (getRequiredSecClusGrpId() != null) {
+				if (rhs.getRequiredSecClusGrpId() != null) {
+					cmp = getRequiredSecClusGrpId().compareTo( rhs.getRequiredSecClusGrpId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -543,7 +585,7 @@ public class CFSecBuffTenant
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredId() != null) {
+			else if (rhs.getRequiredSecClusGrpId() != null) {
 				return( -1 );
 			}
 			if (getRequiredClusterId() != null) {
@@ -560,9 +602,9 @@ public class CFSecBuffTenant
 			else if (rhs.getRequiredClusterId() != null) {
 				return( -1 );
 			}
-			if (getRequiredTenantName() != null) {
-				if (rhs.getRequiredTenantName() != null) {
-					cmp = getRequiredTenantName().compareTo( rhs.getRequiredTenantName() );
+			if (getRequiredName() != null) {
+				if (rhs.getRequiredName() != null) {
+					cmp = getRequiredName().compareTo( rhs.getRequiredName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -571,13 +613,13 @@ public class CFSecBuffTenant
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredTenantName() != null) {
+			else if (rhs.getRequiredName() != null) {
 				return( -1 );
 			}
 			return( 0 );
 		}
-		else if( obj instanceof ICFSecTenantByClusterIdxKey ) {
-			ICFSecTenantByClusterIdxKey rhs = (ICFSecTenantByClusterIdxKey)obj;
+		else if( obj instanceof ICFSecSecClusGrpByClusterIdxKey ) {
+			ICFSecSecClusGrpByClusterIdxKey rhs = (ICFSecSecClusGrpByClusterIdxKey)obj;
 
 			if (getRequiredClusterId() != null) {
 				if (rhs.getRequiredClusterId() != null) {
@@ -594,8 +636,26 @@ public class CFSecBuffTenant
 				return( -1 );
 			}			return( 0 );
 		}
-		else if( obj instanceof ICFSecTenantByUNameIdxKey ) {
-			ICFSecTenantByUNameIdxKey rhs = (ICFSecTenantByUNameIdxKey)obj;
+		else if( obj instanceof ICFSecSecClusGrpByNameIdxKey ) {
+			ICFSecSecClusGrpByNameIdxKey rhs = (ICFSecSecClusGrpByNameIdxKey)obj;
+
+			if (getRequiredName() != null) {
+				if (rhs.getRequiredName() != null) {
+					cmp = getRequiredName().compareTo( rhs.getRequiredName() );
+					if( cmp != 0 ) {
+						return( cmp );
+					}
+				}
+				else {
+					return( 1 );
+				}
+			}
+			else if (rhs.getRequiredName() != null) {
+				return( -1 );
+			}			return( 0 );
+		}
+		else if( obj instanceof ICFSecSecClusGrpByUNameIdxKey ) {
+			ICFSecSecClusGrpByUNameIdxKey rhs = (ICFSecSecClusGrpByUNameIdxKey)obj;
 
 			if (getRequiredClusterId() != null) {
 				if (rhs.getRequiredClusterId() != null) {
@@ -611,9 +671,9 @@ public class CFSecBuffTenant
 			else if (rhs.getRequiredClusterId() != null) {
 				return( -1 );
 			}
-			if (getRequiredTenantName() != null) {
-				if (rhs.getRequiredTenantName() != null) {
-					cmp = getRequiredTenantName().compareTo( rhs.getRequiredTenantName() );
+			if (getRequiredName() != null) {
+				if (rhs.getRequiredName() != null) {
+					cmp = getRequiredName().compareTo( rhs.getRequiredName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -622,7 +682,7 @@ public class CFSecBuffTenant
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredTenantName() != null) {
+			else if (rhs.getRequiredName() != null) {
 				return( -1 );
 			}			return( 0 );
 		}
@@ -636,48 +696,48 @@ public class CFSecBuffTenant
 	}
 
 	@Override
-	public void set( ICFSecTenant src ) {
-		setTenant( src );
+	public void set( ICFSecSecClusGrp src ) {
+		setSecClusGrp( src );
 	}
 
 	@Override
-	public void setTenant( ICFSecTenant src ) {
-		setRequiredId(src.getRequiredId());
+	public void setSecClusGrp( ICFSecSecClusGrp src ) {
+		setRequiredSecClusGrpId(src.getRequiredSecClusGrpId());
 		setRequiredRevision( src.getRequiredRevision() );
 		setCreatedByUserId( src.getCreatedByUserId() );
 		setCreatedAt( src.getCreatedAt() );
 		setUpdatedByUserId( src.getUpdatedByUserId() );
 		setUpdatedAt( src.getUpdatedAt() );
-		setRequiredContainerCluster(src.getRequiredContainerCluster());
-		setRequiredTenantName(src.getRequiredTenantName());
+		setRequiredOwnerCluster(src.getRequiredOwnerCluster());
+		setRequiredName(src.getRequiredName());
 	}
 
 	@Override
-	public void set( ICFSecTenantH src ) {
-		setTenant( src );
+	public void set( ICFSecSecClusGrpH src ) {
+		setSecClusGrp( src );
 	}
 
 	@Override
-	public void setTenant( ICFSecTenantH src ) {
-		setRequiredId(src.getRequiredId());
-		setRequiredContainerCluster(src.getRequiredClusterId());
-		setRequiredTenantName(src.getRequiredTenantName());
+	public void setSecClusGrp( ICFSecSecClusGrpH src ) {
+		setRequiredSecClusGrpId(src.getRequiredSecClusGrpId());
+		setRequiredOwnerCluster(src.getRequiredClusterId());
+		setRequiredName(src.getRequiredName());
 	}
 
 	@Override
 	public String getXmlAttrFragment() {
 		String ret = ""
-			+ " RequiredId=" + "\"" + getRequiredId().toString() + "\""
+			+ " RequiredSecClusGrpId=" + "\"" + getRequiredSecClusGrpId().toString() + "\""
 			+ " RequiredRevision=\"" + Integer.toString( getRequiredRevision() ) + "\""
-			+ " RequiredId=" + "\"" + getRequiredId().toString() + "\""
+			+ " RequiredSecClusGrpId=" + "\"" + getRequiredSecClusGrpId().toString() + "\""
 			+ " RequiredClusterId=" + "\"" + getRequiredClusterId().toString() + "\""
-			+ " RequiredTenantName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredTenantName() ) + "\"";
+			+ " RequiredName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredName() ) + "\"";
 		return( ret );
 	}
 
 	@Override
 	public String toString() {
-		String ret = "<CFSecBuffTenant" + getXmlAttrFragment() + "/>";
+		String ret = "<CFSecBuffSecClusGrp" + getXmlAttrFragment() + "/>";
 		return( ret );
 	}
 }

@@ -144,29 +144,6 @@ public class CFSecBuffCluster
 	}
 
 	@Override
-	public List<ICFSecHostNode> getOptionalComponentsHostNode() {
-		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
-		if (targetBackingSchema == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsHostNode", 0, "ICFSecSchema.getBackingCFSec()");
-		}
-		ICFSecHostNodeTable targetTable = targetBackingSchema.getTableHostNode();
-		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsHostNode", 0, "ICFSecSchema.getBackingCFSec().getTableHostNode()");
-		}
-		ICFSecHostNode[] targetArr = targetTable.readDerivedByClusterIdx(null, getRequiredId());
-		if( targetArr != null ) {
-			List<ICFSecHostNode> results = new ArrayList<>(targetArr.length);
-			for (int idx = 0; idx < targetArr.length; idx++) {
-				results.add(targetArr[idx]);
-			}
-			return( results );
-		}
-		else {
-			List<ICFSecHostNode> results = new ArrayList<>();
-			return( results );
-		}
-	}
-	@Override
 	public List<ICFSecTenant> getOptionalComponentsTenant() {
 		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
 		if (targetBackingSchema == null) {
@@ -190,25 +167,25 @@ public class CFSecBuffCluster
 		}
 	}
 	@Override
-	public List<ICFSecSecGroup> getOptionalComponentsSecGroup() {
+	public List<ICFSecSecClusGrp> getOptionalComponentsSecGroup() {
 		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
 		if (targetBackingSchema == null) {
 			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecGroup", 0, "ICFSecSchema.getBackingCFSec()");
 		}
-		ICFSecSecGroupTable targetTable = targetBackingSchema.getTableSecGroup();
+		ICFSecSecClusGrpTable targetTable = targetBackingSchema.getTableSecClusGrp();
 		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecGroup", 0, "ICFSecSchema.getBackingCFSec().getTableSecGroup()");
+			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecGroup", 0, "ICFSecSchema.getBackingCFSec().getTableSecClusGrp()");
 		}
-		ICFSecSecGroup[] targetArr = targetTable.readDerivedByClusterIdx(null, getRequiredId());
+		ICFSecSecClusGrp[] targetArr = targetTable.readDerivedByClusterIdx(null, getRequiredId());
 		if( targetArr != null ) {
-			List<ICFSecSecGroup> results = new ArrayList<>(targetArr.length);
+			List<ICFSecSecClusGrp> results = new ArrayList<>(targetArr.length);
 			for (int idx = 0; idx < targetArr.length; idx++) {
 				results.add(targetArr[idx]);
 			}
 			return( results );
 		}
 		else {
-			List<ICFSecSecGroup> results = new ArrayList<>();
+			List<ICFSecSecClusGrp> results = new ArrayList<>();
 			return( results );
 		}
 	}

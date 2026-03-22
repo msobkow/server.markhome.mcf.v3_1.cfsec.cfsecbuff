@@ -139,28 +139,6 @@ public class CFSecBuffSecUserDefaultFactory
 	}
 
 	@Override
-	public ICFSecSecUserByDefDevIdxKey newByDefDevIdxKey() {
-		ICFSecSecUserByDefDevIdxKey key =
-			new CFSecBuffSecUserByDefDevIdxKey();
-		return( key );
-	}
-
-	public CFSecBuffSecUserByDefDevIdxKey ensureByDefDevIdxKey(ICFSecSecUserByDefDevIdxKey key) {
-		if (key == null) {
-			return( null );
-		}
-		else if (key instanceof CFSecBuffSecUserByDefDevIdxKey) {
-			return( (CFSecBuffSecUserByDefDevIdxKey)key );
-		}
-		else {
-			CFSecBuffSecUserByDefDevIdxKey mapped = new CFSecBuffSecUserByDefDevIdxKey();
-			mapped.setOptionalDfltDevUserId( key.getOptionalDfltDevUserId() );
-			mapped.setOptionalDfltDevName( key.getOptionalDfltDevName() );
-			return( mapped );
-		}
-	}
-
-	@Override
 	public ICFSecSecUser newRec() {
 		ICFSecSecUser rec =
 			new CFSecBuffSecUser();
