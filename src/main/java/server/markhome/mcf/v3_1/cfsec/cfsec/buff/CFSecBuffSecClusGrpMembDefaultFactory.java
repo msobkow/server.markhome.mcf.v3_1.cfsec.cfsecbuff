@@ -68,7 +68,7 @@ public class CFSecBuffSecClusGrpMembDefaultFactory
 		else {
 			CFSecBuffSecClusGrpMembPKey mapped = new CFSecBuffSecClusGrpMembPKey();
 			mapped.setRequiredSecClusGrpId( key.getRequiredSecClusGrpId() );
-			mapped.setRequiredSecUserId( key.getRequiredSecUserId() );
+			mapped.setRequiredLoginId( key.getRequiredLoginId() );
 			return( mapped );
 		}
 	}
@@ -94,7 +94,7 @@ public class CFSecBuffSecClusGrpMembDefaultFactory
 			mapped.setAuditSessionId(key.getAuditSessionId());
 			mapped.setAuditStamp(key.getAuditStamp());
 			mapped.setRequiredSecClusGrpId( key.getRequiredSecClusGrpId() );
-			mapped.setRequiredSecUserId( key.getRequiredSecUserId() );
+			mapped.setRequiredLoginId( key.getRequiredLoginId() );
 			return( mapped );
 		}
 	}
@@ -121,22 +121,22 @@ public class CFSecBuffSecClusGrpMembDefaultFactory
 	}
 
 	@Override
-	public ICFSecSecClusGrpMembByUserIdxKey newByUserIdxKey() {
-		ICFSecSecClusGrpMembByUserIdxKey key =
-			new CFSecBuffSecClusGrpMembByUserIdxKey();
+	public ICFSecSecClusGrpMembByLoginIdxKey newByLoginIdxKey() {
+		ICFSecSecClusGrpMembByLoginIdxKey key =
+			new CFSecBuffSecClusGrpMembByLoginIdxKey();
 		return( key );
 	}
 
-	public CFSecBuffSecClusGrpMembByUserIdxKey ensureByUserIdxKey(ICFSecSecClusGrpMembByUserIdxKey key) {
+	public CFSecBuffSecClusGrpMembByLoginIdxKey ensureByLoginIdxKey(ICFSecSecClusGrpMembByLoginIdxKey key) {
 		if (key == null) {
 			return( null );
 		}
-		else if (key instanceof CFSecBuffSecClusGrpMembByUserIdxKey) {
-			return( (CFSecBuffSecClusGrpMembByUserIdxKey)key );
+		else if (key instanceof CFSecBuffSecClusGrpMembByLoginIdxKey) {
+			return( (CFSecBuffSecClusGrpMembByLoginIdxKey)key );
 		}
 		else {
-			CFSecBuffSecClusGrpMembByUserIdxKey mapped = new CFSecBuffSecClusGrpMembByUserIdxKey();
-			mapped.setRequiredSecUserId( key.getRequiredSecUserId() );
+			CFSecBuffSecClusGrpMembByLoginIdxKey mapped = new CFSecBuffSecClusGrpMembByLoginIdxKey();
+			mapped.setRequiredLoginId( key.getRequiredLoginId() );
 			return( mapped );
 		}
 	}

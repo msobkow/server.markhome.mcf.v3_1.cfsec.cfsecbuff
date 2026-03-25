@@ -46,17 +46,17 @@ import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 /*
  *	CFSecBuffSecSysGrpIncPKey Primary Key for SecSysGrpInc buffers
  *		requiredSecSysGrpId	Required object attribute SecSysGrpId.
- *		requiredIncName	Required object attribute IncName.
+ *		requiredInclName	Required object attribute InclName.
  */
 public class CFSecBuffSecSysGrpIncPKey
 	implements ICFSecSecSysGrpIncPKey, Comparable<ICFSecSecSysGrpIncPKey>, Serializable
 {
 	protected CFLibDbKeyHash256 requiredSecSysGrpId;
-	protected String requiredIncName;
+	protected String requiredInclName;
 
 	public CFSecBuffSecSysGrpIncPKey() {
 		requiredSecSysGrpId = CFLibDbKeyHash256.fromHex( ICFSecSecSysGrpInc.SECSYSGRPID_INIT_VALUE.toString() );
-		requiredIncName = ICFSecSecSysGrpInc.INCNAME_INIT_VALUE;
+		requiredInclName = ICFSecSecSysGrpInc.INCLNAME_INIT_VALUE;
 	}
 
 	@Override
@@ -93,8 +93,8 @@ public class CFSecBuffSecSysGrpIncPKey
 	}
 
 	@Override
-	public String getRequiredIncName() {
-		return( requiredIncName );
+	public String getRequiredInclName() {
+		return( requiredInclName );
 	}
 
 	@Override
@@ -119,9 +119,9 @@ public class CFSecBuffSecSysGrpIncPKey
 					return( false );
 				}
 			}
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -130,7 +130,7 @@ public class CFSecBuffSecSysGrpIncPKey
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -145,8 +145,8 @@ public class CFSecBuffSecSysGrpIncPKey
 	public int hashCode() {
 		int hashCode = 0;
 		hashCode = hashCode + getRequiredSecSysGrpId().hashCode();
-		if( getRequiredIncName() != null ) {
-			hashCode = hashCode + getRequiredIncName().hashCode();
+		if( getRequiredInclName() != null ) {
+			hashCode = hashCode + getRequiredInclName().hashCode();
 		}
 		return( hashCode & 0x7fffffff );
 	}
@@ -171,9 +171,9 @@ public class CFSecBuffSecSysGrpIncPKey
 			else if (rhs.getRequiredSecSysGrpId() != null) {
 				return( -1 );
 			}
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -182,7 +182,7 @@ public class CFSecBuffSecSysGrpIncPKey
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}
 		return( 0 );
@@ -192,7 +192,7 @@ public class CFSecBuffSecSysGrpIncPKey
 	public String getXmlAttrFragment() {
 		String ret = "" 
 			+ " RequiredSecSysGrpId=" + "\"" + getRequiredSecSysGrpId().toString() + "\""
-			+ " RequiredIncName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredIncName() ) + "\"";
+			+ " RequiredInclName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredInclName() ) + "\"";
 		return( ret );
 	}
 

@@ -104,13 +104,13 @@ public class CFSecBuffSecSysGrpInc
 	}
 
 	@Override
-	public void setRequiredParentSubGroup(String argIncName) {
-		getPKey().setRequiredParentSubGroup(argIncName);
+	public void setRequiredParentSubGroup(String argInclName) {
+		getPKey().setRequiredParentSubGroup(argInclName);
 	}
 
 	@Override
-	public String getRequiredIncName() {
-		return (getPKey().getRequiredParentSubGroup().getRequiredIncName());
+	public String getRequiredInclName() {
+		return (getPKey().getRequiredParentSubGroup().getRequiredInclName());
 	}
 
 	@Override
@@ -201,9 +201,9 @@ public class CFSecBuffSecSysGrpInc
 					return( false );
 				}
 			}
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -212,7 +212,7 @@ public class CFSecBuffSecSysGrpInc
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -235,9 +235,9 @@ public class CFSecBuffSecSysGrpInc
 					return( false );
 				}
 			}
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -246,7 +246,7 @@ public class CFSecBuffSecSysGrpInc
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -269,9 +269,9 @@ public class CFSecBuffSecSysGrpInc
 					return( false );
 				}
 			}
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -280,7 +280,7 @@ public class CFSecBuffSecSysGrpInc
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -307,9 +307,9 @@ public class CFSecBuffSecSysGrpInc
 		}
 		else if( obj instanceof ICFSecSecSysGrpIncByNameIdxKey ) {
 			ICFSecSecSysGrpIncByNameIdxKey rhs = (ICFSecSecSysGrpIncByNameIdxKey)obj;
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -318,7 +318,7 @@ public class CFSecBuffSecSysGrpInc
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -338,8 +338,8 @@ public class CFSecBuffSecSysGrpInc
 		hashCode = hashCode + getUpdatedByUserId().hashCode();
 		hashCode = hashCode + getUpdatedAt().hashCode();
 		hashCode = hashCode + getRequiredSecSysGrpId().hashCode();
-		if( getRequiredIncName() != null ) {
-			hashCode = hashCode + getRequiredIncName().hashCode();
+		if( getRequiredInclName() != null ) {
+			hashCode = hashCode + getRequiredInclName().hashCode();
 		}
 		return( hashCode & 0x7fffffff );
 	}
@@ -388,9 +388,9 @@ public class CFSecBuffSecSysGrpInc
 			else if (rhs.getRequiredSecSysGrpId() != null) {
 				return( -1 );
 			}
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -399,7 +399,7 @@ public class CFSecBuffSecSysGrpInc
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}
 			return( 0 );
@@ -426,9 +426,9 @@ public class CFSecBuffSecSysGrpInc
 			else if (rhs.getRequiredSecSysGrpId() != null) {
 				return( -1 );
 			}
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -437,7 +437,7 @@ public class CFSecBuffSecSysGrpInc
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}
 			return( 0 );
@@ -459,9 +459,9 @@ public class CFSecBuffSecSysGrpInc
 			else if (rhs.getRequiredSecSysGrpId() != null) {
 				return( -1 );
 			}
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -470,7 +470,7 @@ public class CFSecBuffSecSysGrpInc
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}
 			return( 0 );
@@ -496,9 +496,9 @@ public class CFSecBuffSecSysGrpInc
 		else if( obj instanceof ICFSecSecSysGrpIncByNameIdxKey ) {
 			ICFSecSecSysGrpIncByNameIdxKey rhs = (ICFSecSecSysGrpIncByNameIdxKey)obj;
 
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -507,7 +507,7 @@ public class CFSecBuffSecSysGrpInc
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}			return( 0 );
 		}
@@ -544,7 +544,7 @@ public class CFSecBuffSecSysGrpInc
 	@Override
 	public void setSecSysGrpInc( ICFSecSecSysGrpIncH src ) {
 		setRequiredContainerGroup(src.getRequiredSecSysGrpId());
-		setRequiredParentSubGroup(src.getRequiredIncName());
+		setRequiredParentSubGroup(src.getRequiredInclName());
 	}
 
 	@Override
@@ -552,7 +552,7 @@ public class CFSecBuffSecSysGrpInc
 		String ret = pkey.getXmlAttrFragment() 
 			+ " RequiredRevision=\"" + Integer.toString( getRequiredRevision() ) + "\""
 			+ " RequiredSecSysGrpId=" + "\"" + getRequiredSecSysGrpId().toString() + "\""
-			+ " RequiredIncName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredIncName() ) + "\"";
+			+ " RequiredInclName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredInclName() ) + "\"";
 		return( ret );
 	}
 

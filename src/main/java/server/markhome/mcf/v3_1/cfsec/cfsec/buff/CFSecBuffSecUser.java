@@ -164,7 +164,7 @@ public class CFSecBuffSecUser
 		if (targetTable == null) {
 			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenSysSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec().getTableSecSysGrpMemb()");
 		}
-		ICFSecSecSysGrpMemb[] targetArr = targetTable.readDerivedByUserIdx(null, getRequiredSecUserId());
+		ICFSecSecSysGrpMemb[] targetArr = targetTable.readDerivedByLoginIdx(null, getRequiredLoginId());
 		if( targetArr != null ) {
 			List<ICFSecSecSysGrpMemb> results = new ArrayList<>(targetArr.length);
 			for (int idx = 0; idx < targetArr.length; idx++) {

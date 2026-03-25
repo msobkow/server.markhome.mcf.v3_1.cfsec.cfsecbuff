@@ -1,4 +1,4 @@
-// Description: Java 25 implementation of a SecClusGrpMemb by UserIdx index key buffer
+// Description: Java 25 implementation of a SecSysGrpMemb by LoginIdx index key buffer
 
 /*
  *	server.markhome.mcf.CFSec
@@ -43,28 +43,36 @@ import server.markhome.mcf.v3_1.cflib.dbutil.*;
 import server.markhome.mcf.v3_1.cflib.xml.CFLibXmlUtil;
 import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 
-public class CFSecBuffSecClusGrpMembByUserIdxKey
-	implements ICFSecSecClusGrpMembByUserIdxKey, Comparable<Object>, Serializable
+public class CFSecBuffSecSysGrpMembByLoginIdxKey
+	implements ICFSecSecSysGrpMembByLoginIdxKey, Comparable<Object>, Serializable
 {
-	protected CFLibDbKeyHash256 requiredSecUserId;
-	public CFSecBuffSecClusGrpMembByUserIdxKey() {
-		requiredSecUserId = CFLibDbKeyHash256.fromHex( ICFSecSecClusGrpMemb.SECUSERID_INIT_VALUE.toString() );
+	protected String requiredLoginId;
+	public CFSecBuffSecSysGrpMembByLoginIdxKey() {
+		requiredLoginId = ICFSecSecSysGrpMemb.LOGINID_INIT_VALUE;
 	}
 
 	@Override
-	public CFLibDbKeyHash256 getRequiredSecUserId() {
-		return( requiredSecUserId );
+	public String getRequiredLoginId() {
+		return( requiredLoginId );
 	}
 
 	@Override
-	public void setRequiredSecUserId( CFLibDbKeyHash256 value ) {
-		if( value == null || value.isNull() ) {
+	public void setRequiredLoginId( String value ) {
+		if( value == null ) {
 			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredSecUserId",
+				"setRequiredLoginId",
 				1,
 				"value" );
 		}
-		requiredSecUserId = value;
+		else if( value.length() > 32 ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"setRequiredLoginId",
+				1,
+				"value.length()",
+				value.length(),
+				32 );
+		}
+		requiredLoginId = value;
 	}
 
 	@Override
@@ -72,11 +80,11 @@ public class CFSecBuffSecClusGrpMembByUserIdxKey
 		if( obj == null ) {
 			return( false );
 		}
-		else if( obj instanceof ICFSecSecClusGrpMembByUserIdxKey ) {
-			ICFSecSecClusGrpMembByUserIdxKey rhs = (ICFSecSecClusGrpMembByUserIdxKey)obj;
-			if( getRequiredSecUserId() != null ) {
-				if( rhs.getRequiredSecUserId() != null ) {
-					if( ! getRequiredSecUserId().equals( rhs.getRequiredSecUserId() ) ) {
+		else if( obj instanceof ICFSecSecSysGrpMembByLoginIdxKey ) {
+			ICFSecSecSysGrpMembByLoginIdxKey rhs = (ICFSecSecSysGrpMembByLoginIdxKey)obj;
+			if( getRequiredLoginId() != null ) {
+				if( rhs.getRequiredLoginId() != null ) {
+					if( ! getRequiredLoginId().equals( rhs.getRequiredLoginId() ) ) {
 						return( false );
 					}
 				}
@@ -85,17 +93,17 @@ public class CFSecBuffSecClusGrpMembByUserIdxKey
 				}
 			}
 			else {
-				if( rhs.getRequiredSecUserId() != null ) {
+				if( rhs.getRequiredLoginId() != null ) {
 					return( false );
 				}
 			}
 			return( true );
 		}
-		else if( obj instanceof ICFSecSecClusGrpMemb) {
-			ICFSecSecClusGrpMemb rhs = (ICFSecSecClusGrpMemb)obj;
-			if( getRequiredSecUserId() != null ) {
-				if( rhs.getRequiredSecUserId() != null ) {
-					if( ! getRequiredSecUserId().equals( rhs.getRequiredSecUserId() ) ) {
+		else if( obj instanceof ICFSecSecSysGrpMemb) {
+			ICFSecSecSysGrpMemb rhs = (ICFSecSecSysGrpMemb)obj;
+			if( getRequiredLoginId() != null ) {
+				if( rhs.getRequiredLoginId() != null ) {
+					if( ! getRequiredLoginId().equals( rhs.getRequiredLoginId() ) ) {
 						return( false );
 					}
 				}
@@ -104,7 +112,7 @@ public class CFSecBuffSecClusGrpMembByUserIdxKey
 				}
 			}
 			else {
-				if( rhs.getRequiredSecUserId() != null ) {
+				if( rhs.getRequiredLoginId() != null ) {
 					return( false );
 				}
 			}
@@ -118,7 +126,9 @@ public class CFSecBuffSecClusGrpMembByUserIdxKey
 	@Override
 	public int hashCode() {
 		int hashCode = 0;
-		hashCode = hashCode + getRequiredSecUserId().hashCode();
+		if( getRequiredLoginId() != null ) {
+			hashCode = hashCode + getRequiredLoginId().hashCode();
+		}
 		return( hashCode & 0x7fffffff );
 	}
 
@@ -128,11 +138,11 @@ public class CFSecBuffSecClusGrpMembByUserIdxKey
 		if( obj == null ) {
 			return( 1 );
 		}
-		else if( obj instanceof ICFSecSecClusGrpMembByUserIdxKey ) {
-			ICFSecSecClusGrpMembByUserIdxKey rhs = (ICFSecSecClusGrpMembByUserIdxKey)obj;
-			if (getRequiredSecUserId() != null) {
-				if (rhs.getRequiredSecUserId() != null) {
-					cmp = getRequiredSecUserId().compareTo( rhs.getRequiredSecUserId() );
+		else if( obj instanceof ICFSecSecSysGrpMembByLoginIdxKey ) {
+			ICFSecSecSysGrpMembByLoginIdxKey rhs = (ICFSecSecSysGrpMembByLoginIdxKey)obj;
+			if (getRequiredLoginId() != null) {
+				if (rhs.getRequiredLoginId() != null) {
+					cmp = getRequiredLoginId().compareTo( rhs.getRequiredLoginId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -141,16 +151,16 @@ public class CFSecBuffSecClusGrpMembByUserIdxKey
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredSecUserId() != null) {
+			else if (rhs.getRequiredLoginId() != null) {
 				return( -1 );
 			}
 			return( 0 );
 		}
-		else if( obj instanceof ICFSecSecClusGrpMemb ) {
-			ICFSecSecClusGrpMemb rhs = (ICFSecSecClusGrpMemb)obj;
-			if (getRequiredSecUserId() != null) {
-				if (rhs.getRequiredSecUserId() != null) {
-					cmp = getRequiredSecUserId().compareTo( rhs.getRequiredSecUserId() );
+		else if( obj instanceof ICFSecSecSysGrpMemb ) {
+			ICFSecSecSysGrpMemb rhs = (ICFSecSecSysGrpMemb)obj;
+			if (getRequiredLoginId() != null) {
+				if (rhs.getRequiredLoginId() != null) {
+					cmp = getRequiredLoginId().compareTo( rhs.getRequiredLoginId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -159,7 +169,7 @@ public class CFSecBuffSecClusGrpMembByUserIdxKey
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredSecUserId() != null) {
+			else if (rhs.getRequiredLoginId() != null) {
 				return( -1 );
 			}
 			return( 0 );
@@ -176,13 +186,13 @@ public class CFSecBuffSecClusGrpMembByUserIdxKey
 	@Override
 	public String getXmlAttrFragment() {
 		String ret = ""
-			+ " RequiredSecUserId=" + "\"" + getRequiredSecUserId().toString() + "\"";
+			+ " RequiredLoginId=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredLoginId() ) + "\"";
 		return( ret );
 	}
 
 	@Override
 	public String toString() {
-		String ret = "<CFSecBuffSecClusGrpMembByUserIdxKey" + getXmlAttrFragment() + "/>";
+		String ret = "<CFSecBuffSecSysGrpMembByLoginIdxKey" + getXmlAttrFragment() + "/>";
 		return( ret );
 	}
 }

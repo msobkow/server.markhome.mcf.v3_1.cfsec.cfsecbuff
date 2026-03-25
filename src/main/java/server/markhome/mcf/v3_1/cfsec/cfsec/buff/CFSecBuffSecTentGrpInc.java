@@ -84,13 +84,13 @@ public class CFSecBuffSecTentGrpInc
 	}
 
 	@Override
-	public String getRequiredIncName() {
-		return( getPKey().getRequiredIncName() );
+	public String getRequiredInclName() {
+		return( getPKey().getRequiredInclName() );
 	}
 
 	@Override
-	public void setRequiredIncName(String value) {
-		getPKey().setRequiredIncName(value);
+	public void setRequiredInclName(String value) {
+		getPKey().setRequiredInclName(value);
 	}
 
 	@Override
@@ -181,9 +181,9 @@ public class CFSecBuffSecTentGrpInc
 					return( false );
 				}
 			}
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -192,7 +192,7 @@ public class CFSecBuffSecTentGrpInc
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -215,9 +215,9 @@ public class CFSecBuffSecTentGrpInc
 					return( false );
 				}
 			}
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -226,7 +226,7 @@ public class CFSecBuffSecTentGrpInc
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -249,9 +249,9 @@ public class CFSecBuffSecTentGrpInc
 					return( false );
 				}
 			}
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -260,7 +260,7 @@ public class CFSecBuffSecTentGrpInc
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -287,9 +287,9 @@ public class CFSecBuffSecTentGrpInc
 		}
 		else if( obj instanceof ICFSecSecTentGrpIncByNameIdxKey ) {
 			ICFSecSecTentGrpIncByNameIdxKey rhs = (ICFSecSecTentGrpIncByNameIdxKey)obj;
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -298,7 +298,7 @@ public class CFSecBuffSecTentGrpInc
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -318,8 +318,8 @@ public class CFSecBuffSecTentGrpInc
 		hashCode = hashCode + getUpdatedByUserId().hashCode();
 		hashCode = hashCode + getUpdatedAt().hashCode();
 		hashCode = hashCode + getRequiredSecTentGrpId().hashCode();
-		if( getRequiredIncName() != null ) {
-			hashCode = hashCode + getRequiredIncName().hashCode();
+		if( getRequiredInclName() != null ) {
+			hashCode = hashCode + getRequiredInclName().hashCode();
 		}
 		return( hashCode & 0x7fffffff );
 	}
@@ -368,9 +368,9 @@ public class CFSecBuffSecTentGrpInc
 			else if (rhs.getRequiredSecTentGrpId() != null) {
 				return( -1 );
 			}
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -379,7 +379,7 @@ public class CFSecBuffSecTentGrpInc
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}
 			return( 0 );
@@ -406,9 +406,9 @@ public class CFSecBuffSecTentGrpInc
 			else if (rhs.getRequiredSecTentGrpId() != null) {
 				return( -1 );
 			}
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -417,7 +417,7 @@ public class CFSecBuffSecTentGrpInc
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}
 			return( 0 );
@@ -439,9 +439,9 @@ public class CFSecBuffSecTentGrpInc
 			else if (rhs.getRequiredSecTentGrpId() != null) {
 				return( -1 );
 			}
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -450,7 +450,7 @@ public class CFSecBuffSecTentGrpInc
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}
 			return( 0 );
@@ -476,9 +476,9 @@ public class CFSecBuffSecTentGrpInc
 		else if( obj instanceof ICFSecSecTentGrpIncByNameIdxKey ) {
 			ICFSecSecTentGrpIncByNameIdxKey rhs = (ICFSecSecTentGrpIncByNameIdxKey)obj;
 
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -487,7 +487,7 @@ public class CFSecBuffSecTentGrpInc
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}			return( 0 );
 		}
@@ -508,7 +508,7 @@ public class CFSecBuffSecTentGrpInc
 	@Override
 	public void setSecTentGrpInc( ICFSecSecTentGrpInc src ) {
 		setRequiredSecTentGrpId(src.getRequiredSecTentGrpId());
-		setRequiredIncName(src.getRequiredIncName());
+		setRequiredInclName(src.getRequiredInclName());
 		setRequiredRevision( src.getRequiredRevision() );
 		setCreatedByUserId( src.getCreatedByUserId() );
 		setCreatedAt( src.getCreatedAt() );
@@ -524,7 +524,7 @@ public class CFSecBuffSecTentGrpInc
 	@Override
 	public void setSecTentGrpInc( ICFSecSecTentGrpIncH src ) {
 		setRequiredSecTentGrpId(src.getRequiredSecTentGrpId());
-		setRequiredIncName(src.getRequiredIncName());
+		setRequiredInclName(src.getRequiredInclName());
 	}
 
 	@Override
@@ -532,7 +532,7 @@ public class CFSecBuffSecTentGrpInc
 		String ret = pkey.getXmlAttrFragment() 
 			+ " RequiredRevision=\"" + Integer.toString( getRequiredRevision() ) + "\""
 			+ " RequiredSecTentGrpId=" + "\"" + getRequiredSecTentGrpId().toString() + "\""
-			+ " RequiredIncName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredIncName() ) + "\"";
+			+ " RequiredInclName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredInclName() ) + "\"";
 		return( ret );
 	}
 

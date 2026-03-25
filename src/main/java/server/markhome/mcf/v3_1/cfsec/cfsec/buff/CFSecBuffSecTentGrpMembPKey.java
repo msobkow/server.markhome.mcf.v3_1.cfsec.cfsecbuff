@@ -46,17 +46,17 @@ import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 /*
  *	CFSecBuffSecTentGrpMembPKey Primary Key for SecTentGrpMemb buffers
  *		requiredSecTentGrpId	Required object attribute SecTentGrpId.
- *		requiredSecUserId	Required object attribute SecUserId.
+ *		requiredLoginId	Required object attribute LoginId.
  */
 public class CFSecBuffSecTentGrpMembPKey
 	implements ICFSecSecTentGrpMembPKey, Comparable<ICFSecSecTentGrpMembPKey>, Serializable
 {
 	protected CFLibDbKeyHash256 requiredSecTentGrpId;
-	protected CFLibDbKeyHash256 requiredSecUserId;
+	protected String requiredLoginId;
 
 	public CFSecBuffSecTentGrpMembPKey() {
 		requiredSecTentGrpId = CFLibDbKeyHash256.fromHex( ICFSecSecTentGrpMemb.SECTENTGRPID_INIT_VALUE.toString() );
-		requiredSecUserId = CFLibDbKeyHash256.fromHex( ICFSecSecTentGrpMemb.SECUSERID_INIT_VALUE.toString() );
+		requiredLoginId = ICFSecSecTentGrpMemb.LOGINID_INIT_VALUE;
 	}
 
 	@Override
@@ -76,19 +76,27 @@ public class CFSecBuffSecTentGrpMembPKey
 	}
 
 	@Override
-	public CFLibDbKeyHash256 getRequiredSecUserId() {
-		return( requiredSecUserId );
+	public String getRequiredLoginId() {
+		return( requiredLoginId );
 	}
 
 	@Override
-	public void setRequiredSecUserId( CFLibDbKeyHash256 value ) {
-		if( value == null || value.isNull() ) {
+	public void setRequiredLoginId( String value ) {
+		if( value == null ) {
 			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredSecUserId",
+				"setRequiredLoginId",
 				1,
 				"value" );
 		}
-		requiredSecUserId = value;
+		else if( value.length() > 32 ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"setRequiredLoginId",
+				1,
+				"value.length()",
+				value.length(),
+				32 );
+		}
+		requiredLoginId = value;
 	}
 
 	@Override
@@ -113,9 +121,9 @@ public class CFSecBuffSecTentGrpMembPKey
 					return( false );
 				}
 			}
-			if( getRequiredSecUserId() != null ) {
-				if( rhs.getRequiredSecUserId() != null ) {
-					if( ! getRequiredSecUserId().equals( rhs.getRequiredSecUserId() ) ) {
+			if( getRequiredLoginId() != null ) {
+				if( rhs.getRequiredLoginId() != null ) {
+					if( ! getRequiredLoginId().equals( rhs.getRequiredLoginId() ) ) {
 						return( false );
 					}
 				}
@@ -124,7 +132,7 @@ public class CFSecBuffSecTentGrpMembPKey
 				}
 			}
 			else {
-				if( rhs.getRequiredSecUserId() != null ) {
+				if( rhs.getRequiredLoginId() != null ) {
 					return( false );
 				}
 			}
@@ -139,7 +147,9 @@ public class CFSecBuffSecTentGrpMembPKey
 	public int hashCode() {
 		int hashCode = 0;
 		hashCode = hashCode + getRequiredSecTentGrpId().hashCode();
-		hashCode = hashCode + getRequiredSecUserId().hashCode();
+		if( getRequiredLoginId() != null ) {
+			hashCode = hashCode + getRequiredLoginId().hashCode();
+		}
 		return( hashCode & 0x7fffffff );
 	}
 
@@ -163,9 +173,9 @@ public class CFSecBuffSecTentGrpMembPKey
 			else if (rhs.getRequiredSecTentGrpId() != null) {
 				return( -1 );
 			}
-			if (getRequiredSecUserId() != null) {
-				if (rhs.getRequiredSecUserId() != null) {
-					cmp = getRequiredSecUserId().compareTo( rhs.getRequiredSecUserId() );
+			if (getRequiredLoginId() != null) {
+				if (rhs.getRequiredLoginId() != null) {
+					cmp = getRequiredLoginId().compareTo( rhs.getRequiredLoginId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -174,7 +184,7 @@ public class CFSecBuffSecTentGrpMembPKey
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredSecUserId() != null) {
+			else if (rhs.getRequiredLoginId() != null) {
 				return( -1 );
 			}
 		return( 0 );
@@ -184,7 +194,7 @@ public class CFSecBuffSecTentGrpMembPKey
 	public String getXmlAttrFragment() {
 		String ret = "" 
 			+ " RequiredSecTentGrpId=" + "\"" + getRequiredSecTentGrpId().toString() + "\""
-			+ " RequiredSecUserId=" + "\"" + getRequiredSecUserId().toString() + "\"";
+			+ " RequiredLoginId=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredLoginId() ) + "\"";
 		return( ret );
 	}
 

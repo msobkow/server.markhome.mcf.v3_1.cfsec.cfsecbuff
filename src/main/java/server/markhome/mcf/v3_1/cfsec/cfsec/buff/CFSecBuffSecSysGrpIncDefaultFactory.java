@@ -68,7 +68,7 @@ public class CFSecBuffSecSysGrpIncDefaultFactory
 		else {
 			CFSecBuffSecSysGrpIncPKey mapped = new CFSecBuffSecSysGrpIncPKey();
 			mapped.setRequiredContainerGroup( key.getRequiredSecSysGrpId() );
-			mapped.setRequiredParentSubGroup( key.getRequiredIncName() );
+			mapped.setRequiredParentSubGroup( key.getRequiredInclName() );
 			return( mapped );
 		}
 	}
@@ -94,7 +94,7 @@ public class CFSecBuffSecSysGrpIncDefaultFactory
 			mapped.setAuditSessionId(key.getAuditSessionId());
 			mapped.setAuditStamp(key.getAuditStamp());
 			mapped.setRequiredSecSysGrpId( key.getRequiredSecSysGrpId() );
-			mapped.setRequiredIncName( key.getRequiredIncName() );
+			mapped.setRequiredInclName( key.getRequiredInclName() );
 			return( mapped );
 		}
 	}
@@ -136,7 +136,7 @@ public class CFSecBuffSecSysGrpIncDefaultFactory
 		}
 		else {
 			CFSecBuffSecSysGrpIncByNameIdxKey mapped = new CFSecBuffSecSysGrpIncByNameIdxKey();
-			mapped.setRequiredIncName( key.getRequiredIncName() );
+			mapped.setRequiredInclName( key.getRequiredInclName() );
 			return( mapped );
 		}
 	}

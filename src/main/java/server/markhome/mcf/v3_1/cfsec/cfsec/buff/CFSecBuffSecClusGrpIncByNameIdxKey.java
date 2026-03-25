@@ -46,33 +46,33 @@ import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 public class CFSecBuffSecClusGrpIncByNameIdxKey
 	implements ICFSecSecClusGrpIncByNameIdxKey, Comparable<Object>, Serializable
 {
-	protected String requiredIncName;
+	protected String requiredInclName;
 	public CFSecBuffSecClusGrpIncByNameIdxKey() {
-		requiredIncName = ICFSecSecClusGrpInc.INCNAME_INIT_VALUE;
+		requiredInclName = ICFSecSecClusGrpInc.INCLNAME_INIT_VALUE;
 	}
 
 	@Override
-	public String getRequiredIncName() {
-		return( requiredIncName );
+	public String getRequiredInclName() {
+		return( requiredInclName );
 	}
 
 	@Override
-	public void setRequiredIncName( String value ) {
+	public void setRequiredInclName( String value ) {
 		if( value == null ) {
 			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredIncName",
+				"setRequiredInclName",
 				1,
 				"value" );
 		}
 		else if( value.length() > 64 ) {
 			throw new CFLibArgumentOverflowException( getClass(),
-				"setRequiredIncName",
+				"setRequiredInclName",
 				1,
 				"value.length()",
 				value.length(),
 				64 );
 		}
-		requiredIncName = value;
+		requiredInclName = value;
 	}
 
 	@Override
@@ -82,9 +82,9 @@ public class CFSecBuffSecClusGrpIncByNameIdxKey
 		}
 		else if( obj instanceof ICFSecSecClusGrpIncByNameIdxKey ) {
 			ICFSecSecClusGrpIncByNameIdxKey rhs = (ICFSecSecClusGrpIncByNameIdxKey)obj;
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -93,7 +93,7 @@ public class CFSecBuffSecClusGrpIncByNameIdxKey
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -101,9 +101,9 @@ public class CFSecBuffSecClusGrpIncByNameIdxKey
 		}
 		else if( obj instanceof ICFSecSecClusGrpInc) {
 			ICFSecSecClusGrpInc rhs = (ICFSecSecClusGrpInc)obj;
-			if( getRequiredIncName() != null ) {
-				if( rhs.getRequiredIncName() != null ) {
-					if( ! getRequiredIncName().equals( rhs.getRequiredIncName() ) ) {
+			if( getRequiredInclName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
+					if( ! getRequiredInclName().equals( rhs.getRequiredInclName() ) ) {
 						return( false );
 					}
 				}
@@ -112,7 +112,7 @@ public class CFSecBuffSecClusGrpIncByNameIdxKey
 				}
 			}
 			else {
-				if( rhs.getRequiredIncName() != null ) {
+				if( rhs.getRequiredInclName() != null ) {
 					return( false );
 				}
 			}
@@ -126,8 +126,8 @@ public class CFSecBuffSecClusGrpIncByNameIdxKey
 	@Override
 	public int hashCode() {
 		int hashCode = 0;
-		if( getRequiredIncName() != null ) {
-			hashCode = hashCode + getRequiredIncName().hashCode();
+		if( getRequiredInclName() != null ) {
+			hashCode = hashCode + getRequiredInclName().hashCode();
 		}
 		return( hashCode & 0x7fffffff );
 	}
@@ -140,9 +140,9 @@ public class CFSecBuffSecClusGrpIncByNameIdxKey
 		}
 		else if( obj instanceof ICFSecSecClusGrpIncByNameIdxKey ) {
 			ICFSecSecClusGrpIncByNameIdxKey rhs = (ICFSecSecClusGrpIncByNameIdxKey)obj;
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -151,16 +151,16 @@ public class CFSecBuffSecClusGrpIncByNameIdxKey
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}
 			return( 0 );
 		}
 		else if( obj instanceof ICFSecSecClusGrpInc ) {
 			ICFSecSecClusGrpInc rhs = (ICFSecSecClusGrpInc)obj;
-			if (getRequiredIncName() != null) {
-				if (rhs.getRequiredIncName() != null) {
-					cmp = getRequiredIncName().compareTo( rhs.getRequiredIncName() );
+			if (getRequiredInclName() != null) {
+				if (rhs.getRequiredInclName() != null) {
+					cmp = getRequiredInclName().compareTo( rhs.getRequiredInclName() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -169,7 +169,7 @@ public class CFSecBuffSecClusGrpIncByNameIdxKey
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredIncName() != null) {
+			else if (rhs.getRequiredInclName() != null) {
 				return( -1 );
 			}
 			return( 0 );
@@ -186,7 +186,7 @@ public class CFSecBuffSecClusGrpIncByNameIdxKey
 	@Override
 	public String getXmlAttrFragment() {
 		String ret = ""
-			+ " RequiredIncName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredIncName() ) + "\"";
+			+ " RequiredInclName=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredInclName() ) + "\"";
 		return( ret );
 	}
 
