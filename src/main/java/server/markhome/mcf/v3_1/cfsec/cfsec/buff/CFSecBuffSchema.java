@@ -112,6 +112,20 @@ public class CFSecBuffSchema
 			throw new CFLibNullArgumentException(CFSecBuffSchema.class, "wireRecConstructors", 0, "ICFSecSchema.getClassMapByBackingClassCode(ICFSecCluster.CLASS_CODE)[" + ICFSecCluster.CLASS_CODE + "]");
 		}
 	
+		entry = ICFSecSchema.getClassMapByBackingClassCode(ICFSecTenant.CLASS_CODE);
+		if (entry != null) {
+			entry.setBackingRecConstructor( new BackingRecConstructor() {
+				@Override
+				public Object instantiate() {
+					ICFSecTenant ret = new CFSecBuffTenant();
+					return(ret);
+				}
+			});
+		}
+		else {
+			throw new CFLibNullArgumentException(CFSecBuffSchema.class, "wireRecConstructors", 0, "ICFSecSchema.getClassMapByBackingClassCode(ICFSecTenant.CLASS_CODE)[" + ICFSecTenant.CLASS_CODE + "]");
+		}
+	
 		entry = ICFSecSchema.getClassMapByBackingClassCode(ICFSecISOCcy.CLASS_CODE);
 		if (entry != null) {
 			entry.setBackingRecConstructor( new BackingRecConstructor() {
@@ -390,20 +404,6 @@ public class CFSecBuffSchema
 		}
 		else {
 			throw new CFLibNullArgumentException(CFSecBuffSchema.class, "wireRecConstructors", 0, "ICFSecSchema.getClassMapByBackingClassCode(ICFSecSysCluster.CLASS_CODE)[" + ICFSecSysCluster.CLASS_CODE + "]");
-		}
-	
-		entry = ICFSecSchema.getClassMapByBackingClassCode(ICFSecTenant.CLASS_CODE);
-		if (entry != null) {
-			entry.setBackingRecConstructor( new BackingRecConstructor() {
-				@Override
-				public Object instantiate() {
-					ICFSecTenant ret = new CFSecBuffTenant();
-					return(ret);
-				}
-			});
-		}
-		else {
-			throw new CFLibNullArgumentException(CFSecBuffSchema.class, "wireRecConstructors", 0, "ICFSecSchema.getClassMapByBackingClassCode(ICFSecTenant.CLASS_CODE)[" + ICFSecTenant.CLASS_CODE + "]");
 		}
 	
 	}
