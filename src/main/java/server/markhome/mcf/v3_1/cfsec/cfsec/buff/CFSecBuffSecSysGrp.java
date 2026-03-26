@@ -190,6 +190,29 @@ public class CFSecBuffSecSysGrp
 		}
 	}
 	@Override
+	public List<ICFSecSecSysGrpInc> getOptionalChildrenSysGrpByName() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenSysGrpByName", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecSysGrpIncTable targetTable = targetBackingSchema.getTableSecSysGrpInc();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenSysGrpByName", 0, "ICFSecSchema.getBackingCFSec().getTableSecSysGrpInc()");
+		}
+		ICFSecSecSysGrpInc[] targetArr = targetTable.readDerivedByNameIdx(null, getRequiredName());
+		if( targetArr != null ) {
+			List<ICFSecSecSysGrpInc> results = new ArrayList<>(targetArr.length);
+			for (int idx = 0; idx < targetArr.length; idx++) {
+				results.add(targetArr[idx]);
+			}
+			return( results );
+		}
+		else {
+			List<ICFSecSecSysGrpInc> results = new ArrayList<>();
+			return( results );
+		}
+	}
+	@Override
 	public String getRequiredName() {
 		return( requiredName );
 	}

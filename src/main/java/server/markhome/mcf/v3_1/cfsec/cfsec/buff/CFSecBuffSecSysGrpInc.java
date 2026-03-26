@@ -110,7 +110,7 @@ public class CFSecBuffSecSysGrpInc
 
 	@Override
 	public String getRequiredInclName() {
-		return (getPKey().getRequiredParentSubGroup().getRequiredInclName());
+		return (getPKey().getRequiredParentSubGroup().getRequiredName());
 	}
 
 	@Override

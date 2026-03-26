@@ -88,6 +88,34 @@ public class CFSecBuffSecSysGrpIncPKey
 		requiredSecSysGrpId = argSecSysGrpId;
 	}
 	@Override
+	public ICFSecSecSysGrp getRequiredParentSubGroup() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredParentSubGroup", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecSysGrpTable targetTable = targetBackingSchema.getTableSecSysGrp();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredParentSubGroup", 0, "ICFSecSchema.getBackingCFSec().getTableSecSysGrp()");
+		}
+		ICFSecSecSysGrp targetRec = targetTable.readDerivedByUNameIdx(null, getRequiredInclName());
+		return(targetRec);
+	}
+	@Override
+	public void setRequiredParentSubGroup(ICFSecSecSysGrp argObj) {
+		if(argObj == null) {
+			throw new CFLibNullArgumentException(getClass(), "setParentSubGroup", 1, "argObj");
+		}
+		else {
+			requiredInclName = argObj.getRequiredName();
+		}
+	
+	}
+
+	@Override
+	public void setRequiredParentSubGroup(String argInclName) {
+		requiredInclName = argInclName;
+	}
+	@Override
 	public CFLibDbKeyHash256 getRequiredSecSysGrpId() {
 		return( requiredSecSysGrpId );
 	}

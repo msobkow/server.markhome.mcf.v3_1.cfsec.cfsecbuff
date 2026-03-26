@@ -1015,6 +1015,7 @@ public class CFSecBuffSchema
 	}
 
 	public void bootstrapSchema() {
+	/**
 		CFSecBuffSysCluster sysCluster;
 		CFLibDbKeyHash256 systemClusterID;
 		CFSecBuffCluster systemCluster;
@@ -1173,6 +1174,7 @@ public class CFSecBuffSchema
 			bootstrapSession.setOptionalFinish(LocalDateTime.now());
 			bootstrapSession = (CFSecBuffSecSession)(getTableSecSession().updateSecSession(null, bootstrapSession));
 		}
+	**/
 
 	}
 }
