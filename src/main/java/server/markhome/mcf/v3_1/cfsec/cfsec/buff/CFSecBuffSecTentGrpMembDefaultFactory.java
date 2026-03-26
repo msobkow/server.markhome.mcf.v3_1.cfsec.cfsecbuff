@@ -67,8 +67,8 @@ public class CFSecBuffSecTentGrpMembDefaultFactory
 		}
 		else {
 			CFSecBuffSecTentGrpMembPKey mapped = new CFSecBuffSecTentGrpMembPKey();
-			mapped.setRequiredSecTentGrpId( key.getRequiredSecTentGrpId() );
-			mapped.setRequiredLoginId( key.getRequiredLoginId() );
+			mapped.setRequiredContainerGroup( key.getRequiredSecTentGrpId() );
+			mapped.setRequiredParentUser( key.getRequiredLoginId() );
 			return( mapped );
 		}
 	}

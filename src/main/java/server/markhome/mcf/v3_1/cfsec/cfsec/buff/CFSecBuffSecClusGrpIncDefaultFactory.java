@@ -67,8 +67,8 @@ public class CFSecBuffSecClusGrpIncDefaultFactory
 		}
 		else {
 			CFSecBuffSecClusGrpIncPKey mapped = new CFSecBuffSecClusGrpIncPKey();
-			mapped.setRequiredSecClusGrpId( key.getRequiredSecClusGrpId() );
-			mapped.setRequiredInclName( key.getRequiredInclName() );
+			mapped.setRequiredContainerGroup( key.getRequiredSecClusGrpId() );
+			mapped.setRequiredParentSubGroup( key.getRequiredInclName() );
 			return( mapped );
 		}
 	}

@@ -144,19 +144,82 @@ public class CFSecBuffSecTentGrp
 	}
 
 	@Override
-	public CFLibDbKeyHash256 getRequiredTenantId() {
-		return( requiredTenantId );
+	public List<ICFSecSecTentGrpInc> getOptionalChildrenIncByGrp() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenIncByGrp", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecTentGrpIncTable targetTable = targetBackingSchema.getTableSecTentGrpInc();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenIncByGrp", 0, "ICFSecSchema.getBackingCFSec().getTableSecTentGrpInc()");
+		}
+		ICFSecSecTentGrpInc[] targetArr = targetTable.readDerivedByTentGrpIdx(null, getRequiredSecTentGrpId());
+		if( targetArr != null ) {
+			List<ICFSecSecTentGrpInc> results = new ArrayList<>(targetArr.length);
+			for (int idx = 0; idx < targetArr.length; idx++) {
+				results.add(targetArr[idx]);
+			}
+			return( results );
+		}
+		else {
+			List<ICFSecSecTentGrpInc> results = new ArrayList<>();
+			return( results );
+		}
+	}
+	@Override
+	public List<ICFSecSecTentGrpMemb> getOptionalChildrenMembByGrp() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenMembByGrp", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecTentGrpMembTable targetTable = targetBackingSchema.getTableSecTentGrpMemb();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenMembByGrp", 0, "ICFSecSchema.getBackingCFSec().getTableSecTentGrpMemb()");
+		}
+		ICFSecSecTentGrpMemb[] targetArr = targetTable.readDerivedByTentGrpIdx(null, getRequiredSecTentGrpId());
+		if( targetArr != null ) {
+			List<ICFSecSecTentGrpMemb> results = new ArrayList<>(targetArr.length);
+			for (int idx = 0; idx < targetArr.length; idx++) {
+				results.add(targetArr[idx]);
+			}
+			return( results );
+		}
+		else {
+			List<ICFSecSecTentGrpMemb> results = new ArrayList<>();
+			return( results );
+		}
+	}
+	@Override
+	public ICFSecTenant getRequiredOwnerTenant() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredOwnerTenant", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecTenantTable targetTable = targetBackingSchema.getTableTenant();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredOwnerTenant", 0, "ICFSecSchema.getBackingCFSec().getTableTenant()");
+		}
+		ICFSecTenant targetRec = targetTable.readDerived(null, getRequiredTenantId());
+		return(targetRec);
+	}
+	@Override
+	public void setRequiredOwnerTenant(ICFSecTenant argObj) {
+		if(argObj == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOwnerTenant", 1, "argObj");
+		}
+		else {
+			requiredTenantId = argObj.getRequiredId();
+		}
 	}
 
 	@Override
-	public void setRequiredTenantId( CFLibDbKeyHash256 value ) {
-		if( value == null || value.isNull() ) {
-			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredTenantId",
-				1,
-				"value" );
-		}
-		requiredTenantId = value;
+	public void setRequiredOwnerTenant(CFLibDbKeyHash256 argTenantId) {
+		requiredTenantId = argTenantId;
+	}
+
+	@Override
+	public CFLibDbKeyHash256 getRequiredTenantId() {
+		return( requiredTenantId );
 	}
 
 	@Override
@@ -645,7 +708,7 @@ public class CFSecBuffSecTentGrp
 		setCreatedAt( src.getCreatedAt() );
 		setUpdatedByUserId( src.getUpdatedByUserId() );
 		setUpdatedAt( src.getUpdatedAt() );
-		setRequiredTenantId(src.getRequiredTenantId());
+		setRequiredOwnerTenant(src.getRequiredOwnerTenant());
 		setRequiredName(src.getRequiredName());
 	}
 
@@ -657,7 +720,7 @@ public class CFSecBuffSecTentGrp
 	@Override
 	public void setSecTentGrp( ICFSecSecTentGrpH src ) {
 		setRequiredSecTentGrpId(src.getRequiredSecTentGrpId());
-		setRequiredTenantId(src.getRequiredTenantId());
+		setRequiredOwnerTenant(src.getRequiredTenantId());
 		setRequiredName(src.getRequiredName());
 	}
 

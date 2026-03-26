@@ -213,6 +213,52 @@ public class CFSecBuffSecSysGrp
 		}
 	}
 	@Override
+	public List<ICFSecSecClusGrpInc> getOptionalChildrenClusGrpByName() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenClusGrpByName", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecClusGrpIncTable targetTable = targetBackingSchema.getTableSecClusGrpInc();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenClusGrpByName", 0, "ICFSecSchema.getBackingCFSec().getTableSecClusGrpInc()");
+		}
+		ICFSecSecClusGrpInc[] targetArr = targetTable.readDerivedByNameIdx(null, getRequiredName());
+		if( targetArr != null ) {
+			List<ICFSecSecClusGrpInc> results = new ArrayList<>(targetArr.length);
+			for (int idx = 0; idx < targetArr.length; idx++) {
+				results.add(targetArr[idx]);
+			}
+			return( results );
+		}
+		else {
+			List<ICFSecSecClusGrpInc> results = new ArrayList<>();
+			return( results );
+		}
+	}
+	@Override
+	public List<ICFSecSecTentGrpInc> getOptionalChildrenTentGrpByName() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenTentGrpByName", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecTentGrpIncTable targetTable = targetBackingSchema.getTableSecTentGrpInc();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenTentGrpByName", 0, "ICFSecSchema.getBackingCFSec().getTableSecTentGrpInc()");
+		}
+		ICFSecSecTentGrpInc[] targetArr = targetTable.readDerivedByNameIdx(null, getRequiredName());
+		if( targetArr != null ) {
+			List<ICFSecSecTentGrpInc> results = new ArrayList<>(targetArr.length);
+			for (int idx = 0; idx < targetArr.length; idx++) {
+				results.add(targetArr[idx]);
+			}
+			return( results );
+		}
+		else {
+			List<ICFSecSecTentGrpInc> results = new ArrayList<>();
+			return( results );
+		}
+	}
+	@Override
 	public String getRequiredName() {
 		return( requiredName );
 	}

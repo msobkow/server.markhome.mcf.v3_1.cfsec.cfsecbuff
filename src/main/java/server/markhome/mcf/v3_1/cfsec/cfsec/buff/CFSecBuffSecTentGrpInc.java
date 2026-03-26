@@ -74,23 +74,43 @@ public class CFSecBuffSecTentGrpInc
 	}
 
 	@Override
-	public CFLibDbKeyHash256 getRequiredSecTentGrpId() {
-		return( getPKey().getRequiredSecTentGrpId() );
+	public ICFSecSecTentGrp getRequiredContainerGroup() {
+		return( getPKey().getRequiredContainerGroup() );
+	}
+	
+	@Override
+	public void setRequiredContainerGroup(ICFSecSecTentGrp value) {
+		getPKey().setRequiredContainerGroup(value);
 	}
 
 	@Override
-	public void setRequiredSecTentGrpId(CFLibDbKeyHash256 value) {
-		getPKey().setRequiredSecTentGrpId(value);
+	public void setRequiredContainerGroup(CFLibDbKeyHash256 argSecTentGrpId) {
+		getPKey().setRequiredContainerGroup(argSecTentGrpId);
+	}
+
+	@Override
+	public CFLibDbKeyHash256 getRequiredSecTentGrpId() {
+		return (getPKey().getRequiredContainerGroup().getRequiredSecTentGrpId());
+	}
+
+	@Override
+	public ICFSecSecSysGrp getRequiredParentSubGroup() {
+		return( getPKey().getRequiredParentSubGroup() );
+	}
+	
+	@Override
+	public void setRequiredParentSubGroup(ICFSecSecSysGrp value) {
+		getPKey().setRequiredParentSubGroup(value);
+	}
+
+	@Override
+	public void setRequiredParentSubGroup(String argInclName) {
+		getPKey().setRequiredParentSubGroup(argInclName);
 	}
 
 	@Override
 	public String getRequiredInclName() {
-		return( getPKey().getRequiredInclName() );
-	}
-
-	@Override
-	public void setRequiredInclName(String value) {
-		getPKey().setRequiredInclName(value);
+		return (getPKey().getRequiredParentSubGroup().getRequiredName());
 	}
 
 	@Override
@@ -507,8 +527,8 @@ public class CFSecBuffSecTentGrpInc
 
 	@Override
 	public void setSecTentGrpInc( ICFSecSecTentGrpInc src ) {
-		setRequiredSecTentGrpId(src.getRequiredSecTentGrpId());
-		setRequiredInclName(src.getRequiredInclName());
+		setRequiredContainerGroup(src.getRequiredContainerGroup());
+		setRequiredParentSubGroup(src.getRequiredParentSubGroup());
 		setRequiredRevision( src.getRequiredRevision() );
 		setCreatedByUserId( src.getCreatedByUserId() );
 		setCreatedAt( src.getCreatedAt() );
@@ -523,8 +543,8 @@ public class CFSecBuffSecTentGrpInc
 
 	@Override
 	public void setSecTentGrpInc( ICFSecSecTentGrpIncH src ) {
-		setRequiredSecTentGrpId(src.getRequiredSecTentGrpId());
-		setRequiredInclName(src.getRequiredInclName());
+		setRequiredContainerGroup(src.getRequiredSecTentGrpId());
+		setRequiredParentSubGroup(src.getRequiredInclName());
 	}
 
 	@Override

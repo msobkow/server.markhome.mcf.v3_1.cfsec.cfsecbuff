@@ -178,6 +178,52 @@ public class CFSecBuffSecUser
 		}
 	}
 	@Override
+	public List<ICFSecSecClusGrpMemb> getOptionalChildrenClusSecGrpMemb() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenClusSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecClusGrpMembTable targetTable = targetBackingSchema.getTableSecClusGrpMemb();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenClusSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec().getTableSecClusGrpMemb()");
+		}
+		ICFSecSecClusGrpMemb[] targetArr = targetTable.readDerivedByLoginIdx(null, getRequiredLoginId());
+		if( targetArr != null ) {
+			List<ICFSecSecClusGrpMemb> results = new ArrayList<>(targetArr.length);
+			for (int idx = 0; idx < targetArr.length; idx++) {
+				results.add(targetArr[idx]);
+			}
+			return( results );
+		}
+		else {
+			List<ICFSecSecClusGrpMemb> results = new ArrayList<>();
+			return( results );
+		}
+	}
+	@Override
+	public List<ICFSecSecTentGrpMemb> getOptionalChildrenTentSecGrpMemb() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenTentSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecTentGrpMembTable targetTable = targetBackingSchema.getTableSecTentGrpMemb();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenTentSecGrpMemb", 0, "ICFSecSchema.getBackingCFSec().getTableSecTentGrpMemb()");
+		}
+		ICFSecSecTentGrpMemb[] targetArr = targetTable.readDerivedByUserIdx(null, getRequiredLoginId());
+		if( targetArr != null ) {
+			List<ICFSecSecTentGrpMemb> results = new ArrayList<>(targetArr.length);
+			for (int idx = 0; idx < targetArr.length; idx++) {
+				results.add(targetArr[idx]);
+			}
+			return( results );
+		}
+		else {
+			List<ICFSecSecTentGrpMemb> results = new ArrayList<>();
+			return( results );
+		}
+	}
+	@Override
 	public String getRequiredLoginId() {
 		return( requiredLoginId );
 	}

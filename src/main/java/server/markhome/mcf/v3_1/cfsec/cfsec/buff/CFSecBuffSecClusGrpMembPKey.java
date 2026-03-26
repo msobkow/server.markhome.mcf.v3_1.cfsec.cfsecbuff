@@ -60,43 +60,69 @@ public class CFSecBuffSecClusGrpMembPKey
 	}
 
 	@Override
+	public ICFSecSecClusGrp getRequiredContainerGroup() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerGroup", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecClusGrpTable targetTable = targetBackingSchema.getTableSecClusGrp();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerGroup", 0, "ICFSecSchema.getBackingCFSec().getTableSecClusGrp()");
+		}
+		ICFSecSecClusGrp targetRec = targetTable.readDerived(null, getRequiredSecClusGrpId());
+		return(targetRec);
+	}
+	@Override
+	public void setRequiredContainerGroup(ICFSecSecClusGrp argObj) {
+		if(argObj == null) {
+			throw new CFLibNullArgumentException(getClass(), "setContainerGroup", 1, "argObj");
+		}
+		else {
+			requiredSecClusGrpId = argObj.getRequiredSecClusGrpId();
+		}
+	
+	}
+
+	@Override
+	public void setRequiredContainerGroup(CFLibDbKeyHash256 argSecClusGrpId) {
+		requiredSecClusGrpId = argSecClusGrpId;
+	}
+	@Override
+	public ICFSecSecUser getRequiredParentUser() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredParentUser", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecUserTable targetTable = targetBackingSchema.getTableSecUser();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredParentUser", 0, "ICFSecSchema.getBackingCFSec().getTableSecUser()");
+		}
+		ICFSecSecUser targetRec = targetTable.readDerivedByULoginIdx(null, getRequiredLoginId());
+		return(targetRec);
+	}
+	@Override
+	public void setRequiredParentUser(ICFSecSecUser argObj) {
+		if(argObj == null) {
+			throw new CFLibNullArgumentException(getClass(), "setParentUser", 1, "argObj");
+		}
+		else {
+			requiredLoginId = argObj.getRequiredLoginId();
+		}
+	
+	}
+
+	@Override
+	public void setRequiredParentUser(String argLoginId) {
+		requiredLoginId = argLoginId;
+	}
+	@Override
 	public CFLibDbKeyHash256 getRequiredSecClusGrpId() {
 		return( requiredSecClusGrpId );
 	}
 
 	@Override
-	public void setRequiredSecClusGrpId( CFLibDbKeyHash256 value ) {
-		if( value == null || value.isNull() ) {
-			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredSecClusGrpId",
-				1,
-				"value" );
-		}
-		requiredSecClusGrpId = value;
-	}
-
-	@Override
 	public String getRequiredLoginId() {
 		return( requiredLoginId );
-	}
-
-	@Override
-	public void setRequiredLoginId( String value ) {
-		if( value == null ) {
-			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredLoginId",
-				1,
-				"value" );
-		}
-		else if( value.length() > 32 ) {
-			throw new CFLibArgumentOverflowException( getClass(),
-				"setRequiredLoginId",
-				1,
-				"value.length()",
-				value.length(),
-				32 );
-		}
-		requiredLoginId = value;
 	}
 
 	@Override

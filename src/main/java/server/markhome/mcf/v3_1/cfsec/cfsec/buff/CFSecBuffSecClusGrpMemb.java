@@ -74,23 +74,43 @@ public class CFSecBuffSecClusGrpMemb
 	}
 
 	@Override
-	public CFLibDbKeyHash256 getRequiredSecClusGrpId() {
-		return( getPKey().getRequiredSecClusGrpId() );
+	public ICFSecSecClusGrp getRequiredContainerGroup() {
+		return( getPKey().getRequiredContainerGroup() );
+	}
+	
+	@Override
+	public void setRequiredContainerGroup(ICFSecSecClusGrp value) {
+		getPKey().setRequiredContainerGroup(value);
 	}
 
 	@Override
-	public void setRequiredSecClusGrpId(CFLibDbKeyHash256 value) {
-		getPKey().setRequiredSecClusGrpId(value);
+	public void setRequiredContainerGroup(CFLibDbKeyHash256 argSecClusGrpId) {
+		getPKey().setRequiredContainerGroup(argSecClusGrpId);
+	}
+
+	@Override
+	public CFLibDbKeyHash256 getRequiredSecClusGrpId() {
+		return (getPKey().getRequiredContainerGroup().getRequiredSecClusGrpId());
+	}
+
+	@Override
+	public ICFSecSecUser getRequiredParentUser() {
+		return( getPKey().getRequiredParentUser() );
+	}
+	
+	@Override
+	public void setRequiredParentUser(ICFSecSecUser value) {
+		getPKey().setRequiredParentUser(value);
+	}
+
+	@Override
+	public void setRequiredParentUser(String argLoginId) {
+		getPKey().setRequiredParentUser(argLoginId);
 	}
 
 	@Override
 	public String getRequiredLoginId() {
-		return( getPKey().getRequiredLoginId() );
-	}
-
-	@Override
-	public void setRequiredLoginId(String value) {
-		getPKey().setRequiredLoginId(value);
+		return (getPKey().getRequiredParentUser().getRequiredLoginId());
 	}
 
 	@Override
@@ -507,8 +527,8 @@ public class CFSecBuffSecClusGrpMemb
 
 	@Override
 	public void setSecClusGrpMemb( ICFSecSecClusGrpMemb src ) {
-		setRequiredSecClusGrpId(src.getRequiredSecClusGrpId());
-		setRequiredLoginId(src.getRequiredLoginId());
+		setRequiredContainerGroup(src.getRequiredContainerGroup());
+		setRequiredParentUser(src.getRequiredParentUser());
 		setRequiredRevision( src.getRequiredRevision() );
 		setCreatedByUserId( src.getCreatedByUserId() );
 		setCreatedAt( src.getCreatedAt() );
@@ -523,8 +543,8 @@ public class CFSecBuffSecClusGrpMemb
 
 	@Override
 	public void setSecClusGrpMemb( ICFSecSecClusGrpMembH src ) {
-		setRequiredSecClusGrpId(src.getRequiredSecClusGrpId());
-		setRequiredLoginId(src.getRequiredLoginId());
+		setRequiredContainerGroup(src.getRequiredSecClusGrpId());
+		setRequiredParentUser(src.getRequiredLoginId());
 	}
 
 	@Override
