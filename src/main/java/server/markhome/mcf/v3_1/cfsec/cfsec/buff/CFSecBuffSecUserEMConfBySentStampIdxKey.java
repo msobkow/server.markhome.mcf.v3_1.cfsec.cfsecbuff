@@ -1,4 +1,4 @@
-// Description: Java 25 implementation of a SecUser by PwdResetIdx index key buffer
+// Description: Java 25 implementation of a SecUserEMConf by SentStampIdx index key buffer
 
 /*
  *	server.markhome.mcf.CFSec
@@ -43,22 +43,28 @@ import server.markhome.mcf.v3_1.cflib.dbutil.*;
 import server.markhome.mcf.v3_1.cflib.xml.CFLibXmlUtil;
 import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 
-public class CFSecBuffSecUserByPwdResetIdxKey
-	implements ICFSecSecUserByPwdResetIdxKey, Comparable<Object>, Serializable
+public class CFSecBuffSecUserEMConfBySentStampIdxKey
+	implements ICFSecSecUserEMConfBySentStampIdxKey, Comparable<Object>, Serializable
 {
-	protected CFLibUuid6 optionalPasswordResetUuid6;
-	public CFSecBuffSecUserByPwdResetIdxKey() {
-		optionalPasswordResetUuid6 = null;
+	protected LocalDateTime requiredEMailSentStamp;
+	public CFSecBuffSecUserEMConfBySentStampIdxKey() {
+		requiredEMailSentStamp = CFLibXmlUtil.parseTimestamp("2020-01-01T00:00:00");
 	}
 
 	@Override
-	public CFLibUuid6 getOptionalPasswordResetUuid6() {
-		return( optionalPasswordResetUuid6 );
+	public LocalDateTime getRequiredEMailSentStamp() {
+		return( requiredEMailSentStamp );
 	}
 
 	@Override
-	public void setOptionalPasswordResetUuid6( CFLibUuid6 value ) {
-		optionalPasswordResetUuid6 = value;
+	public void setRequiredEMailSentStamp( LocalDateTime value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"setRequiredEMailSentStamp",
+				1,
+				"value" );
+		}
+		requiredEMailSentStamp = value;
 	}
 
 	@Override
@@ -66,11 +72,11 @@ public class CFSecBuffSecUserByPwdResetIdxKey
 		if( obj == null ) {
 			return( false );
 		}
-		else if( obj instanceof ICFSecSecUserByPwdResetIdxKey ) {
-			ICFSecSecUserByPwdResetIdxKey rhs = (ICFSecSecUserByPwdResetIdxKey)obj;
-			if( getOptionalPasswordResetUuid6() != null ) {
-				if( rhs.getOptionalPasswordResetUuid6() != null ) {
-					if( ! getOptionalPasswordResetUuid6().equals( rhs.getOptionalPasswordResetUuid6() ) ) {
+		else if( obj instanceof ICFSecSecUserEMConfBySentStampIdxKey ) {
+			ICFSecSecUserEMConfBySentStampIdxKey rhs = (ICFSecSecUserEMConfBySentStampIdxKey)obj;
+			if( getRequiredEMailSentStamp() != null ) {
+				if( rhs.getRequiredEMailSentStamp() != null ) {
+					if( ! getRequiredEMailSentStamp().equals( rhs.getRequiredEMailSentStamp() ) ) {
 						return( false );
 					}
 				}
@@ -79,17 +85,17 @@ public class CFSecBuffSecUserByPwdResetIdxKey
 				}
 			}
 			else {
-				if( rhs.getOptionalPasswordResetUuid6() != null ) {
+				if( rhs.getRequiredEMailSentStamp() != null ) {
 					return( false );
 				}
 			}
 			return( true );
 		}
-		else if( obj instanceof ICFSecSecUser) {
-			ICFSecSecUser rhs = (ICFSecSecUser)obj;
-			if( getOptionalPasswordResetUuid6() != null ) {
-				if( rhs.getOptionalPasswordResetUuid6() != null ) {
-					if( ! getOptionalPasswordResetUuid6().equals( rhs.getOptionalPasswordResetUuid6() ) ) {
+		else if( obj instanceof ICFSecSecUserEMConf) {
+			ICFSecSecUserEMConf rhs = (ICFSecSecUserEMConf)obj;
+			if( getRequiredEMailSentStamp() != null ) {
+				if( rhs.getRequiredEMailSentStamp() != null ) {
+					if( ! getRequiredEMailSentStamp().equals( rhs.getRequiredEMailSentStamp() ) ) {
 						return( false );
 					}
 				}
@@ -98,7 +104,7 @@ public class CFSecBuffSecUserByPwdResetIdxKey
 				}
 			}
 			else {
-				if( rhs.getOptionalPasswordResetUuid6() != null ) {
+				if( rhs.getRequiredEMailSentStamp() != null ) {
 					return( false );
 				}
 			}
@@ -112,8 +118,8 @@ public class CFSecBuffSecUserByPwdResetIdxKey
 	@Override
 	public int hashCode() {
 		int hashCode = 0;
-		if( getOptionalPasswordResetUuid6() != null ) {
-			hashCode = hashCode + getOptionalPasswordResetUuid6().hashCode();
+		if( getRequiredEMailSentStamp() != null ) {
+			hashCode = hashCode + getRequiredEMailSentStamp().hashCode();
 		}
 		return( hashCode & 0x7fffffff );
 	}
@@ -124,11 +130,11 @@ public class CFSecBuffSecUserByPwdResetIdxKey
 		if( obj == null ) {
 			return( 1 );
 		}
-		else if( obj instanceof ICFSecSecUserByPwdResetIdxKey ) {
-			ICFSecSecUserByPwdResetIdxKey rhs = (ICFSecSecUserByPwdResetIdxKey)obj;
-			if( getOptionalPasswordResetUuid6() != null ) {
-				if( rhs.getOptionalPasswordResetUuid6() != null ) {
-					cmp = getOptionalPasswordResetUuid6().compareTo( rhs.getOptionalPasswordResetUuid6() );
+		else if( obj instanceof ICFSecSecUserEMConfBySentStampIdxKey ) {
+			ICFSecSecUserEMConfBySentStampIdxKey rhs = (ICFSecSecUserEMConfBySentStampIdxKey)obj;
+			if (getRequiredEMailSentStamp() != null) {
+				if (rhs.getRequiredEMailSentStamp() != null) {
+					cmp = getRequiredEMailSentStamp().compareTo( rhs.getRequiredEMailSentStamp() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -137,18 +143,16 @@ public class CFSecBuffSecUserByPwdResetIdxKey
 					return( 1 );
 				}
 			}
-			else {
-				if( rhs.getOptionalPasswordResetUuid6() != null ) {
-					return( -1 );
-				}
+			else if (rhs.getRequiredEMailSentStamp() != null) {
+				return( -1 );
 			}
 			return( 0 );
 		}
-		else if( obj instanceof ICFSecSecUser ) {
-			ICFSecSecUser rhs = (ICFSecSecUser)obj;
-			if( getOptionalPasswordResetUuid6() != null ) {
-				if( rhs.getOptionalPasswordResetUuid6() != null ) {
-					cmp = getOptionalPasswordResetUuid6().compareTo( rhs.getOptionalPasswordResetUuid6() );
+		else if( obj instanceof ICFSecSecUserEMConf ) {
+			ICFSecSecUserEMConf rhs = (ICFSecSecUserEMConf)obj;
+			if (getRequiredEMailSentStamp() != null) {
+				if (rhs.getRequiredEMailSentStamp() != null) {
+					cmp = getRequiredEMailSentStamp().compareTo( rhs.getRequiredEMailSentStamp() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -157,10 +161,8 @@ public class CFSecBuffSecUserByPwdResetIdxKey
 					return( 1 );
 				}
 			}
-			else {
-				if( rhs.getOptionalPasswordResetUuid6() != null ) {
-					return( -1 );
-				}
+			else if (rhs.getRequiredEMailSentStamp() != null) {
+				return( -1 );
 			}
 			return( 0 );
 		}
@@ -176,13 +178,13 @@ public class CFSecBuffSecUserByPwdResetIdxKey
 	@Override
 	public String getXmlAttrFragment() {
 		String ret = ""
-			+ " OptionalPasswordResetUuid6=" + ( ( getOptionalPasswordResetUuid6() == null ) ? "null" : "\"" + getOptionalPasswordResetUuid6().toString() + "\"" );
+			+ " RequiredEMailSentStamp=" + "\"" + getRequiredEMailSentStamp().toString() + "\"";
 		return( ret );
 	}
 
 	@Override
 	public String toString() {
-		String ret = "<CFSecBuffSecUserByPwdResetIdxKey" + getXmlAttrFragment() + "/>";
+		String ret = "<CFSecBuffSecUserEMConfBySentStampIdxKey" + getXmlAttrFragment() + "/>";
 		return( ret );
 	}
 }

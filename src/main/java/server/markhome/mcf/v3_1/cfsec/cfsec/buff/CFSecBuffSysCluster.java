@@ -62,9 +62,7 @@ public class CFSecBuffSysCluster
 
 	@Override
 	public void setPKey(Integer requiredSingletonId) {
-		if (requiredSingletonId != null) {
-			setRequiredSingletonId(requiredSingletonId);
-		}
+		this.requiredSingletonId = requiredSingletonId;
 	}
 
 	@Override

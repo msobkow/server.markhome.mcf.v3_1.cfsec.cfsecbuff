@@ -63,25 +63,12 @@ public class CFSecBuffSecUserPassword
 
 	@Override
 	public void setPKey(CFLibDbKeyHash256 requiredSecUserId) {
-		if (requiredSecUserId != null) {
-			setRequiredSecUserId(requiredSecUserId);
-		}
+		this.requiredSecUserId = requiredSecUserId;
 	}
 
 	@Override
 	public CFLibDbKeyHash256 getRequiredSecUserId() {
 		return( requiredSecUserId );
-	}
-
-	@Override
-	public void setRequiredSecUserId( CFLibDbKeyHash256 value ) {
-		if( value == null || value.isNull() ) {
-			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredSecUserId",
-				1,
-				"value" );
-		}
-		requiredSecUserId = value;
 	}
 
 	@Override
@@ -99,6 +86,34 @@ public class CFSecBuffSecUserPassword
 		return( ICFSecSecUserPassword.CLASS_CODE );
 	}
 
+	@Override
+	public ICFSecSecUser getRequiredContainerUser() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerUser", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecUserTable targetTable = targetBackingSchema.getTableSecUser();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerUser", 0, "ICFSecSchema.getBackingCFSec().getTableSecUser()");
+		}
+		ICFSecSecUser targetRec = targetTable.readDerived(null, getRequiredSecUserId());
+		return(targetRec);
+	}
+	@Override
+	public void setRequiredContainerUser(ICFSecSecUser argObj) {
+		if(argObj == null) {
+			throw new CFLibNullArgumentException(getClass(), "setContainerUser", 1, "argObj");
+		}
+		else {
+			requiredSecUserId = argObj.getRequiredSecUserId();
+		}
+	
+	}
+
+	@Override
+	public void setRequiredContainerUser(CFLibDbKeyHash256 argSecUserId) {
+		requiredSecUserId = argSecUserId;
+	}
 	@Override
 	public LocalDateTime getRequiredPWSetStamp() {
 		return( requiredPWSetStamp );
@@ -318,7 +333,7 @@ public class CFSecBuffSecUserPassword
 
 	@Override
 	public void setSecUserPassword( ICFSecSecUserPassword src ) {
-		setRequiredSecUserId(src.getRequiredSecUserId());
+		setRequiredContainerUser(src.getRequiredContainerUser());
 		setRequiredRevision( src.getRequiredRevision() );
 		setRequiredPWSetStamp(src.getRequiredPWSetStamp());
 		setRequiredPasswordHash(src.getRequiredPasswordHash());

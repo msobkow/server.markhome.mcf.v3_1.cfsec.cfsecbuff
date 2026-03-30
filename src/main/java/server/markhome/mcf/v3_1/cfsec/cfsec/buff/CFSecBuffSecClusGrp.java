@@ -68,9 +68,7 @@ public class CFSecBuffSecClusGrp
 
 	@Override
 	public void setPKey(CFLibDbKeyHash256 requiredSecClusGrpId) {
-		if (requiredSecClusGrpId != null) {
-			setRequiredSecClusGrpId(requiredSecClusGrpId);
-		}
+		this.requiredSecClusGrpId = requiredSecClusGrpId;
 	}
 
 	@Override

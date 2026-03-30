@@ -70,9 +70,7 @@ public class CFSecBuffISOLang
 
 	@Override
 	public void setPKey(Short requiredISOLangId) {
-		if (requiredISOLangId != null) {
-			setRequiredISOLangId(requiredISOLangId);
-		}
+		this.requiredISOLangId = requiredISOLangId;
 	}
 
 	@Override

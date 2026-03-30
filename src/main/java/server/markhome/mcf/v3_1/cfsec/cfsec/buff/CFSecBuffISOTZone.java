@@ -76,9 +76,7 @@ public class CFSecBuffISOTZone
 
 	@Override
 	public void setPKey(Short requiredISOTZoneId) {
-		if (requiredISOTZoneId != null) {
-			setRequiredISOTZoneId(requiredISOTZoneId);
-		}
+		this.requiredISOTZoneId = requiredISOTZoneId;
 	}
 
 	@Override

@@ -68,9 +68,7 @@ public class CFSecBuffISOCtry
 
 	@Override
 	public void setPKey(Short requiredISOCtryId) {
-		if (requiredISOCtryId != null) {
-			setRequiredISOCtryId(requiredISOCtryId);
-		}
+		this.requiredISOCtryId = requiredISOCtryId;
 	}
 
 	@Override

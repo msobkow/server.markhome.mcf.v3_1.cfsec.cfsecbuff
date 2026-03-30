@@ -68,9 +68,7 @@ public class CFSecBuffSecSession
 
 	@Override
 	public void setPKey(CFLibDbKeyHash256 requiredSecSessionId) {
-		if (requiredSecSessionId != null) {
-			setRequiredSecSessionId(requiredSecSessionId);
-		}
+		this.requiredSecSessionId = requiredSecSessionId;
 	}
 
 	@Override

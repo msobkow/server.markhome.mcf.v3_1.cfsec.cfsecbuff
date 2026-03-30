@@ -62,7 +62,9 @@ public class CFSecBuffSchema
 	protected ICFSecSecTentGrpIncTable tableSecTentGrpInc;
 	protected ICFSecSecTentGrpMembTable tableSecTentGrpMemb;
 	protected ICFSecSecUserTable tableSecUser;
+	protected ICFSecSecUserEMConfTable tableSecUserEMConf;
 	protected ICFSecSecUserPWHistoryTable tableSecUserPWHistory;
+	protected ICFSecSecUserPWResetTable tableSecUserPWReset;
 	protected ICFSecSecUserPasswordTable tableSecUserPassword;
 	protected ICFSecSysClusterTable tableSysCluster;
 	protected ICFSecTenantTable tableTenant;
@@ -85,7 +87,9 @@ public class CFSecBuffSchema
 	protected ICFSecSecTentGrpIncFactory factorySecTentGrpInc;
 	protected ICFSecSecTentGrpMembFactory factorySecTentGrpMemb;
 	protected ICFSecSecUserFactory factorySecUser;
+	protected ICFSecSecUserEMConfFactory factorySecUserEMConf;
 	protected ICFSecSecUserPWHistoryFactory factorySecUserPWHistory;
+	protected ICFSecSecUserPWResetFactory factorySecUserPWReset;
 	protected ICFSecSecUserPasswordFactory factorySecUserPassword;
 	protected ICFSecSysClusterFactory factorySysCluster;
 	protected ICFSecTenantFactory factoryTenant;
@@ -236,6 +240,34 @@ public class CFSecBuffSchema
 		}
 		else {
 			throw new CFLibNullArgumentException(CFSecBuffSchema.class, "wireRecConstructors", 0, "ICFSecSchema.getClassMapByBackingClassCode(ICFSecSecUserPassword.CLASS_CODE)[" + ICFSecSecUserPassword.CLASS_CODE + "]");
+		}
+	
+		entry = ICFSecSchema.getClassMapByBackingClassCode(ICFSecSecUserEMConf.CLASS_CODE);
+		if (entry != null) {
+			entry.setBackingRecConstructor( new BackingRecConstructor() {
+				@Override
+				public Object instantiate() {
+					ICFSecSecUserEMConf ret = new CFSecBuffSecUserEMConf();
+					return(ret);
+				}
+			});
+		}
+		else {
+			throw new CFLibNullArgumentException(CFSecBuffSchema.class, "wireRecConstructors", 0, "ICFSecSchema.getClassMapByBackingClassCode(ICFSecSecUserEMConf.CLASS_CODE)[" + ICFSecSecUserEMConf.CLASS_CODE + "]");
+		}
+	
+		entry = ICFSecSchema.getClassMapByBackingClassCode(ICFSecSecUserPWReset.CLASS_CODE);
+		if (entry != null) {
+			entry.setBackingRecConstructor( new BackingRecConstructor() {
+				@Override
+				public Object instantiate() {
+					ICFSecSecUserPWReset ret = new CFSecBuffSecUserPWReset();
+					return(ret);
+				}
+			});
+		}
+		else {
+			throw new CFLibNullArgumentException(CFSecBuffSchema.class, "wireRecConstructors", 0, "ICFSecSchema.getClassMapByBackingClassCode(ICFSecSecUserPWReset.CLASS_CODE)[" + ICFSecSecUserPWReset.CLASS_CODE + "]");
 		}
 	
 		entry = ICFSecSchema.getClassMapByBackingClassCode(ICFSecSecUserPWHistory.CLASS_CODE);
@@ -444,7 +476,9 @@ public class CFSecBuffSchema
 	tableSecTentGrpInc = null; // new CFSecBuffSecTentGrpIncTable();
 	tableSecTentGrpMemb = null; // new CFSecBuffSecTentGrpMembTable();
 	tableSecUser = null; // new CFSecBuffSecUserTable();
+	tableSecUserEMConf = null; // new CFSecBuffSecUserEMConfTable();
 	tableSecUserPWHistory = null; // new CFSecBuffSecUserPWHistoryTable();
+	tableSecUserPWReset = null; // new CFSecBuffSecUserPWResetTable();
 	tableSecUserPassword = null; // new CFSecBuffSecUserPasswordTable();
 	tableSysCluster = null; // new CFSecBuffSysClusterTable();
 	tableTenant = null; // new CFSecBuffTenantTable();
@@ -467,7 +501,9 @@ public class CFSecBuffSchema
 	factorySecTentGrpInc = new CFSecBuffSecTentGrpIncDefaultFactory();
 	factorySecTentGrpMemb = new CFSecBuffSecTentGrpMembDefaultFactory();
 	factorySecUser = new CFSecBuffSecUserDefaultFactory();
+	factorySecUserEMConf = new CFSecBuffSecUserEMConfDefaultFactory();
 	factorySecUserPWHistory = new CFSecBuffSecUserPWHistoryDefaultFactory();
+	factorySecUserPWReset = new CFSecBuffSecUserPWResetDefaultFactory();
 	factorySecUserPassword = new CFSecBuffSecUserPasswordDefaultFactory();
 	factorySysCluster = new CFSecBuffSysClusterDefaultFactory();
 	factoryTenant = new CFSecBuffTenantDefaultFactory();	}
@@ -885,6 +921,22 @@ public class CFSecBuffSchema
 		factorySecUser = value;
 	}
 
+	public ICFSecSecUserEMConfTable getTableSecUserEMConf() {
+		return( tableSecUserEMConf );
+	}
+
+	public void setTableSecUserEMConf( ICFSecSecUserEMConfTable value ) {
+		tableSecUserEMConf = value;
+	}
+
+	public ICFSecSecUserEMConfFactory getFactorySecUserEMConf() {
+		return( factorySecUserEMConf );
+	}
+
+	public void setFactorySecUserEMConf( ICFSecSecUserEMConfFactory value ) {
+		factorySecUserEMConf = value;
+	}
+
 	public ICFSecSecUserPWHistoryTable getTableSecUserPWHistory() {
 		return( tableSecUserPWHistory );
 	}
@@ -899,6 +951,22 @@ public class CFSecBuffSchema
 
 	public void setFactorySecUserPWHistory( ICFSecSecUserPWHistoryFactory value ) {
 		factorySecUserPWHistory = value;
+	}
+
+	public ICFSecSecUserPWResetTable getTableSecUserPWReset() {
+		return( tableSecUserPWReset );
+	}
+
+	public void setTableSecUserPWReset( ICFSecSecUserPWResetTable value ) {
+		tableSecUserPWReset = value;
+	}
+
+	public ICFSecSecUserPWResetFactory getFactorySecUserPWReset() {
+		return( factorySecUserPWReset );
+	}
+
+	public void setFactorySecUserPWReset( ICFSecSecUserPWResetFactory value ) {
+		factorySecUserPWReset = value;
 	}
 
 	public ICFSecSecUserPasswordTable getTableSecUserPassword() {

@@ -1,4 +1,4 @@
-// Description: Java 25 implementation of a SecUser by EMConfIdx index key buffer
+// Description: Java 25 implementation of a SecUserPWReset by UUuid6Idx index key buffer
 
 /*
  *	server.markhome.mcf.CFSec
@@ -43,22 +43,27 @@ import server.markhome.mcf.v3_1.cflib.dbutil.*;
 import server.markhome.mcf.v3_1.cflib.xml.CFLibXmlUtil;
 import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 
-public class CFSecBuffSecUserByEMConfIdxKey
-	implements ICFSecSecUserByEMConfIdxKey, Comparable<Object>, Serializable
+public class CFSecBuffSecUserPWResetByUUuid6IdxKey
+	implements ICFSecSecUserPWResetByUUuid6IdxKey, Comparable<Object>, Serializable
 {
-	protected CFLibUuid6 optionalEMailConfirmUuid6;
-	public CFSecBuffSecUserByEMConfIdxKey() {
-		optionalEMailConfirmUuid6 = null;
+	protected CFLibUuid6 requiredPasswordResetUuid6;
+	public CFSecBuffSecUserPWResetByUUuid6IdxKey() {
 	}
 
 	@Override
-	public CFLibUuid6 getOptionalEMailConfirmUuid6() {
-		return( optionalEMailConfirmUuid6 );
+	public CFLibUuid6 getRequiredPasswordResetUuid6() {
+		return( requiredPasswordResetUuid6 );
 	}
 
 	@Override
-	public void setOptionalEMailConfirmUuid6( CFLibUuid6 value ) {
-		optionalEMailConfirmUuid6 = value;
+	public void setRequiredPasswordResetUuid6( CFLibUuid6 value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"setRequiredPasswordResetUuid6",
+				1,
+				"value" );
+		}
+		requiredPasswordResetUuid6 = value;
 	}
 
 	@Override
@@ -66,11 +71,11 @@ public class CFSecBuffSecUserByEMConfIdxKey
 		if( obj == null ) {
 			return( false );
 		}
-		else if( obj instanceof ICFSecSecUserByEMConfIdxKey ) {
-			ICFSecSecUserByEMConfIdxKey rhs = (ICFSecSecUserByEMConfIdxKey)obj;
-			if( getOptionalEMailConfirmUuid6() != null ) {
-				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
-					if( ! getOptionalEMailConfirmUuid6().equals( rhs.getOptionalEMailConfirmUuid6() ) ) {
+		else if( obj instanceof ICFSecSecUserPWResetByUUuid6IdxKey ) {
+			ICFSecSecUserPWResetByUUuid6IdxKey rhs = (ICFSecSecUserPWResetByUUuid6IdxKey)obj;
+			if( getRequiredPasswordResetUuid6() != null ) {
+				if( rhs.getRequiredPasswordResetUuid6() != null ) {
+					if( ! getRequiredPasswordResetUuid6().equals( rhs.getRequiredPasswordResetUuid6() ) ) {
 						return( false );
 					}
 				}
@@ -79,17 +84,17 @@ public class CFSecBuffSecUserByEMConfIdxKey
 				}
 			}
 			else {
-				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
+				if( rhs.getRequiredPasswordResetUuid6() != null ) {
 					return( false );
 				}
 			}
 			return( true );
 		}
-		else if( obj instanceof ICFSecSecUser) {
-			ICFSecSecUser rhs = (ICFSecSecUser)obj;
-			if( getOptionalEMailConfirmUuid6() != null ) {
-				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
-					if( ! getOptionalEMailConfirmUuid6().equals( rhs.getOptionalEMailConfirmUuid6() ) ) {
+		else if( obj instanceof ICFSecSecUserPWReset) {
+			ICFSecSecUserPWReset rhs = (ICFSecSecUserPWReset)obj;
+			if( getRequiredPasswordResetUuid6() != null ) {
+				if( rhs.getRequiredPasswordResetUuid6() != null ) {
+					if( ! getRequiredPasswordResetUuid6().equals( rhs.getRequiredPasswordResetUuid6() ) ) {
 						return( false );
 					}
 				}
@@ -98,7 +103,7 @@ public class CFSecBuffSecUserByEMConfIdxKey
 				}
 			}
 			else {
-				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
+				if( rhs.getRequiredPasswordResetUuid6() != null ) {
 					return( false );
 				}
 			}
@@ -112,9 +117,7 @@ public class CFSecBuffSecUserByEMConfIdxKey
 	@Override
 	public int hashCode() {
 		int hashCode = 0;
-		if( getOptionalEMailConfirmUuid6() != null ) {
-			hashCode = hashCode + getOptionalEMailConfirmUuid6().hashCode();
-		}
+		hashCode = hashCode + getRequiredPasswordResetUuid6().hashCode();
 		return( hashCode & 0x7fffffff );
 	}
 
@@ -124,11 +127,11 @@ public class CFSecBuffSecUserByEMConfIdxKey
 		if( obj == null ) {
 			return( 1 );
 		}
-		else if( obj instanceof ICFSecSecUserByEMConfIdxKey ) {
-			ICFSecSecUserByEMConfIdxKey rhs = (ICFSecSecUserByEMConfIdxKey)obj;
-			if( getOptionalEMailConfirmUuid6() != null ) {
-				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
-					cmp = getOptionalEMailConfirmUuid6().compareTo( rhs.getOptionalEMailConfirmUuid6() );
+		else if( obj instanceof ICFSecSecUserPWResetByUUuid6IdxKey ) {
+			ICFSecSecUserPWResetByUUuid6IdxKey rhs = (ICFSecSecUserPWResetByUUuid6IdxKey)obj;
+			if (getRequiredPasswordResetUuid6() != null) {
+				if (rhs.getRequiredPasswordResetUuid6() != null) {
+					cmp = getRequiredPasswordResetUuid6().compareTo( rhs.getRequiredPasswordResetUuid6() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -137,18 +140,16 @@ public class CFSecBuffSecUserByEMConfIdxKey
 					return( 1 );
 				}
 			}
-			else {
-				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
-					return( -1 );
-				}
+			else if (rhs.getRequiredPasswordResetUuid6() != null) {
+				return( -1 );
 			}
 			return( 0 );
 		}
-		else if( obj instanceof ICFSecSecUser ) {
-			ICFSecSecUser rhs = (ICFSecSecUser)obj;
-			if( getOptionalEMailConfirmUuid6() != null ) {
-				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
-					cmp = getOptionalEMailConfirmUuid6().compareTo( rhs.getOptionalEMailConfirmUuid6() );
+		else if( obj instanceof ICFSecSecUserPWReset ) {
+			ICFSecSecUserPWReset rhs = (ICFSecSecUserPWReset)obj;
+			if (getRequiredPasswordResetUuid6() != null) {
+				if (rhs.getRequiredPasswordResetUuid6() != null) {
+					cmp = getRequiredPasswordResetUuid6().compareTo( rhs.getRequiredPasswordResetUuid6() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -157,10 +158,8 @@ public class CFSecBuffSecUserByEMConfIdxKey
 					return( 1 );
 				}
 			}
-			else {
-				if( rhs.getOptionalEMailConfirmUuid6() != null ) {
-					return( -1 );
-				}
+			else if (rhs.getRequiredPasswordResetUuid6() != null) {
+				return( -1 );
 			}
 			return( 0 );
 		}
@@ -176,13 +175,13 @@ public class CFSecBuffSecUserByEMConfIdxKey
 	@Override
 	public String getXmlAttrFragment() {
 		String ret = ""
-			+ " OptionalEMailConfirmUuid6=" + ( ( getOptionalEMailConfirmUuid6() == null ) ? "null" : "\"" + getOptionalEMailConfirmUuid6().toString() + "\"" );
+			+ " RequiredPasswordResetUuid6=" + "\"" + getRequiredPasswordResetUuid6().toString() + "\"";
 		return( ret );
 	}
 
 	@Override
 	public String toString() {
-		String ret = "<CFSecBuffSecUserByEMConfIdxKey" + getXmlAttrFragment() + "/>";
+		String ret = "<CFSecBuffSecUserPWResetByUUuid6IdxKey" + getXmlAttrFragment() + "/>";
 		return( ret );
 	}
 }
