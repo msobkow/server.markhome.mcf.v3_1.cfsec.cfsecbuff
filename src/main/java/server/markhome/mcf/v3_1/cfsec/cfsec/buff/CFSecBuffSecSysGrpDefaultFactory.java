@@ -119,28 +119,6 @@ public class CFSecBuffSecSysGrpDefaultFactory
 	}
 
 	@Override
-	public ICFSecSecSysGrpBySecLevelNmIdxKey newBySecLevelNmIdxKey() {
-		ICFSecSecSysGrpBySecLevelNmIdxKey key =
-			new CFSecBuffSecSysGrpBySecLevelNmIdxKey();
-		return( key );
-	}
-
-	public CFSecBuffSecSysGrpBySecLevelNmIdxKey ensureBySecLevelNmIdxKey(ICFSecSecSysGrpBySecLevelNmIdxKey key) {
-		if (key == null) {
-			return( null );
-		}
-		else if (key instanceof CFSecBuffSecSysGrpBySecLevelNmIdxKey) {
-			return( (CFSecBuffSecSysGrpBySecLevelNmIdxKey)key );
-		}
-		else {
-			CFSecBuffSecSysGrpBySecLevelNmIdxKey mapped = new CFSecBuffSecSysGrpBySecLevelNmIdxKey();
-			mapped.setRequiredSecLevel( key.getRequiredSecLevel() );
-			mapped.setRequiredName( key.getRequiredName() );
-			return( mapped );
-		}
-	}
-
-	@Override
 	public ICFSecSecSysGrp newRec() {
 		ICFSecSecSysGrp rec =
 			new CFSecBuffSecSysGrp();

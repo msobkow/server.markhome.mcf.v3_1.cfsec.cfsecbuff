@@ -393,40 +393,6 @@ public class CFSecBuffSecSysGrpH
 			}
             return( true );
         }
-        else if (obj instanceof ICFSecSecSysGrpBySecLevelNmIdxKey) {
-            ICFSecSecSysGrpBySecLevelNmIdxKey rhs = (ICFSecSecSysGrpBySecLevelNmIdxKey)obj;
-			if( getRequiredSecLevel() != null ) {
-				if( rhs.getRequiredSecLevel() != null ) {
-					if( ! getRequiredSecLevel().equals( rhs.getRequiredSecLevel() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getRequiredSecLevel() != null ) {
-					return( false );
-				}
-			}
-			if( getRequiredName() != null ) {
-				if( rhs.getRequiredName() != null ) {
-					if( ! getRequiredName().equals( rhs.getRequiredName() ) ) {
-						return( false );
-					}
-				}
-				else {
-					return( false );
-				}
-			}
-			else {
-				if( rhs.getRequiredName() != null ) {
-					return( false );
-				}
-			}
-            return( true );
-        }
         else {
 			return( false );
         }
@@ -584,38 +550,6 @@ public class CFSecBuffSecSysGrpH
 				}
 			}
 			else if (rhs.getRequiredSecLevel() != null) {
-				return( -1 );
-			}
-            return( 0 );
-        }
-        else if (obj instanceof ICFSecSecSysGrpBySecLevelNmIdxKey ) {
-            ICFSecSecSysGrpBySecLevelNmIdxKey rhs = (ICFSecSecSysGrpBySecLevelNmIdxKey)obj;
-			if (getRequiredSecLevel() != null) {
-				if (rhs.getRequiredSecLevel() != null) {
-					cmp = getRequiredSecLevel().compareTo( rhs.getRequiredSecLevel() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else if (rhs.getRequiredSecLevel() != null) {
-				return( -1 );
-			}
-			if (getRequiredName() != null) {
-				if (rhs.getRequiredName() != null) {
-					cmp = getRequiredName().compareTo( rhs.getRequiredName() );
-					if( cmp != 0 ) {
-						return( cmp );
-					}
-				}
-				else {
-					return( 1 );
-				}
-			}
-			else if (rhs.getRequiredName() != null) {
 				return( -1 );
 			}
             return( 0 );
