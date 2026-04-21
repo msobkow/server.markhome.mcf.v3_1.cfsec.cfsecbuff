@@ -512,6 +512,24 @@ public class CFSecBuffSchema
 		throw new CFLibMustOverrideException( getClass(), "newSchema" );
 	}
 
+	@Override
+	public boolean isMemberOfTenantGroup(CFLibDbKeyHash256 userId, CFLibDbKeyHash256 tenantId, String permissionName) {
+		// Dummied out for now
+		return( true );
+	}
+
+	@Override
+	public boolean isMemberOfClusterGroup(CFLibDbKeyHash256 userId, CFLibDbKeyHash256 clusterId, String permissionName) {
+		// Dummied out for now
+		return( true );
+	}
+
+	@Override
+	public boolean isMemberOfSystemGroup(CFLibDbKeyHash256 userId, String permissionName) {
+		// Dummied out for now
+		return( true );
+	}
+
 	/**
 	 *	Get the next ISOCcyIdGen identifier.
 	 *
