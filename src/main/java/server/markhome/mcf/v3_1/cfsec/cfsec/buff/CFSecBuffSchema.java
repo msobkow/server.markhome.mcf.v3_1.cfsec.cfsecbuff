@@ -513,7 +513,13 @@ public class CFSecBuffSchema
 	}
 
 	@Override
-	public boolean isMemberOfTenantGroup(CFLibDbKeyHash256 userId, CFLibDbKeyHash256 tenantId, String permissionName) {
+	public boolean isMemberOfTenantGroup(CFLibDbKeyHash256 userId, CFLibDbKeyHash256 clusterId, CFLibDbKeyHash256 tenantId, String permissionName) {
+		// Dummied out for now
+		return( true );
+	}
+
+	@Override
+	public boolean isMemberOfTenantGroup(String userLogin, CFLibDbKeyHash256 clusterId, CFLibDbKeyHash256 tenantId, String permissionName) {
 		// Dummied out for now
 		return( true );
 	}
@@ -525,7 +531,19 @@ public class CFSecBuffSchema
 	}
 
 	@Override
+	public boolean isMemberOfClusterGroup(String userLogin, CFLibDbKeyHash256 clusterId, String permissionName) {
+		// Dummied out for now
+		return( true );
+	}
+
+	@Override
 	public boolean isMemberOfSystemGroup(CFLibDbKeyHash256 userId, String permissionName) {
+		// Dummied out for now
+		return( true );
+	}
+
+	@Override
+	public boolean isMemberOfSystemGroup(String userLogin, String permissionName) {
 		// Dummied out for now
 		return( true );
 	}
