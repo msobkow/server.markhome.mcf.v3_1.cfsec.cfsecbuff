@@ -188,6 +188,29 @@ public class CFSecBuffCluster
 		}
 	}
 	@Override
+	public List<ICFSecSecClusRole> getOptionalComponentsSecRole() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecRole", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecClusRoleTable targetTable = targetBackingSchema.getTableSecClusRole();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsSecRole", 0, "ICFSecSchema.getBackingCFSec().getTableSecClusRole()");
+		}
+		ICFSecSecClusRole[] targetArr = targetTable.readDerivedByClusterIdx(null, getRequiredId());
+		if( targetArr != null ) {
+			List<ICFSecSecClusRole> results = new ArrayList<>(targetArr.length);
+			for (int idx = 0; idx < targetArr.length; idx++) {
+				results.add(targetArr[idx]);
+			}
+			return( results );
+		}
+		else {
+			List<ICFSecSecClusRole> results = new ArrayList<>();
+			return( results );
+		}
+	}
+	@Override
 	public List<ICFSecSysCluster> getOptionalComponentsSysCluster() {
 		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
 		if (targetBackingSchema == null) {
