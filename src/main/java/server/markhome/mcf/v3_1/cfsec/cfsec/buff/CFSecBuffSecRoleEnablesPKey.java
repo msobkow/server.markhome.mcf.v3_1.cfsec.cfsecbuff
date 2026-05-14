@@ -69,7 +69,7 @@ public class CFSecBuffSecRoleEnablesPKey
 		if (targetTable == null) {
 			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerRole", 0, "ICFSecSchema.getBackingCFSec().getTableSecRole()");
 		}
-		ICFSecSecRole targetRec = targetTable.readDerived(null, getRequiredSecRoleId());
+		ICFSecSecRole targetRec = targetTable.readDerived(ICFSecSchema.getAuthorizationCallback().getEffectiveAuthorization(), getRequiredSecRoleId());
 		return(targetRec);
 	}
 	@Override
@@ -97,7 +97,7 @@ public class CFSecBuffSecRoleEnablesPKey
 		if (targetTable == null) {
 			throw new CFLibNullArgumentException(getClass(), "setRequiredParentEnableGroup", 0, "ICFSecSchema.getBackingCFSec().getTableSecSysGrp()");
 		}
-		ICFSecSecSysGrp targetRec = targetTable.readDerivedByUNameIdx(null, getRequiredEnableName());
+		ICFSecSecSysGrp targetRec = targetTable.readDerivedByUNameIdx(ICFSecSchema.getAuthorizationCallback().getEffectiveAuthorization(), getRequiredEnableName());
 		return(targetRec);
 	}
 	@Override

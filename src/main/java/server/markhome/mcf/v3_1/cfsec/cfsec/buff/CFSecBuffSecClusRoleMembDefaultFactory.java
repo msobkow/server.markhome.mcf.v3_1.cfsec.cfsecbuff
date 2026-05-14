@@ -67,8 +67,8 @@ public class CFSecBuffSecClusRoleMembDefaultFactory
 		}
 		else {
 			CFSecBuffSecClusRoleMembPKey mapped = new CFSecBuffSecClusRoleMembPKey();
-			mapped.setRequiredSecClusRoleId( key.getRequiredSecClusRoleId() );
-			mapped.setRequiredLoginId( key.getRequiredLoginId() );
+			mapped.setRequiredContainerRole( key.getRequiredSecClusRoleId() );
+			mapped.setRequiredParentUser( key.getRequiredLoginId() );
 			return( mapped );
 		}
 	}

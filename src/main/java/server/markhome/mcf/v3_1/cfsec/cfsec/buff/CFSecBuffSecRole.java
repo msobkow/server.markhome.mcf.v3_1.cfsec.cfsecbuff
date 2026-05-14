@@ -149,7 +149,7 @@ public class CFSecBuffSecRole
 		if (targetTable == null) {
 			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenEnabledByRole", 0, "ICFSecSchema.getBackingCFSec().getTableSecRoleEnables()");
 		}
-		ICFSecSecRoleEnables[] targetArr = targetTable.readDerivedByRoleIdx(null, getRequiredSecRoleId());
+		ICFSecSecRoleEnables[] targetArr = targetTable.readDerivedByRoleIdx(ICFSecSchema.getAuthorizationCallback().getEffectiveAuthorization(), getRequiredSecRoleId());
 		if( targetArr != null ) {
 			List<ICFSecSecRoleEnables> results = new ArrayList<>(targetArr.length);
 			for (int idx = 0; idx < targetArr.length; idx++) {
@@ -172,7 +172,7 @@ public class CFSecBuffSecRole
 		if (targetTable == null) {
 			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenMembByRole", 0, "ICFSecSchema.getBackingCFSec().getTableSecRoleMemb()");
 		}
-		ICFSecSecRoleMemb[] targetArr = targetTable.readDerivedByRoleIdx(null, getRequiredSecRoleId());
+		ICFSecSecRoleMemb[] targetArr = targetTable.readDerivedByRoleIdx(ICFSecSchema.getAuthorizationCallback().getEffectiveAuthorization(), getRequiredSecRoleId());
 		if( targetArr != null ) {
 			List<ICFSecSecRoleMemb> results = new ArrayList<>(targetArr.length);
 			for (int idx = 0; idx < targetArr.length; idx++) {

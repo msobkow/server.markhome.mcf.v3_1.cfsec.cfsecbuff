@@ -157,7 +157,7 @@ public class CFSecBuffISOCcy
 		if (targetTable == null) {
 			throw new CFLibNullArgumentException(getClass(), "setOptionalChildrenCtry", 0, "ICFSecSchema.getBackingCFSec().getTableISOCtryCcy()");
 		}
-		ICFSecISOCtryCcy[] targetArr = targetTable.readDerivedByCcyIdx(null, getRequiredISOCcyId());
+		ICFSecISOCtryCcy[] targetArr = targetTable.readDerivedByCcyIdx(ICFSecSchema.getAuthorizationCallback().getEffectiveAuthorization(), getRequiredISOCcyId());
 		if( targetArr != null ) {
 			List<ICFSecISOCtryCcy> results = new ArrayList<>(targetArr.length);
 			for (int idx = 0; idx < targetArr.length; idx++) {

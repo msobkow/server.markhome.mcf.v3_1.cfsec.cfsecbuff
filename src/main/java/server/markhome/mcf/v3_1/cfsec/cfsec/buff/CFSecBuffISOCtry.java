@@ -153,7 +153,7 @@ public class CFSecBuffISOCtry
 		if (targetTable == null) {
 			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsCcy", 0, "ICFSecSchema.getBackingCFSec().getTableISOCtryCcy()");
 		}
-		ICFSecISOCtryCcy[] targetArr = targetTable.readDerivedByCtryIdx(null, getRequiredISOCtryId());
+		ICFSecISOCtryCcy[] targetArr = targetTable.readDerivedByCtryIdx(ICFSecSchema.getAuthorizationCallback().getEffectiveAuthorization(), getRequiredISOCtryId());
 		if( targetArr != null ) {
 			List<ICFSecISOCtryCcy> results = new ArrayList<>(targetArr.length);
 			for (int idx = 0; idx < targetArr.length; idx++) {
@@ -176,7 +176,7 @@ public class CFSecBuffISOCtry
 		if (targetTable == null) {
 			throw new CFLibNullArgumentException(getClass(), "setOptionalComponentsLang", 0, "ICFSecSchema.getBackingCFSec().getTableISOCtryLang()");
 		}
-		ICFSecISOCtryLang[] targetArr = targetTable.readDerivedByCtryIdx(null, getRequiredISOCtryId());
+		ICFSecISOCtryLang[] targetArr = targetTable.readDerivedByCtryIdx(ICFSecSchema.getAuthorizationCallback().getEffectiveAuthorization(), getRequiredISOCtryId());
 		if( targetArr != null ) {
 			List<ICFSecISOCtryLang> results = new ArrayList<>(targetArr.length);
 			for (int idx = 0; idx < targetArr.length; idx++) {
