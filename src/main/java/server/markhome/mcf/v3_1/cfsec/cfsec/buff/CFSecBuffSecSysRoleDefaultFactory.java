@@ -1,5 +1,5 @@
 
-// Description: Java 25 Default Factory implementation for SecRole buffers
+// Description: Java 25 Default Factory implementation for SecSysRole buffers
 
 /*
  *	server.markhome.mcf.CFSec
@@ -43,97 +43,97 @@ import server.markhome.mcf.v3_1.cflib.xml.CFLibXmlUtil;
 import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 
 /*
- *	CFSecBuffSecRoleFactory implementation of ICFSecSecRoleFactory for SecRole
+ *	CFSecBuffSecSysRoleFactory implementation of ICFSecSecSysRoleFactory for SecSysRole
  */
-public class CFSecBuffSecRoleDefaultFactory
-	implements ICFSecSecRoleFactory
+public class CFSecBuffSecSysRoleDefaultFactory
+	implements ICFSecSecSysRoleFactory
 {
-	public CFSecBuffSecRoleDefaultFactory() {
+	public CFSecBuffSecSysRoleDefaultFactory() {
 	}
 
 	@Override
-	public ICFSecSecRoleHPKey newHPKey() {
-		ICFSecSecRoleHPKey hpkey =
-			new CFSecBuffSecRoleHPKey();
+	public ICFSecSecSysRoleHPKey newHPKey() {
+		ICFSecSecSysRoleHPKey hpkey =
+			new CFSecBuffSecSysRoleHPKey();
 		return( hpkey );
 	}
 
-	public CFSecBuffSecRoleHPKey ensureHPKey(ICFSecSecRoleHPKey key) {
+	public CFSecBuffSecSysRoleHPKey ensureHPKey(ICFSecSecSysRoleHPKey key) {
 		if (key == null) {
 			return( null );
 		}
-		else if( key instanceof CFSecBuffSecRoleHPKey) {
-			return( (CFSecBuffSecRoleHPKey)key );
+		else if( key instanceof CFSecBuffSecSysRoleHPKey) {
+			return( (CFSecBuffSecSysRoleHPKey)key );
 		}
 		else {
-			CFSecBuffSecRoleHPKey mapped = new CFSecBuffSecRoleHPKey();
+			CFSecBuffSecSysRoleHPKey mapped = new CFSecBuffSecSysRoleHPKey();
 			mapped.setAuditClusterId(key.getAuditClusterId());
 			mapped.setAuditActionId(key.getAuditActionId());
 			mapped.setAuditSessionId(key.getAuditSessionId());
 			mapped.setAuditStamp(key.getAuditStamp());
-			mapped.setRequiredSecRoleId( key.getRequiredSecRoleId() );
+			mapped.setRequiredSecSysRoleId( key.getRequiredSecSysRoleId() );
 			return( mapped );
 		}
 	}
 
 	@Override
-	public ICFSecSecRoleByUNameIdxKey newByUNameIdxKey() {
-		ICFSecSecRoleByUNameIdxKey key =
-			new CFSecBuffSecRoleByUNameIdxKey();
+	public ICFSecSecSysRoleByUNameIdxKey newByUNameIdxKey() {
+		ICFSecSecSysRoleByUNameIdxKey key =
+			new CFSecBuffSecSysRoleByUNameIdxKey();
 		return( key );
 	}
 
-	public CFSecBuffSecRoleByUNameIdxKey ensureByUNameIdxKey(ICFSecSecRoleByUNameIdxKey key) {
+	public CFSecBuffSecSysRoleByUNameIdxKey ensureByUNameIdxKey(ICFSecSecSysRoleByUNameIdxKey key) {
 		if (key == null) {
 			return( null );
 		}
-		else if (key instanceof CFSecBuffSecRoleByUNameIdxKey) {
-			return( (CFSecBuffSecRoleByUNameIdxKey)key );
+		else if (key instanceof CFSecBuffSecSysRoleByUNameIdxKey) {
+			return( (CFSecBuffSecSysRoleByUNameIdxKey)key );
 		}
 		else {
-			CFSecBuffSecRoleByUNameIdxKey mapped = new CFSecBuffSecRoleByUNameIdxKey();
+			CFSecBuffSecSysRoleByUNameIdxKey mapped = new CFSecBuffSecSysRoleByUNameIdxKey();
 			mapped.setRequiredName( key.getRequiredName() );
 			return( mapped );
 		}
 	}
 
 	@Override
-	public ICFSecSecRole newRec() {
-		ICFSecSecRole rec =
-			new CFSecBuffSecRole();
+	public ICFSecSecSysRole newRec() {
+		ICFSecSecSysRole rec =
+			new CFSecBuffSecSysRole();
 		return( rec );
 	}
 
-	public CFSecBuffSecRole ensureRec(ICFSecSecRole rec) {
+	public CFSecBuffSecSysRole ensureRec(ICFSecSecSysRole rec) {
 		if( rec == null ) {
 			return( null );
 		}
-		else if (rec instanceof CFSecBuffSecRole) {
-			return( (CFSecBuffSecRole)rec );
+		else if (rec instanceof CFSecBuffSecSysRole) {
+			return( (CFSecBuffSecSysRole)rec );
 		}
 		else {
-			CFSecBuffSecRole mapped = new CFSecBuffSecRole();
+			CFSecBuffSecSysRole mapped = new CFSecBuffSecSysRole();
 			mapped.set(rec);
 			return( mapped );
 		}
 	}
 
 	@Override
-	public ICFSecSecRoleH newHRec() {
-		ICFSecSecRoleH hrec =
-			new CFSecBuffSecRoleH();
+	public ICFSecSecSysRoleH newHRec() {
+		ICFSecSecSysRoleH hrec =
+			new CFSecBuffSecSysRoleH();
 		return( hrec );
 	}
 
-	public CFSecBuffSecRoleH ensureHRec(ICFSecSecRoleH hrec) {
+	public CFSecBuffSecSysRoleH ensureHRec(ICFSecSecSysRoleH hrec) {
 		if (hrec == null) {
 			return( null );
 		}
-		else if( hrec instanceof CFSecBuffSecRoleH) {
-			return( (CFSecBuffSecRoleH)hrec );
+		else if( hrec instanceof CFSecBuffSecSysRoleH) {
+			return( (CFSecBuffSecSysRoleH)hrec );
 		}
 		else {
-			CFSecBuffSecRoleH mapped = new CFSecBuffSecRoleH();
+			CFSecBuffSecSysRoleH mapped = new CFSecBuffSecSysRoleH();
 			mapped.set(hrec);
 			return( mapped );
 		}

@@ -193,6 +193,34 @@ public class CFSecBuffSecClusRole
 	}
 
 	@Override
+	public ICFSecSecSysGrp getRequiredContainerSysRole() {
+		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
+		if (targetBackingSchema == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerSysRole", 0, "ICFSecSchema.getBackingCFSec()");
+		}
+		ICFSecSecSysGrpTable targetTable = targetBackingSchema.getTableSecSysGrp();
+		if (targetTable == null) {
+			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerSysRole", 0, "ICFSecSchema.getBackingCFSec().getTableSecSysGrp()");
+		}
+		ICFSecSecSysGrp targetRec = targetTable.readDerivedByUNameIdx(ICFSecSchema.getAuthorizationCallback().getEffectiveAuthorization(), getRequiredName());
+		return(targetRec);
+	}
+	@Override
+	public void setRequiredContainerSysRole(ICFSecSecSysGrp argObj) {
+		if(argObj == null) {
+			throw new CFLibNullArgumentException(getClass(), "setContainerSysRole", 1, "argObj");
+		}
+		else {
+			requiredName = argObj.getRequiredName();
+		}
+	}
+
+	@Override
+	public void setRequiredContainerSysRole(String argName) {
+		requiredName = argName;
+	}
+
+	@Override
 	public CFLibDbKeyHash256 getRequiredClusterId() {
 		return( requiredClusterId );
 	}
@@ -200,25 +228,6 @@ public class CFSecBuffSecClusRole
 	@Override
 	public String getRequiredName() {
 		return( requiredName );
-	}
-
-	@Override
-	public void setRequiredName( String value ) {
-		if( value == null ) {
-			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredName",
-				1,
-				"value" );
-		}
-		else if( value.length() > 64 ) {
-			throw new CFLibArgumentOverflowException( getClass(),
-				"setRequiredName",
-				1,
-				"value.length()",
-				value.length(),
-				64 );
-		}
-		requiredName = value;
 	}
 
 	@Override
@@ -684,7 +693,7 @@ public class CFSecBuffSecClusRole
 		setUpdatedByUserId( src.getUpdatedByUserId() );
 		setUpdatedAt( src.getUpdatedAt() );
 		setRequiredOwnerCluster(src.getRequiredOwnerCluster());
-		setRequiredName(src.getRequiredName());
+		setRequiredContainerSysRole(src.getRequiredContainerSysRole());
 	}
 
 	@Override
@@ -696,7 +705,7 @@ public class CFSecBuffSecClusRole
 	public void setSecClusRole( ICFSecSecClusRoleH src ) {
 		setRequiredSecClusRoleId(src.getRequiredSecClusRoleId());
 		setRequiredOwnerCluster(src.getRequiredClusterId());
-		setRequiredName(src.getRequiredName());
+		setRequiredContainerSysRole(src.getRequiredName());
 	}
 
 	@Override

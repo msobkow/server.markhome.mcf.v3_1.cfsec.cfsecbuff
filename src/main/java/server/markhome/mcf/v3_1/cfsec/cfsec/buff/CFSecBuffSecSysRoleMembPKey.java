@@ -1,4 +1,4 @@
-// Description: Java 25 implementation of a SecRoleMemb primary key buffer object
+// Description: Java 25 implementation of a SecSysRoleMemb primary key buffer object
 
 /*
  *	server.markhome.mcf.CFSec
@@ -44,48 +44,48 @@ import server.markhome.mcf.v3_1.cflib.xml.CFLibXmlUtil;
 import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 
 /*
- *	CFSecBuffSecRoleMembPKey Primary Key for SecRoleMemb buffers
- *		requiredSecRoleId	Required object attribute SecRoleId.
+ *	CFSecBuffSecSysRoleMembPKey Primary Key for SecSysRoleMemb buffers
+ *		requiredSecSysRoleId	Required object attribute SecSysRoleId.
  *		requiredLoginId	Required object attribute LoginId.
  */
-public class CFSecBuffSecRoleMembPKey
-	implements ICFSecSecRoleMembPKey, Comparable<ICFSecSecRoleMembPKey>, Serializable
+public class CFSecBuffSecSysRoleMembPKey
+	implements ICFSecSecSysRoleMembPKey, Comparable<ICFSecSecSysRoleMembPKey>, Serializable
 {
-	protected CFLibDbKeyHash256 requiredSecRoleId;
+	protected CFLibDbKeyHash256 requiredSecSysRoleId;
 	protected String requiredLoginId;
 
-	public CFSecBuffSecRoleMembPKey() {
-		requiredSecRoleId = CFLibDbKeyHash256.fromHex( ICFSecSecRoleMemb.SECROLEID_INIT_VALUE.toString() );
-		requiredLoginId = ICFSecSecRoleMemb.LOGINID_INIT_VALUE;
+	public CFSecBuffSecSysRoleMembPKey() {
+		requiredSecSysRoleId = CFLibDbKeyHash256.fromHex( ICFSecSecSysRoleMemb.SECSYSROLEID_INIT_VALUE.toString() );
+		requiredLoginId = ICFSecSecSysRoleMemb.LOGINID_INIT_VALUE;
 	}
 
 	@Override
-	public ICFSecSecRole getRequiredContainerRole() {
+	public ICFSecSecSysRole getRequiredContainerSysRole() {
 		ICFSecSchema targetBackingSchema = ICFSecSchema.getBackingCFSec();
 		if (targetBackingSchema == null) {
-			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerRole", 0, "ICFSecSchema.getBackingCFSec()");
+			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerSysRole", 0, "ICFSecSchema.getBackingCFSec()");
 		}
-		ICFSecSecRoleTable targetTable = targetBackingSchema.getTableSecRole();
+		ICFSecSecSysRoleTable targetTable = targetBackingSchema.getTableSecSysRole();
 		if (targetTable == null) {
-			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerRole", 0, "ICFSecSchema.getBackingCFSec().getTableSecRole()");
+			throw new CFLibNullArgumentException(getClass(), "setRequiredContainerSysRole", 0, "ICFSecSchema.getBackingCFSec().getTableSecSysRole()");
 		}
-		ICFSecSecRole targetRec = targetTable.readDerived(ICFSecSchema.getAuthorizationCallback().getEffectiveAuthorization(), getRequiredSecRoleId());
+		ICFSecSecSysRole targetRec = targetTable.readDerived(ICFSecSchema.getAuthorizationCallback().getEffectiveAuthorization(), getRequiredSecSysRoleId());
 		return(targetRec);
 	}
 	@Override
-	public void setRequiredContainerRole(ICFSecSecRole argObj) {
+	public void setRequiredContainerSysRole(ICFSecSecSysRole argObj) {
 		if(argObj == null) {
-			throw new CFLibNullArgumentException(getClass(), "setContainerRole", 1, "argObj");
+			throw new CFLibNullArgumentException(getClass(), "setContainerSysRole", 1, "argObj");
 		}
 		else {
-			requiredSecRoleId = argObj.getRequiredSecRoleId();
+			requiredSecSysRoleId = argObj.getRequiredSecSysRoleId();
 		}
 	
 	}
 
 	@Override
-	public void setRequiredContainerRole(CFLibDbKeyHash256 argSecRoleId) {
-		requiredSecRoleId = argSecRoleId;
+	public void setRequiredContainerSysRole(CFLibDbKeyHash256 argSecSysRoleId) {
+		requiredSecSysRoleId = argSecSysRoleId;
 	}
 	@Override
 	public ICFSecSecUser getRequiredParentUser() {
@@ -116,8 +116,8 @@ public class CFSecBuffSecRoleMembPKey
 		requiredLoginId = argLoginId;
 	}
 	@Override
-	public CFLibDbKeyHash256 getRequiredSecRoleId() {
-		return( requiredSecRoleId );
+	public CFLibDbKeyHash256 getRequiredSecSysRoleId() {
+		return( requiredSecSysRoleId );
 	}
 
 	@Override
@@ -130,11 +130,11 @@ public class CFSecBuffSecRoleMembPKey
 		if (obj == null) {
 			return( false );
 		}
-		else if (obj instanceof ICFSecSecRoleMembPKey) {
-			ICFSecSecRoleMembPKey rhs = (ICFSecSecRoleMembPKey)obj;
-			if( getRequiredSecRoleId() != null ) {
-				if( rhs.getRequiredSecRoleId() != null ) {
-					if( ! getRequiredSecRoleId().equals( rhs.getRequiredSecRoleId() ) ) {
+		else if (obj instanceof ICFSecSecSysRoleMembPKey) {
+			ICFSecSecSysRoleMembPKey rhs = (ICFSecSecSysRoleMembPKey)obj;
+			if( getRequiredSecSysRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
+					if( ! getRequiredSecSysRoleId().equals( rhs.getRequiredSecSysRoleId() ) ) {
 						return( false );
 					}
 				}
@@ -143,7 +143,7 @@ public class CFSecBuffSecRoleMembPKey
 				}
 			}
 			else {
-				if( rhs.getRequiredSecRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
 					return( false );
 				}
 			}
@@ -172,7 +172,7 @@ public class CFSecBuffSecRoleMembPKey
 	@Override
 	public int hashCode() {
 		int hashCode = 0;
-		hashCode = hashCode + getRequiredSecRoleId().hashCode();
+		hashCode = hashCode + getRequiredSecSysRoleId().hashCode();
 		if( getRequiredLoginId() != null ) {
 			hashCode = hashCode + getRequiredLoginId().hashCode();
 		}
@@ -180,14 +180,14 @@ public class CFSecBuffSecRoleMembPKey
 	}
 
 	@Override
-	public int compareTo( ICFSecSecRoleMembPKey rhs ) {
+	public int compareTo( ICFSecSecSysRoleMembPKey rhs ) {
 		int cmp;
 		if (rhs == null) {
 			return( 1 );
 		}
-			if (getRequiredSecRoleId() != null) {
-				if (rhs.getRequiredSecRoleId() != null) {
-					cmp = getRequiredSecRoleId().compareTo( rhs.getRequiredSecRoleId() );
+			if (getRequiredSecSysRoleId() != null) {
+				if (rhs.getRequiredSecSysRoleId() != null) {
+					cmp = getRequiredSecSysRoleId().compareTo( rhs.getRequiredSecSysRoleId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -196,7 +196,7 @@ public class CFSecBuffSecRoleMembPKey
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredSecRoleId() != null) {
+			else if (rhs.getRequiredSecSysRoleId() != null) {
 				return( -1 );
 			}
 			if (getRequiredLoginId() != null) {
@@ -219,14 +219,14 @@ public class CFSecBuffSecRoleMembPKey
 	@Override
 	public String getXmlAttrFragment() {
 		String ret = "" 
-			+ " RequiredSecRoleId=" + "\"" + getRequiredSecRoleId().toString() + "\""
+			+ " RequiredSecSysRoleId=" + "\"" + getRequiredSecSysRoleId().toString() + "\""
 			+ " RequiredLoginId=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredLoginId() ) + "\"";
 		return( ret );
 	}
 
 	@Override
 	public String toString() {
-		String ret = "<CFSecSecRoleMembPKey" + getXmlAttrFragment() + "/>";
+		String ret = "<CFSecSecSysRoleMembPKey" + getXmlAttrFragment() + "/>";
 		return( ret );
 	}
 }

@@ -1,4 +1,4 @@
-// Description: Java 25 implementation of a SecRoleMemb history buffer primary key
+// Description: Java 25 implementation of a SecSysRoleMemb history buffer primary key
 
 /*
  *	server.markhome.mcf.CFSec
@@ -39,12 +39,12 @@ import server.markhome.mcf.v3_1.cflib.xml.CFLibXmlUtil;
 import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 
 /**
- *	CFSecBuffSecRoleMembHPKey History Primary Key for SecRoleMemb
- *		requiredSecRoleId	Required object attribute SecRoleId.
+ *	CFSecBuffSecSysRoleMembHPKey History Primary Key for SecSysRoleMemb
+ *		requiredSecSysRoleId	Required object attribute SecSysRoleId.
  *		requiredLoginId	Required object attribute LoginId.
  */
-public class CFSecBuffSecRoleMembHPKey
-	implements ICFSecSecRoleMembHPKey, Comparable<Object>, Serializable
+public class CFSecBuffSecSysRoleMembHPKey
+	implements ICFSecSecSysRoleMembHPKey, Comparable<Object>, Serializable
 {
 	protected CFLibDbKeyHash256 auditClusterId;
 	protected LocalDateTime auditStamp;
@@ -52,17 +52,17 @@ public class CFSecBuffSecRoleMembHPKey
 	protected int requiredRevision;
 	protected CFLibDbKeyHash256 auditSessionId;
 
-	protected CFLibDbKeyHash256 requiredSecRoleId;
+	protected CFLibDbKeyHash256 requiredSecSysRoleId;
 	protected String requiredLoginId;
 
-	public CFSecBuffSecRoleMembHPKey() {
+	public CFSecBuffSecSysRoleMembHPKey() {
 		auditClusterId = ICFSecCluster.ID_INIT_VALUE;
 		auditStamp = LocalDateTime.now();
 		auditActionId = 0;
 		requiredRevision = 1;
 		auditSessionId = CFLibDbKeyHash256.nullGet();
-		requiredSecRoleId = CFLibDbKeyHash256.fromHex( ICFSecSecRoleMemb.SECROLEID_INIT_VALUE.toString() );
-		requiredLoginId = ICFSecSecRoleMemb.LOGINID_INIT_VALUE;
+		requiredSecSysRoleId = CFLibDbKeyHash256.fromHex( ICFSecSecSysRoleMemb.SECSYSROLEID_INIT_VALUE.toString() );
+		requiredLoginId = ICFSecSecSysRoleMemb.LOGINID_INIT_VALUE;
 	}
 
 	@Override
@@ -116,19 +116,19 @@ public class CFSecBuffSecRoleMembHPKey
 	}
 
 	@Override
-	public CFLibDbKeyHash256 getRequiredSecRoleId() {
-		return( requiredSecRoleId );
+	public CFLibDbKeyHash256 getRequiredSecSysRoleId() {
+		return( requiredSecSysRoleId );
 	}
 
 	@Override
-	public void setRequiredSecRoleId( CFLibDbKeyHash256 value ) {
+	public void setRequiredSecSysRoleId( CFLibDbKeyHash256 value ) {
 		if( value == null || value.isNull() ) {
 			throw new CFLibNullArgumentException( getClass(),
-				"setRequiredSecRoleId",
+				"setRequiredSecSysRoleId",
 				1,
 				"value" );
 		}
-		requiredSecRoleId = value;
+		requiredSecSysRoleId = value;
 	}
 
 	@Override
@@ -160,11 +160,11 @@ public class CFSecBuffSecRoleMembHPKey
 		if (obj == null) {
 			return( false );
 		}
-		else if (obj instanceof ICFSecSecRoleMemb) {
-			ICFSecSecRoleMemb rhs = (ICFSecSecRoleMemb)obj;
-			if( getRequiredSecRoleId() != null ) {
-				if( rhs.getRequiredSecRoleId() != null ) {
-					if( ! getRequiredSecRoleId().equals( rhs.getRequiredSecRoleId() ) ) {
+		else if (obj instanceof ICFSecSecSysRoleMemb) {
+			ICFSecSecSysRoleMemb rhs = (ICFSecSecSysRoleMemb)obj;
+			if( getRequiredSecSysRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
+					if( ! getRequiredSecSysRoleId().equals( rhs.getRequiredSecSysRoleId() ) ) {
 						return( false );
 					}
 				}
@@ -173,7 +173,7 @@ public class CFSecBuffSecRoleMembHPKey
 				}
 			}
 			else {
-				if( rhs.getRequiredSecRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
 					return( false );
 				}
 			}
@@ -194,8 +194,8 @@ public class CFSecBuffSecRoleMembHPKey
 			}
 			return( true );
 		}
-		else if (obj instanceof ICFSecSecRoleMembHPKey) {
-			ICFSecSecRoleMembHPKey rhs = (ICFSecSecRoleMembHPKey)obj;
+		else if (obj instanceof ICFSecSecSysRoleMembHPKey) {
+			ICFSecSecSysRoleMembHPKey rhs = (ICFSecSecSysRoleMembHPKey)obj;
 			if (getAuditClusterId() != null) {
 				if (rhs.getAuditClusterId() != null) {
 					if ( ! getAuditClusterId().equals(rhs.getAuditClusterId())) {
@@ -241,9 +241,9 @@ public class CFSecBuffSecRoleMembHPKey
 			else if (rhs.getAuditSessionId() != null && !rhs.getAuditSessionId().isNull() ) {
 				return( false );
 			}
-			if( getRequiredSecRoleId() != null ) {
-				if( rhs.getRequiredSecRoleId() != null ) {
-					if( ! getRequiredSecRoleId().equals( rhs.getRequiredSecRoleId() ) ) {
+			if( getRequiredSecSysRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
+					if( ! getRequiredSecSysRoleId().equals( rhs.getRequiredSecSysRoleId() ) ) {
 						return( false );
 					}
 				}
@@ -252,7 +252,7 @@ public class CFSecBuffSecRoleMembHPKey
 				}
 			}
 			else {
-				if( rhs.getRequiredSecRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
 					return( false );
 				}
 			}
@@ -273,8 +273,8 @@ public class CFSecBuffSecRoleMembHPKey
 			}
 			return( true );
 		}
-		else if (obj instanceof ICFSecSecRoleMembH) {
-			ICFSecSecRoleMembH rhs = (ICFSecSecRoleMembH)obj;
+		else if (obj instanceof ICFSecSecSysRoleMembH) {
+			ICFSecSecSysRoleMembH rhs = (ICFSecSecSysRoleMembH)obj;
 			if (getAuditClusterId() != null) {
 				if (rhs.getAuditClusterId() != null) {
 					if ( ! getAuditClusterId().equals(rhs.getAuditClusterId())) {
@@ -320,9 +320,9 @@ public class CFSecBuffSecRoleMembHPKey
 			else if (rhs.getAuditSessionId() != null && !rhs.getAuditSessionId().isNull() ) {
 				return( false );
 			}
-			if( getRequiredSecRoleId() != null ) {
-				if( rhs.getRequiredSecRoleId() != null ) {
-					if( ! getRequiredSecRoleId().equals( rhs.getRequiredSecRoleId() ) ) {
+			if( getRequiredSecSysRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
+					if( ! getRequiredSecSysRoleId().equals( rhs.getRequiredSecSysRoleId() ) ) {
 						return( false );
 					}
 				}
@@ -331,7 +331,7 @@ public class CFSecBuffSecRoleMembHPKey
 				}
 			}
 			else {
-				if( rhs.getRequiredSecRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
 					return( false );
 				}
 			}
@@ -371,7 +371,7 @@ public class CFSecBuffSecRoleMembHPKey
 		if( auditSessionId != null ) {
 			hashCode = hashCode + auditSessionId.hashCode();
 		}
-		hashCode = hashCode + getRequiredSecRoleId().hashCode();
+		hashCode = hashCode + getRequiredSecSysRoleId().hashCode();
 		if( getRequiredLoginId() != null ) {
 			hashCode = hashCode + getRequiredLoginId().hashCode();
 		}
@@ -384,11 +384,11 @@ public class CFSecBuffSecRoleMembHPKey
 		if (obj == null) {
 			return( 1 );
 		}
-		else if (obj instanceof ICFSecSecRoleMemb) {
-			ICFSecSecRoleMemb rhs = (ICFSecSecRoleMemb)obj;
-			if (getRequiredSecRoleId() != null) {
-				if (rhs.getRequiredSecRoleId() != null) {
-					cmp = getRequiredSecRoleId().compareTo( rhs.getRequiredSecRoleId() );
+		else if (obj instanceof ICFSecSecSysRoleMemb) {
+			ICFSecSecSysRoleMemb rhs = (ICFSecSecSysRoleMemb)obj;
+			if (getRequiredSecSysRoleId() != null) {
+				if (rhs.getRequiredSecSysRoleId() != null) {
+					cmp = getRequiredSecSysRoleId().compareTo( rhs.getRequiredSecSysRoleId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -397,7 +397,7 @@ public class CFSecBuffSecRoleMembHPKey
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredSecRoleId() != null) {
+			else if (rhs.getRequiredSecSysRoleId() != null) {
 				return( -1 );
 			}
 			if (getRequiredLoginId() != null) {
@@ -416,8 +416,8 @@ public class CFSecBuffSecRoleMembHPKey
 			}
 			return( 0 );
 		}
-		else if (obj instanceof ICFSecSecRoleMembHPKey) {
-			ICFSecSecRoleMembHPKey rhs = (ICFSecSecRoleMembHPKey)obj;
+		else if (obj instanceof ICFSecSecSysRoleMembHPKey) {
+			ICFSecSecSysRoleMembHPKey rhs = (ICFSecSecSysRoleMembHPKey)obj;
 			if( getAuditClusterId() == null ) {
 				if( rhs.getAuditClusterId() != null ) {
 					return( -1 );
@@ -472,9 +472,9 @@ public class CFSecBuffSecRoleMembHPKey
 					return( cmp );
 				}
 			}
-			if (getRequiredSecRoleId() != null) {
-				if (rhs.getRequiredSecRoleId() != null) {
-					cmp = getRequiredSecRoleId().compareTo( rhs.getRequiredSecRoleId() );
+			if (getRequiredSecSysRoleId() != null) {
+				if (rhs.getRequiredSecSysRoleId() != null) {
+					cmp = getRequiredSecSysRoleId().compareTo( rhs.getRequiredSecSysRoleId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -483,7 +483,7 @@ public class CFSecBuffSecRoleMembHPKey
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredSecRoleId() != null) {
+			else if (rhs.getRequiredSecSysRoleId() != null) {
 				return( -1 );
 			}
 			if (getRequiredLoginId() != null) {
@@ -502,8 +502,8 @@ public class CFSecBuffSecRoleMembHPKey
 			}
 			return( 0 );
 		}
-		else if (obj instanceof ICFSecSecRoleMembH) {
-			ICFSecSecRoleMembH rhs = (ICFSecSecRoleMembH)obj;
+		else if (obj instanceof ICFSecSecSysRoleMembH) {
+			ICFSecSecSysRoleMembH rhs = (ICFSecSecSysRoleMembH)obj;
 			if( getAuditClusterId() == null ) {
 				if( rhs.getAuditClusterId() != null ) {
 					return( -1 );
@@ -558,9 +558,9 @@ public class CFSecBuffSecRoleMembHPKey
 					return( cmp );
 				}
 			}
-			if (getRequiredSecRoleId() != null) {
-				if (rhs.getRequiredSecRoleId() != null) {
-					cmp = getRequiredSecRoleId().compareTo( rhs.getRequiredSecRoleId() );
+			if (getRequiredSecSysRoleId() != null) {
+				if (rhs.getRequiredSecSysRoleId() != null) {
+					cmp = getRequiredSecSysRoleId().compareTo( rhs.getRequiredSecSysRoleId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -569,7 +569,7 @@ public class CFSecBuffSecRoleMembHPKey
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredSecRoleId() != null) {
+			else if (rhs.getRequiredSecSysRoleId() != null) {
 				return( -1 );
 			}
 			if (getRequiredLoginId() != null) {
@@ -593,7 +593,7 @@ public class CFSecBuffSecRoleMembHPKey
 				"compareTo",
 				"obj",
 				obj,
-				"ICFSecSecRoleMembPKey, ICFSecSecRoleMemb, ICFSecSecRoleMembHPKey, ICFSecSecRoleMembH" );
+				"ICFSecSecSysRoleMembPKey, ICFSecSecSysRoleMemb, ICFSecSecSysRoleMembHPKey, ICFSecSecSysRoleMembH" );
 		}
 	}
 
@@ -604,14 +604,14 @@ public class CFSecBuffSecRoleMembHPKey
 			+ " auditAction=\"" + auditActionId + "\""
 			+ " revision=\"" + requiredRevision + "\""
 			+ " auditSessionId=\"" + (getAuditSessionId() != null ? getAuditSessionId().toString() : "null") + "\""
-			+ " RequiredSecRoleId=" + "\"" + getRequiredSecRoleId().toString() + "\""
+			+ " RequiredSecSysRoleId=" + "\"" + getRequiredSecSysRoleId().toString() + "\""
 			+ " RequiredLoginId=" + "\"" + StringEscapeUtils.escapeXml11( getRequiredLoginId() ) + "\"";
 		return( ret );
 	}
 
 	@Override
 	public String toString() {
-		String ret = "<CFSecBuffSecRoleMembHPKey" + getXmlAttrFragment() + "/>";
+		String ret = "<CFSecBuffSecSysRoleMembHPKey" + getXmlAttrFragment() + "/>";
 		return( ret );
 	}
 }

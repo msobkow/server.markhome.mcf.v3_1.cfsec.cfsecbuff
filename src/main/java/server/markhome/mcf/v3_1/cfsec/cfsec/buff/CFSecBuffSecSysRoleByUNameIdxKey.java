@@ -1,4 +1,4 @@
-// Description: Java 25 implementation of a SecRole by UNameIdx index key buffer
+// Description: Java 25 implementation of a SecSysRole by UNameIdx index key buffer
 
 /*
  *	server.markhome.mcf.CFSec
@@ -43,12 +43,12 @@ import server.markhome.mcf.v3_1.cflib.dbutil.*;
 import server.markhome.mcf.v3_1.cflib.xml.CFLibXmlUtil;
 import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 
-public class CFSecBuffSecRoleByUNameIdxKey
-	implements ICFSecSecRoleByUNameIdxKey, Comparable<Object>, Serializable
+public class CFSecBuffSecSysRoleByUNameIdxKey
+	implements ICFSecSecSysRoleByUNameIdxKey, Comparable<Object>, Serializable
 {
 	protected String requiredName;
-	public CFSecBuffSecRoleByUNameIdxKey() {
-		requiredName = ICFSecSecRole.NAME_INIT_VALUE;
+	public CFSecBuffSecSysRoleByUNameIdxKey() {
+		requiredName = ICFSecSecSysRole.NAME_INIT_VALUE;
 	}
 
 	@Override
@@ -80,8 +80,8 @@ public class CFSecBuffSecRoleByUNameIdxKey
 		if( obj == null ) {
 			return( false );
 		}
-		else if( obj instanceof ICFSecSecRoleByUNameIdxKey ) {
-			ICFSecSecRoleByUNameIdxKey rhs = (ICFSecSecRoleByUNameIdxKey)obj;
+		else if( obj instanceof ICFSecSecSysRoleByUNameIdxKey ) {
+			ICFSecSecSysRoleByUNameIdxKey rhs = (ICFSecSecSysRoleByUNameIdxKey)obj;
 			if( getRequiredName() != null ) {
 				if( rhs.getRequiredName() != null ) {
 					if( ! getRequiredName().equals( rhs.getRequiredName() ) ) {
@@ -99,8 +99,8 @@ public class CFSecBuffSecRoleByUNameIdxKey
 			}
 			return( true );
 		}
-		else if( obj instanceof ICFSecSecRole) {
-			ICFSecSecRole rhs = (ICFSecSecRole)obj;
+		else if( obj instanceof ICFSecSecSysRole) {
+			ICFSecSecSysRole rhs = (ICFSecSecSysRole)obj;
 			if( getRequiredName() != null ) {
 				if( rhs.getRequiredName() != null ) {
 					if( ! getRequiredName().equals( rhs.getRequiredName() ) ) {
@@ -138,8 +138,8 @@ public class CFSecBuffSecRoleByUNameIdxKey
 		if( obj == null ) {
 			return( 1 );
 		}
-		else if( obj instanceof ICFSecSecRoleByUNameIdxKey ) {
-			ICFSecSecRoleByUNameIdxKey rhs = (ICFSecSecRoleByUNameIdxKey)obj;
+		else if( obj instanceof ICFSecSecSysRoleByUNameIdxKey ) {
+			ICFSecSecSysRoleByUNameIdxKey rhs = (ICFSecSecSysRoleByUNameIdxKey)obj;
 			if (getRequiredName() != null) {
 				if (rhs.getRequiredName() != null) {
 					cmp = getRequiredName().compareTo( rhs.getRequiredName() );
@@ -156,8 +156,8 @@ public class CFSecBuffSecRoleByUNameIdxKey
 			}
 			return( 0 );
 		}
-		else if( obj instanceof ICFSecSecRole ) {
-			ICFSecSecRole rhs = (ICFSecSecRole)obj;
+		else if( obj instanceof ICFSecSecSysRole ) {
+			ICFSecSecSysRole rhs = (ICFSecSecSysRole)obj;
 			if (getRequiredName() != null) {
 				if (rhs.getRequiredName() != null) {
 					cmp = getRequiredName().compareTo( rhs.getRequiredName() );
@@ -192,7 +192,7 @@ public class CFSecBuffSecRoleByUNameIdxKey
 
 	@Override
 	public String toString() {
-		String ret = "<CFSecBuffSecRoleByUNameIdxKey" + getXmlAttrFragment() + "/>";
+		String ret = "<CFSecBuffSecSysRoleByUNameIdxKey" + getXmlAttrFragment() + "/>";
 		return( ret );
 	}
 }

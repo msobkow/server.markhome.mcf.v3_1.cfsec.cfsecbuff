@@ -1,4 +1,4 @@
-// Description: Java 25 implementation of a SecRoleEnables history buffer object
+// Description: Java 25 implementation of a SecSysRoleEnables history buffer object
 
 /*
  *	server.markhome.mcf.CFSec
@@ -43,23 +43,23 @@ import server.markhome.mcf.v3_1.cflib.dbutil.*;
 import server.markhome.mcf.v3_1.cflib.xml.CFLibXmlUtil;
 import server.markhome.mcf.v3_1.cfsec.cfsec.*;
 
-public class CFSecBuffSecRoleEnablesH
-    implements ICFSecSecRoleEnablesH, Comparable<Object>, Serializable
+public class CFSecBuffSecSysRoleEnablesH
+    implements ICFSecSecSysRoleEnablesH, Comparable<Object>, Serializable
 {
-    protected CFSecBuffSecRoleEnablesHPKey pkey;
-	protected CFLibDbKeyHash256 createdByUserId = CFLibDbKeyHash256.fromHex(ICFSecSecRoleEnables.S_INIT_CREATED_BY);
+    protected CFSecBuffSecSysRoleEnablesHPKey pkey;
+	protected CFLibDbKeyHash256 createdByUserId = CFLibDbKeyHash256.fromHex(ICFSecSecSysRoleEnables.S_INIT_CREATED_BY);
 	protected LocalDateTime createdAt = LocalDateTime.now();
-	protected CFLibDbKeyHash256 updatedByUserId = CFLibDbKeyHash256.fromHex(ICFSecSecRoleEnables.S_INIT_UPDATED_BY);
+	protected CFLibDbKeyHash256 updatedByUserId = CFLibDbKeyHash256.fromHex(ICFSecSecSysRoleEnables.S_INIT_UPDATED_BY);
 	protected LocalDateTime updatedAt = LocalDateTime.now();
 
-    public CFSecBuffSecRoleEnablesH() {
+    public CFSecBuffSecSysRoleEnablesH() {
             // The primary key member attributes are initialized on construction
-            pkey = new CFSecBuffSecRoleEnablesHPKey();
+            pkey = new CFSecBuffSecSysRoleEnablesHPKey();
     }
 
     @Override
     public int getClassCode() {
-            return( ICFSecSecRoleEnables.CLASS_CODE );
+            return( ICFSecSecSysRoleEnables.CLASS_CODE );
     }
 
     @Override
@@ -115,18 +115,18 @@ public class CFSecBuffSecRoleEnablesH
     }
 
     @Override
-    public ICFSecSecRoleEnablesHPKey getPKey() {
+    public ICFSecSecSysRoleEnablesHPKey getPKey() {
         return( pkey );
     }
 
     @Override
-    public void setPKey( ICFSecSecRoleEnablesHPKey pkey ) {
+    public void setPKey( ICFSecSecSysRoleEnablesHPKey pkey ) {
         if (pkey != null) {
-            if (pkey instanceof CFSecBuffSecRoleEnablesHPKey) {
-                this.pkey = (CFSecBuffSecRoleEnablesHPKey)pkey;
+            if (pkey instanceof CFSecBuffSecSysRoleEnablesHPKey) {
+                this.pkey = (CFSecBuffSecSysRoleEnablesHPKey)pkey;
             }
             else {
-                throw new CFLibUnsupportedClassException(getClass(), "setPKey", "pkey", pkey, "CFSecBuffSecRoleEnablesHPKey");
+                throw new CFLibUnsupportedClassException(getClass(), "setPKey", "pkey", pkey, "CFSecBuffSecSysRoleEnablesHPKey");
             }
         }
     }
@@ -182,13 +182,13 @@ public class CFSecBuffSecRoleEnablesH
     }
 
     @Override
-    public CFLibDbKeyHash256 getRequiredSecRoleId() {
-        return( pkey.getRequiredSecRoleId() );
+    public CFLibDbKeyHash256 getRequiredSecSysRoleId() {
+        return( pkey.getRequiredSecSysRoleId() );
     }
 
     @Override
-    public void setRequiredSecRoleId( CFLibDbKeyHash256 requiredSecRoleId ) {
-        pkey.setRequiredSecRoleId( requiredSecRoleId );
+    public void setRequiredSecSysRoleId( CFLibDbKeyHash256 requiredSecSysRoleId ) {
+        pkey.setRequiredSecSysRoleId( requiredSecSysRoleId );
     }
 
     @Override
@@ -206,8 +206,8 @@ public class CFSecBuffSecRoleEnablesH
         if (obj == null) {
             return( false );
         }
-        else if (obj instanceof ICFSecSecRoleEnables) {
-            ICFSecSecRoleEnables rhs = (ICFSecSecRoleEnables)obj;
+        else if (obj instanceof ICFSecSecSysRoleEnables) {
+            ICFSecSecSysRoleEnables rhs = (ICFSecSecSysRoleEnables)obj;
 		if (getPKey() != null) {
 			if (rhs.getPKey() != null) {
 				if (!getPKey().equals(rhs.getPKey())) {
@@ -224,8 +224,8 @@ public class CFSecBuffSecRoleEnablesH
 
             return( true );
         }
-        else if (obj instanceof ICFSecSecRoleEnablesH) {
-            ICFSecSecRoleEnablesH rhs = (ICFSecSecRoleEnablesH)obj;
+        else if (obj instanceof ICFSecSecSysRoleEnablesH) {
+            ICFSecSecSysRoleEnablesH rhs = (ICFSecSecSysRoleEnablesH)obj;
 		if (getPKey() != null) {
 			if (rhs.getPKey() != null) {
 				if (!getPKey().equals(rhs.getPKey())) {
@@ -242,11 +242,11 @@ public class CFSecBuffSecRoleEnablesH
 
             return( true );
         }
-        else if (obj instanceof ICFSecSecRoleEnablesHPKey) {
-		ICFSecSecRoleEnablesHPKey rhs = (ICFSecSecRoleEnablesHPKey)obj;
-			if( getRequiredSecRoleId() != null ) {
-				if( rhs.getRequiredSecRoleId() != null ) {
-					if( ! getRequiredSecRoleId().equals( rhs.getRequiredSecRoleId() ) ) {
+        else if (obj instanceof ICFSecSecSysRoleEnablesHPKey) {
+		ICFSecSecSysRoleEnablesHPKey rhs = (ICFSecSecSysRoleEnablesHPKey)obj;
+			if( getRequiredSecSysRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
+					if( ! getRequiredSecSysRoleId().equals( rhs.getRequiredSecSysRoleId() ) ) {
 						return( false );
 					}
 				}
@@ -255,7 +255,7 @@ public class CFSecBuffSecRoleEnablesH
 				}
 			}
 			else {
-				if( rhs.getRequiredSecRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
 					return( false );
 				}
 			}
@@ -276,11 +276,11 @@ public class CFSecBuffSecRoleEnablesH
 			}
 		return( true );
         }
-        else if (obj instanceof ICFSecSecRoleEnablesByRoleIdxKey) {
-            ICFSecSecRoleEnablesByRoleIdxKey rhs = (ICFSecSecRoleEnablesByRoleIdxKey)obj;
-			if( getRequiredSecRoleId() != null ) {
-				if( rhs.getRequiredSecRoleId() != null ) {
-					if( ! getRequiredSecRoleId().equals( rhs.getRequiredSecRoleId() ) ) {
+        else if (obj instanceof ICFSecSecSysRoleEnablesBySysRoleIdxKey) {
+            ICFSecSecSysRoleEnablesBySysRoleIdxKey rhs = (ICFSecSecSysRoleEnablesBySysRoleIdxKey)obj;
+			if( getRequiredSecSysRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
+					if( ! getRequiredSecSysRoleId().equals( rhs.getRequiredSecSysRoleId() ) ) {
 						return( false );
 					}
 				}
@@ -289,14 +289,14 @@ public class CFSecBuffSecRoleEnablesH
 				}
 			}
 			else {
-				if( rhs.getRequiredSecRoleId() != null ) {
+				if( rhs.getRequiredSecSysRoleId() != null ) {
 					return( false );
 				}
 			}
             return( true );
         }
-        else if (obj instanceof ICFSecSecRoleEnablesByNameIdxKey) {
-            ICFSecSecRoleEnablesByNameIdxKey rhs = (ICFSecSecRoleEnablesByNameIdxKey)obj;
+        else if (obj instanceof ICFSecSecSysRoleEnablesByNameIdxKey) {
+            ICFSecSecSysRoleEnablesByNameIdxKey rhs = (ICFSecSecSysRoleEnablesByNameIdxKey)obj;
 			if( getRequiredEnableName() != null ) {
 				if( rhs.getRequiredEnableName() != null ) {
 					if( ! getRequiredEnableName().equals( rhs.getRequiredEnableName() ) ) {
@@ -331,8 +331,8 @@ public class CFSecBuffSecRoleEnablesH
         if (obj == null) {
             return( 1 );
         }
-        else if (obj instanceof ICFSecSecRoleEnables) {
-		ICFSecSecRoleEnables rhs = (ICFSecSecRoleEnables)obj;
+        else if (obj instanceof ICFSecSecSysRoleEnables) {
+		ICFSecSecSysRoleEnables rhs = (ICFSecSecSysRoleEnables)obj;
 		if (getPKey() != null) {
 			if (rhs.getPKey() == null) {
 				return( 1 );
@@ -351,7 +351,7 @@ public class CFSecBuffSecRoleEnablesH
 		}
             return( 0 );
         }
-        else if (obj instanceof ICFSecSecRoleEnablesHPKey) {
+        else if (obj instanceof ICFSecSecSysRoleEnablesHPKey) {
         if (getPKey() != null) {
             return( getPKey().compareTo( obj ));
         }
@@ -359,8 +359,8 @@ public class CFSecBuffSecRoleEnablesH
             return( -1 );
         }
         }
-        else if (obj instanceof ICFSecSecRoleEnablesH) {
-		ICFSecSecRoleEnablesH rhs = (ICFSecSecRoleEnablesH)obj;
+        else if (obj instanceof ICFSecSecSysRoleEnablesH) {
+		ICFSecSecSysRoleEnablesH rhs = (ICFSecSecSysRoleEnablesH)obj;
 		if (getPKey() != null) {
 			if (rhs.getPKey() == null) {
 				return( 1 );
@@ -379,11 +379,11 @@ public class CFSecBuffSecRoleEnablesH
 		}
             return( 0 );
         }
-        else if (obj instanceof ICFSecSecRoleEnablesByRoleIdxKey ) {
-            ICFSecSecRoleEnablesByRoleIdxKey rhs = (ICFSecSecRoleEnablesByRoleIdxKey)obj;
-			if (getRequiredSecRoleId() != null) {
-				if (rhs.getRequiredSecRoleId() != null) {
-					cmp = getRequiredSecRoleId().compareTo( rhs.getRequiredSecRoleId() );
+        else if (obj instanceof ICFSecSecSysRoleEnablesBySysRoleIdxKey ) {
+            ICFSecSecSysRoleEnablesBySysRoleIdxKey rhs = (ICFSecSecSysRoleEnablesBySysRoleIdxKey)obj;
+			if (getRequiredSecSysRoleId() != null) {
+				if (rhs.getRequiredSecSysRoleId() != null) {
+					cmp = getRequiredSecSysRoleId().compareTo( rhs.getRequiredSecSysRoleId() );
 					if( cmp != 0 ) {
 						return( cmp );
 					}
@@ -392,13 +392,13 @@ public class CFSecBuffSecRoleEnablesH
 					return( 1 );
 				}
 			}
-			else if (rhs.getRequiredSecRoleId() != null) {
+			else if (rhs.getRequiredSecSysRoleId() != null) {
 				return( -1 );
 			}
             return( 0 );
         }
-        else if (obj instanceof ICFSecSecRoleEnablesByNameIdxKey ) {
-            ICFSecSecRoleEnablesByNameIdxKey rhs = (ICFSecSecRoleEnablesByNameIdxKey)obj;
+        else if (obj instanceof ICFSecSecSysRoleEnablesByNameIdxKey ) {
+            ICFSecSecSysRoleEnablesByNameIdxKey rhs = (ICFSecSecSysRoleEnablesByNameIdxKey)obj;
 			if (getRequiredEnableName() != null) {
 				if (rhs.getRequiredEnableName() != null) {
 					cmp = getRequiredEnableName().compareTo( rhs.getRequiredEnableName() );
@@ -424,25 +424,25 @@ public class CFSecBuffSecRoleEnablesH
         }
     }
 	@Override
-    public void set( ICFSecSecRoleEnables src ) {
-		setSecRoleEnables( src );
+    public void set( ICFSecSecSysRoleEnables src ) {
+		setSecSysRoleEnables( src );
     }
 
 	@Override
-    public void setSecRoleEnables( ICFSecSecRoleEnables src ) {
-		setRequiredSecRoleId( src.getRequiredSecRoleId() );
+    public void setSecSysRoleEnables( ICFSecSecSysRoleEnables src ) {
+		setRequiredSecSysRoleId( src.getRequiredSecSysRoleId() );
 		setRequiredEnableName( src.getRequiredEnableName() );
 		setRequiredRevision( src.getRequiredRevision() );
     }
 
 	@Override
-    public void set( ICFSecSecRoleEnablesH src ) {
-		setSecRoleEnables( src );
+    public void set( ICFSecSecSysRoleEnablesH src ) {
+		setSecSysRoleEnables( src );
     }
 
 	@Override
-    public void setSecRoleEnables( ICFSecSecRoleEnablesH src ) {
-		setRequiredSecRoleId( src.getRequiredSecRoleId() );
+    public void setSecSysRoleEnables( ICFSecSecSysRoleEnablesH src ) {
+		setRequiredSecSysRoleId( src.getRequiredSecSysRoleId() );
 		setRequiredEnableName( src.getRequiredEnableName() );
 		setRequiredRevision( src.getRequiredRevision() );
     }
@@ -454,7 +454,7 @@ public class CFSecBuffSecRoleEnablesH
     }
 
     public String toString() {
-        String ret = "<CFSecBuffSecRoleEnablesH" + getXmlAttrFragment() + "/>";
+        String ret = "<CFSecBuffSecSysRoleEnablesH" + getXmlAttrFragment() + "/>";
         return( ret );
     }
 }
